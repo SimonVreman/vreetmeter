@@ -2,10 +2,11 @@
 import SwiftUI
 
 struct SingleProductView: View {
-    @EnvironmentObject var eetmeterAPI: EetmeterAPI
+    @Environment(EetmeterAPI.self) var eetmeterAPI
     @Environment(ConsumptionState.self) var consumptions
-    @EnvironmentObject var navigation: NavigationState
+    @Environment(TrackingNavigationState.self) var navigation
     @Environment(HealthState.self) var health
+    var product: Eetmeter.GenericProduct
     var baseNutrition: EetmeterNutritional
     var products: [Eetmeter.Product]
     var productName: String
@@ -21,12 +22,11 @@ struct SingleProductView: View {
     
     func save() {
         loading = true
-        let productSelection: Eetmeter.GenericProduct = navigation.lastOfType()!
-        let meal: Meal = navigation.lastOfType()!
+        let meal = navigation.meal!
         let date = navigation.date
         
         let update = Eetmeter.ProductUpdate(
-            id: productSelection.storedAs ?? UUID(),
+            id: product.storedAs ?? UUID(),
             period: meal.id,
             consumptionDate: date.startOfDay,
             amount: amount ?? 1,
@@ -66,6 +66,7 @@ struct SingleProductView: View {
                         
                         ProductAmountForm(
                             products: products,
+                            product: product,
                             preparationVariant: $preparationVariant,
                             unit: $unit,
                             amount: $amount

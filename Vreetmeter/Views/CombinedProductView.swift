@@ -2,9 +2,9 @@
 import SwiftUI
 
 struct CombinedProductView: View {
-    @EnvironmentObject var eetmeterAPI: EetmeterAPI
+    @Environment(EetmeterAPI.self) var eetmeterAPI
     @Environment(ConsumptionState.self) var consumptions
-    @EnvironmentObject var navigation: NavigationState
+    @Environment(TrackingNavigationState.self) var navigation
     @Environment(HealthState.self) var health
     var product: CombinedProduct
     @State var amount: Double?
@@ -16,7 +16,7 @@ struct CombinedProductView: View {
     
     func save() {
         loading = true
-        let meal: Meal = navigation.lastOfType()!
+        let meal = navigation.meal!
         let date = navigation.date
         
         let update = Eetmeter.CombinedProductUpdate(

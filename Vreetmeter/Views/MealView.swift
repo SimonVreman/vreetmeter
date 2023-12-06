@@ -2,9 +2,9 @@
 import SwiftUI
 
 struct MealView: View {
-    @EnvironmentObject var eetmeterAPI: EetmeterAPI
+    @Environment(EetmeterAPI.self) var eetmeterAPI
     @Environment(ConsumptionState.self) var consumptionState
-    @EnvironmentObject var navigation: NavigationState
+    @Environment(TrackingNavigationState.self) var navigation
     @Environment(HealthState.self) var health
     @State private var loading: Bool = false
     @State private var detailed: Bool = false

@@ -2,8 +2,8 @@
 import SwiftUI
 
 struct DailyView: View {
-    @EnvironmentObject var eetmeterAPI: EetmeterAPI
-    @EnvironmentObject var navigation: NavigationState
+    @Environment(EetmeterAPI.self) var eetmeterAPI
+    @Environment(TrackingNavigationState.self) var navigation
     @Environment(ConsumptionState.self) var consumptions
     @Environment(SettingsState.self) var settings
     @Environment(HealthState.self) var health
@@ -46,8 +46,6 @@ struct DailyView: View {
             }
         }.onAppear {
             Task { await fetchData(refresh: false) }
-        }.sheet(isPresented: !$eetmeterAPI.loggedIn) {
-            LoginSheet()
         }.toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: { changeDate(offset: -1) }) {

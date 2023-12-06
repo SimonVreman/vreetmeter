@@ -1,33 +1,22 @@
 
 import SwiftUI
-import Cache
 
-let API_URL = "https://api3-mijn.voedingscentrum.nl/api/"
-
-class EetmeterAPI: ObservableObject {
-    @Published var favorites: [Eetmeter.Favorite]
-    @Published var loggedIn: Bool
-    let session: URLSession = URLSession.shared
-    let cache: EetmeterCache
-    let deviceId: String
-    var dayNotes: [Date:Eetmeter.DayNote]
-    var dayMetas: [Date:Eetmeter.DayMeta]
-    var authToken: String?
+@Observable class EetmeterAPI {
+    var favorites: [Eetmeter.Favorite]
+    var loggedIn: Bool { self.client.loggedIn }
+    private let cache: EetmeterCache
+    private let client: EetmeterClient
+    private var dayNotes: [Date:Eetmeter.DayNote]
+    private var dayMetas: [Date:Eetmeter.DayMeta]
     
     init() {
-        authToken = UserDefaults.standard.object(forKey: "eetmeterAPI.authToken") as? String
-        loggedIn = authToken != nil
-        dayMetas = [:]
-        favorites = []
-        dayNotes = [:]
-        cache = EetmeterCache()
-        deviceId = UUID().uuidString
+        self.dayMetas = [:]
+        self.favorites = []
+        self.dayNotes = [:]
+        self.cache = EetmeterCache()
+        self.client = EetmeterClient()
         
-        if (loggedIn) {
-            Task {
-                try await fetchFavorites()
-            }
-        }
+        if (self.loggedIn) { Task { try await self.fetchFavorites() } }
     }
     
     func fetchDayConsumptions(date: Date) async throws -> Eetmeter.DayConsumptions {
@@ -35,10 +24,9 @@ class EetmeterAPI: ObservableObject {
         dateFormatter.dateFormat = "yyyyMMdd"
         let formattedDate = dateFormatter.string(from: date)
         
-        guard let url = URL(string: API_URL + "consumption/" + formattedDate + "/" + formattedDate) else { fatalError("Missing URL") }
-        let urlRequest = getUrlRequest(url: url, auth: true)
+        let urlRequest = self.client.makeRequest("consumption/" + formattedDate + "/" + formattedDate)
         
-        let (data, _) = try await session.data(for: urlRequest)
+        let data = try await self.client.requestData(urlRequest)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .lowerCaseFirstCharacter
         decoder.dateDecodingStrategy = .eetmeterDate
@@ -50,10 +38,9 @@ class EetmeterAPI: ObservableObject {
         dateFormatter.dateFormat = "yyyyMMdd"
         let formattedDate = dateFormatter.string(from: date)
         
-        guard let url = URL(string: API_URL + "consumptiondaynote/" + formattedDate) else { fatalError("Missing URL") }
-        let urlRequest = getUrlRequest(url: url, auth: true)
+        let urlRequest = self.client.makeRequest("consumptiondaynote/" + formattedDate)
         
-        let (data, _) = try await session.data(for: urlRequest)
+        let data = try await self.client.requestData(urlRequest)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .lowerCaseFirstCharacter
         decoder.dateDecodingStrategy = .eetmeterDate
@@ -73,10 +60,9 @@ class EetmeterAPI: ObservableObject {
     }
     
     func fetchFavorites() async throws {
-        guard let url = URL(string: API_URL + "userfavorite") else { fatalError("Missing URL") }
-        let urlRequest = getUrlRequest(url: url, auth: true)
+        let urlRequest = self.client.makeRequest("userfavorite")
         
-        let (data, _) = try await session.data(for: urlRequest)
+        let data = try await self.client.requestData(urlRequest)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .lowerCaseFirstCharacter
         let decoded = try decoder.decode(Eetmeter.Favorites.self, from: data)
@@ -85,10 +71,9 @@ class EetmeterAPI: ObservableObject {
     }
     
     func fetchCombinedProducts() async throws -> [Eetmeter.CombinedProduct] {
-        guard let url = URL(string: API_URL + "combinedproduct") else { fatalError("Missing URL") }
-        let urlRequest = getUrlRequest(url: url, auth: true)
+        let urlRequest = self.client.makeRequest("combinedproduct")
         
-        let (data, _) = try await session.data(for: urlRequest)
+        let data = try await self.client.requestData(urlRequest)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .lowerCaseFirstCharacter
         let decoded = try decoder.decode(Eetmeter.CombinedProducts.self, from: data)
@@ -96,11 +81,9 @@ class EetmeterAPI: ObservableObject {
     }
     
     func searchConsumptions(query: String) async throws -> [Eetmeter.ConsumptionSearchResult] {
-        guard var url = URL(string: API_URL + "search/31") else { fatalError("Missing URL") }
-        url.append(queryItems: [URLQueryItem(name: "query", value: query)])
-        let urlRequest = getUrlRequest(url: url, auth: true)
+        let urlRequest = self.client.makeRequest("search/31", query: [URLQueryItem(name: "query", value: query)])
         
-        let (data, _) = try await session.data(for: urlRequest)
+        let data = try await self.client.requestData(urlRequest)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .lowerCaseFirstCharacter
         return try decoder.decode([Eetmeter.ConsumptionSearchResult].self, from: data)
@@ -110,10 +93,9 @@ class EetmeterAPI: ObservableObject {
         let cached = self.cache.getProduct(ean: barcode)
         if (cached != nil) { return cached! }
         
-        guard let url = URL(string: API_URL + "brandproduct/ean/" + barcode) else { fatalError("Missing URL") }
-        let urlRequest = getUrlRequest(url: url, auth: true)
+        let urlRequest = self.client.makeRequest("brandproduct/ean/" + barcode)
         
-        let (data, _) = try await session.data(for: urlRequest)
+        let data = try await self.client.requestData(urlRequest)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .lowerCaseFirstCharacter
         let result = try decoder.decode(Eetmeter.BrandProduct.self, from: data)
@@ -125,10 +107,9 @@ class EetmeterAPI: ObservableObject {
         let cached: Eetmeter.BrandProduct? = self.cache.getProduct(id: id)
         if (cached != nil) { return cached! }
         
-        guard let url = URL(string: API_URL + "brandproduct/" + id.uuidString) else { fatalError("Missing URL") }
-        let urlRequest = getUrlRequest(url: url, auth: true)
+        let urlRequest = self.client.makeRequest("brandproduct/" + id.uuidString)
         
-        let (data, _) = try await session.data(for: urlRequest)
+        let data = try await self.client.requestData(urlRequest)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .lowerCaseFirstCharacter
         let result = try decoder.decode(Eetmeter.BrandProduct.self, from: data)
@@ -140,10 +121,9 @@ class EetmeterAPI: ObservableObject {
         let cached: Eetmeter.Product? = isUnit ? self.cache.getProductByUnit(id: id) : self.cache.getProduct(id: id)
         if (cached != nil) { return cached! }
         
-        guard let url = URL(string: API_URL + "product/" + (isUnit ? "unit/" : "") + id.uuidString) else { fatalError("Missing URL") }
-        let urlRequest = getUrlRequest(url: url, auth: true)
+        let urlRequest = self.client.makeRequest("product/" + (isUnit ? "unit/" : "") + id.uuidString)
         
-        let (data, _) = try await session.data(for: urlRequest)
+        let data = try await self.client.requestData(urlRequest)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .lowerCaseFirstCharacter
         let result = try decoder.decode(Eetmeter.Product.self, from: data)
@@ -155,10 +135,9 @@ class EetmeterAPI: ObservableObject {
         let cached: Eetmeter.BaseProduct? = isUnit ? self.cache.getProductByUnit(id: id) : self.cache.getProduct(id: id)
         if (cached != nil) { return cached! }
         
-        guard let url = URL(string: API_URL + "baseproduct/" + (isUnit ? "unit/" : "") + id.uuidString) else { fatalError("Missing URL") }
-        let urlRequest = getUrlRequest(url: url, auth: true)
+        let urlRequest = self.client.makeRequest("baseproduct/" + (isUnit ? "unit/" : "") + id.uuidString)
         
-        let (data, _) = try await session.data(for: urlRequest)
+        let data = try await self.client.requestData(urlRequest)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .lowerCaseFirstCharacter
         let result = try decoder.decode(Eetmeter.BaseProduct.self, from: data)
@@ -176,8 +155,7 @@ class EetmeterAPI: ObservableObject {
     }
     
     func saveDayMeta(meta: Eetmeter.DayMeta, date: Date) async throws {
-        guard let url = URL(string: API_URL + "consumptiondaynote") else { fatalError("Missing URL") }
-        var urlRequest = getUrlRequest(url: url, auth: true)
+        var urlRequest = self.client.makeRequest("consumptiondaynote")
         urlRequest.httpMethod = "PUT"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -195,12 +173,11 @@ class EetmeterAPI: ObservableObject {
         encoder.keyEncodingStrategy = .upperCaseFirstCharacter
         urlRequest.httpBody = try encoder.encode(note)
         
-        let _ = try await session.data(for: urlRequest)
+        let _ = try await self.client.requestData(urlRequest)
     }
     
     func saveProduct(update: Eetmeter.ProductUpdate) async throws {
-        guard let url = URL(string: API_URL + "consumption") else { fatalError("Missing URL") }
-        var urlRequest = getUrlRequest(url: url, auth: true)
+        var urlRequest = self.client.makeRequest("consumption")
         urlRequest.httpMethod = "PUT"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -208,12 +185,11 @@ class EetmeterAPI: ObservableObject {
         encoder.dateEncodingStrategy = .eetmeterDate
         urlRequest.httpBody = try encoder.encode(update)
         
-        let _ = try await session.data(for: urlRequest)
+        let _ = try await self.client.requestData(urlRequest)
     }
     
     func saveCombinedProduct(id: UUID, update: Eetmeter.CombinedProductUpdate) async throws {
-        guard let url = URL(string: API_URL + "combinedproduct/" + id.uuidString + "/addtodiary") else { fatalError("Missing URL") }
-        var urlRequest = getUrlRequest(url: url, auth: true)
+        var urlRequest = self.client.makeRequest("combinedproduct/" + id.uuidString + "/addtodiary")
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -221,7 +197,7 @@ class EetmeterAPI: ObservableObject {
         encoder.dateEncodingStrategy = .eetmeterDate
         urlRequest.httpBody = try encoder.encode(update)
         
-        let _ = try await session.data(for: urlRequest)
+        let _ = try await self.client.requestData(urlRequest)
     }
     
     func saveGuess(update: Eetmeter.GuessUpdate) async throws {
@@ -265,50 +241,30 @@ class EetmeterAPI: ObservableObject {
     }
     
     func deleteProduct(id: UUID) async throws {
-        guard let url = URL(string: API_URL + "consumption/" + id.uuidString) else { fatalError("Missing URL") }
-        var urlRequest = getUrlRequest(url: url, auth: true)
+        var urlRequest = self.client.makeRequest("consumption/" + id.uuidString)
         urlRequest.httpMethod = "DELETE"
-        let _ = try await session.data(for: urlRequest)
+        let _ = try await self.client.requestData(urlRequest)
     }
-    
+
     func login(email: String, password: String) async throws {
-        guard let url = URL(string: API_URL + "account/credentials") else { fatalError("Missing URL") }
-        var urlRequest = getUrlRequest(url: url, auth: false)
+        var urlRequest = self.client.makeRequest("account/credentials")
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let encoder = JSONEncoder()
-        urlRequest.httpBody = try encoder.encode(Eetmeter.Login(deviceId: self.deviceId, emailAddress: email, password: password))
+        let deviceId = UUID().uuidString
+        urlRequest.httpBody = try encoder.encode(Eetmeter.Login(deviceId: deviceId, emailAddress: email, password: password))
         
-        let (data, _) = try await session.data(for: urlRequest)
+        let data = try await self.client.requestData(urlRequest)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .lowerCaseFirstCharacter
         let decoded = try decoder.decode(Eetmeter.Account.self, from: data)
+        let token = decoded.token + ":" + deviceId
         
         await MainActor.run {
-            self.authToken = decoded.token
-            self.loggedIn = true
-            UserDefaults.standard.set(authToken, forKey: "eetmeterAPI.authToken")
+            self.client.login(token: token)
         }
         
         try await fetchFavorites()
-    }
-    
-    func logout() {
-        self.loggedIn = false
-        self.authToken = nil
-        self.favorites = []
-    }
-    
-    func getUrlRequest(url: URL, auth: Bool) -> URLRequest {
-        var request = URLRequest(url: url)
-        
-        if (auth) {
-            request.setValue("Basic " + ((authToken ?? "") + ":" + self.deviceId), forHTTPHeaderField: "authorization")
-        }
-        request.setValue("4.6.0", forHTTPHeaderField: "version")
-        request.setValue("iOS", forHTTPHeaderField: "platform")
-        
-        return request
     }
 }

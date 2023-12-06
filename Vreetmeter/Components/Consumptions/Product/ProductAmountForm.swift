@@ -3,8 +3,8 @@ import SwiftUI
 import Combine
 
 struct ProductAmountForm: View {
-    @EnvironmentObject var navigation: NavigationState
     var products: [Eetmeter.Product]
+    var product: Eetmeter.GenericProduct
     @Binding var preparationVariant: Eetmeter.PreparationVariant?
     @Binding var unit: Eetmeter.ProductUnit?
     @Binding var amount: Double?
@@ -36,7 +36,6 @@ struct ProductAmountForm: View {
                     return v
                 }).sorted { $0.sortOrder > $1.sortOrder }
                 
-                let product: Eetmeter.GenericProduct = navigation.lastOfType()!
                 if (product.unitId != nil) {
                     preparationVariant = variants.first { v in v.product.units.contains { u in u.id == product.unitId } }
                         ?? variants.first
@@ -46,7 +45,6 @@ struct ProductAmountForm: View {
             }.onChange(of: preparationVariant) {
                 units = preparationVariant?.product.units.sorted { $0.gramsPerUnit < $1.gramsPerUnit } ?? []
                 if (units.isEmpty) { return }
-                let product: Eetmeter.GenericProduct = navigation.lastOfType()!
                 unit = units.first { u in u.id == product.unitId }
                 if (unit != nil) { amount = product.amount ?? amount } else { unit = units.first }
             }

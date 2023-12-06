@@ -2,18 +2,11 @@
 import SwiftUI
 
 struct LoginSheet: View {
-    @EnvironmentObject var eetmeterAPI: EetmeterAPI
+    @Environment(EetmeterAPI.self) var eetmeter
+    @Environment(\.presentationMode) var presentationMode
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var loggingIn = false
-    
-    func login() async {
-        do {
-            try await eetmeterAPI.login(email: email, password: password)
-        } catch let e {
-            print(e)
-        }
-    }
     
     var body: some View {
         VStack(content: {
@@ -27,14 +20,14 @@ struct LoginSheet: View {
                 Button(action: {
                     loggingIn = true
                     Task {
-                        await login()
+                        try await eetmeter.login(email: email, password: password)
+                        if eetmeter.loggedIn { presentationMode.wrappedValue.dismiss() }
                         loggingIn = false
                     }
                 }, label: { Text("Login") })
                     .buttonStyle(ActionButtonStyle(disabled: loggingIn))
                     .disabled(loggingIn)
-            }).padding([.leading, .trailing], 16)
-                .padding([.top, .bottom], 8)
+            }).padding(16)
         }).interactiveDismissDisabled(true)
             .disableAutocorrection(true)
             .autocapitalization(.none)
@@ -44,5 +37,5 @@ struct LoginSheet: View {
 }
 
 #Preview {
-    LoginSheet()
+    LoginSheet().environment(EetmeterAPI())
 }

@@ -4,16 +4,18 @@ import HealthKit
 
 @main
 struct VreetmeterApp: App {
-    @StateObject private var eetmeterAPI: EetmeterAPI
-    @StateObject private var navigation = NavigationState()
+    @State private var eetmeterAPI: EetmeterAPI
     @State private var consumptions: ConsumptionState
     @State private var products: ProductState
     @State private var health: HealthState
     @State private var settings: SettingsState
     
+    @State private var showLoginSheet: Bool = false
+    @State private var initialLoad: Bool = true
+    
     init() {
         let api = EetmeterAPI()
-        self._eetmeterAPI = StateObject(wrappedValue: api)
+        self.eetmeterAPI = api
         self.consumptions = ConsumptionState(api: api)
         self.products = ProductState(api: api)
         self.health = HealthState()
@@ -27,17 +29,19 @@ struct VreetmeterApp: App {
                 ProgressTab().tabItem { Label("Progress", systemImage: "chart.xyaxis.line") }
                 MealsTab().tabItem { Label("Meals", systemImage: "stove") }
                 SettingsTab().tabItem { Label("Settings", systemImage: "gear") }
-            }
-                .environmentObject(eetmeterAPI)
-                .environmentObject(navigation)
+            }.onAppear {
+                if !initialLoad { return }
+                initialLoad = false
+                showLoginSheet = !eetmeterAPI.loggedIn
+                Task { try await health.requestPermission() }
+                Task { try await products.fetchCombinedProducts() }
+            }.sheet(isPresented: $showLoginSheet) {
+                LoginSheet()
+            }.environment(eetmeterAPI)
                 .environment(consumptions)
                 .environment(products)
                 .environment(health)
                 .environment(settings)
-                .onAppear {
-                    Task { try await health.requestPermission() }
-                    Task { try await products.fetchCombinedProducts() }
-                }
         }
     }
 }

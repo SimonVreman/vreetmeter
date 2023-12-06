@@ -4,8 +4,8 @@ import CodeScanner
 import AVFoundation
 
 struct BarcodeScannerSheet: View {
-    @EnvironmentObject var eetmeterAPI: EetmeterAPI
-    @EnvironmentObject var navigation: NavigationState
+    @Environment(EetmeterAPI.self) var eetmeterAPI
+    @Environment(TrackingNavigationState.self) var navigation
     @Environment(\.presentationMode) var presentationMode
     @State var loading: Bool = false
     @State var torch: Bool = false
@@ -32,7 +32,7 @@ struct BarcodeScannerSheet: View {
                             do {
                                 let scanned = try await eetmeterAPI.getByBarcode(barcode: result.string)
                                 generator.notificationOccurred(.success)
-                                navigation.selectionPath.append(Eetmeter.GenericProduct(id: scanned.id, type: .brand))
+                                navigation.append(Eetmeter.GenericProduct(id: scanned.id, type: .brand))
                                 presentationMode.wrappedValue.dismiss()
                                 loading = false
                             } catch {

@@ -7,7 +7,7 @@ struct ConsumptionSearch: Hashable {
 }
 
 struct SelectConsumptionView: View {
-    @EnvironmentObject var eetmeterAPI: EetmeterAPI
+    @Environment(EetmeterAPI.self) var eetmeterAPI
     @Environment(ProductState.self) var products
     @State private var query: String = ""
     @State private var searchOpen: Bool = true
@@ -122,5 +122,5 @@ struct SelectConsumptionView: View {
 
 #Preview {
     SelectConsumptionView(search: ConsumptionSearch(meal: .breakfast))
-        .environmentObject(EetmeterAPI())
+        .environment(EetmeterAPI())
 }

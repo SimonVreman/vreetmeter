@@ -2,9 +2,9 @@
 import SwiftUI
 
 struct GuessSheet: View {
-    @EnvironmentObject var eetmeterAPI: EetmeterAPI
+    @Environment(EetmeterAPI.self) var eetmeterAPI
     @Environment(ConsumptionState.self) var consumptions
-    @EnvironmentObject var navigation: NavigationState
+    @Environment(TrackingNavigationState.self) var navigation
     @Environment(HealthState.self) var health
     @State var busy: Bool = false
     @State var calories: Double = 500
@@ -15,7 +15,7 @@ struct GuessSheet: View {
     func save() {
         busy = true
         Task { do {
-            let meal: Meal = navigation.lastOfType()!
+            let meal = navigation.meal!
             try await eetmeterAPI.saveGuess(update: Eetmeter.GuessUpdate(
                 period: meal.id,
                 date: navigation.date.startOfDay,
@@ -27,7 +27,7 @@ struct GuessSheet: View {
             try await consumptions.fetchDayConsumptions()
             try await health.synchronizeConsumptions(day: navigation.date, consumptions: consumptions.dayConsumptions)
             
-            navigation.selectionPath.removeLast()
+            await navigation.removeLast()
         } catch {
             busy = false
         } }
