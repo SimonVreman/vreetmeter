@@ -267,4 +267,8 @@ import SwiftUI
         
         try await fetchFavorites()
     }
+    
+    func logout() {
+        self.client.logout()
+    }
 }
