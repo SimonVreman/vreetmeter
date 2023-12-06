@@ -4,7 +4,10 @@ import SwiftUI
 let VMSettingsPrefix = "vreetmeter.settings."
 
 enum VMSettings: String, CaseIterable {
-    case settingEnergyGoal = "energyGoal"
+    case energyGoal = "energyGoal"
+    case weightGoal = "weightGoal"
+    case adjustEnergyGoal = "adjustEnergyGoal"
+    case energyAdjustmentSize = "energyAdjustmentSize"
     
     var key: String { VMSettingsPrefix + self.rawValue }
 }

@@ -9,7 +9,7 @@ struct DailyView: View {
     @Environment(HealthState.self) var health
     
     @State var bodyMass: Double?
-    var energyGoal: Int { settings.getValue(VMSettings.settingEnergyGoal.key) as? Int ?? 2000 }
+    var energyGoal: Int { settings.getValue(VMSettings.energyGoal.key) as? Int ?? 2000 }
     
     func fetchData(refresh: Bool) async {
         Task {
