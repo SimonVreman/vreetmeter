@@ -3,6 +3,8 @@ import SwiftUI
 
 struct MealsTab: View {
     var body: some View {
-        Text("Meals")
+        NavigationView {
+            VStack { }.navigationTitle("Meals")
+        }
     }
 }
