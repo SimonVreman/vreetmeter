@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="circle.hexagongrid.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="mCt-Wu-Bnd">
+                                <rect key="frame" x="158" y="315.5" width="59" height="57"/>
+                                <color key="tintColor" systemColor="systemGreenColor"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="50"/>
+                                </preferredSymbolConfiguration>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="circle.hexagongrid.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rEj-Ma-O0t">
+                                <rect key="frame" x="225" y="315.5" width="59" height="57"/>
+                                <color key="tintColor" systemColor="systemOrangeColor"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="50"/>
+                                </preferredSymbolConfiguration>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="circle.hexagongrid.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="V52-Gk-2lg">
+                                <rect key="frame" x="91" y="315.5" width="59" height="57"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="50"/>
+                                </preferredSymbolConfiguration>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vreetmeter" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-Yh-RWb">
+                                <rect key="frame" x="69" y="381.5" width="237" height="54"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="45"/>
+                                <color key="highlightedColor" systemColor="labelColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="mCt-Wu-Bnd" firstAttribute="centerX" secondItem="GJd-Yh-RWb" secondAttribute="centerX" id="3w4-sQ-kwb"/>
+                            <constraint firstItem="V52-Gk-2lg" firstAttribute="centerY" secondItem="mCt-Wu-Bnd" secondAttribute="centerY" id="DHP-nL-m4N"/>
+                            <constraint firstItem="mCt-Wu-Bnd" firstAttribute="centerX" secondItem="Bcu-3y-fUS" secondAttribute="centerX" id="Hlt-kV-Srr"/>
+                            <constraint firstItem="rEj-Ma-O0t" firstAttribute="leading" secondItem="mCt-Wu-Bnd" secondAttribute="trailing" constant="8" symbolic="YES" id="Ud0-47-mg6"/>
+                            <constraint firstItem="rEj-Ma-O0t" firstAttribute="centerY" secondItem="mCt-Wu-Bnd" secondAttribute="centerY" id="cUY-MA-1Mn"/>
+                            <constraint firstItem="mCt-Wu-Bnd" firstAttribute="leading" secondItem="V52-Gk-2lg" secondAttribute="trailing" constant="8" symbolic="YES" id="ovy-bo-VEM"/>
+                            <constraint firstItem="GJd-Yh-RWb" firstAttribute="top" secondItem="mCt-Wu-Bnd" secondAttribute="bottom" constant="8" id="q8W-T3-tug"/>
+                            <constraint firstItem="mCt-Wu-Bnd" firstAttribute="centerY" secondItem="Bcu-3y-fUS" secondAttribute="centerY" id="w6u-f4-mrX"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.173913043478265" y="374.33035714285711"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="circle.hexagongrid.circle.fill" catalog="system" width="128" height="123"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
