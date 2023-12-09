@@ -13,8 +13,8 @@ struct DailySummaryGraph: View {
             let overGoal = value > goal
             let overLimit = limit != nil && value > limit!
             Chart {
-                
-                // Main indicator
+
+                // Main indicator under goal
                 BarMark(x: .value("", overGoal ? goal : value))
                     .foregroundStyle(color)
                 
@@ -28,18 +28,14 @@ struct DailySummaryGraph: View {
                 if limit != nil && overGoal {
                     BarMark(x: .value("", (overLimit ? limit! : value) - goal))
                         .foregroundStyle(color)
+                        .offset(x: 5)
                 }
                 
                 // Tertiary, under limit indicitor
                 if limit != nil && !overLimit {
                     BarMark(x: .value("", limit! - (overGoal ? value : goal)))
                         .foregroundStyle(color.quinary)
-                }
-                
-                if limit != nil {
-                    RuleMark(x: .value("", goal))
-                        .foregroundStyle(Color(UIColor.secondarySystemGroupedBackground))
-                        .lineStyle(.init(lineWidth: 2))
+                        .offset(x: 5)
                 }
                 
             }.frame(height: 25)
