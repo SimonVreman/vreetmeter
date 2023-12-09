@@ -14,8 +14,4 @@ import SwiftUI
     @MainActor func removeLast() {
         self.selectionPath.removeLast()
     }
-    
-    @MainActor func reset() {
-        self.selectionPath.removeLast(self.selectionPath.count)
-    }
 }

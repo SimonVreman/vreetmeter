@@ -31,7 +31,7 @@ struct CombinedProductView: View {
             try? await health.synchronizeConsumptions(day: navigation.date, consumptions: consumptions.dayConsumptions)
             
             DispatchQueue.main.async {
-                navigation.reset()
+                navigation.removeLast()
                 loading = false
             }
         }
