@@ -30,22 +30,24 @@ struct DailyView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
-            let consumptionList = consumptions.dayConsumptions
-            if (consumptions.currentDayFetched) {
-                // TODO figure something out for missing bodymass
-                DailySummary(bodyMass: bodyMass ?? 75, energyGoal: energyGoal, consumptions: consumptionList)
-                    .padding([.horizontal, .bottom], 16)
-                    .background(Color(UIColor.secondarySystemGroupedBackground))
-                Divider()
-                ScrollView {
-                    DailyConsumptionList(consumptions: consumptionList).padding(16)
-                }.refreshable { await fetchData(refresh: true) }
-            } else {
-                ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-        }.onAppear {
-            Task { await fetchData(refresh: false) }
+        ScrollView {
+            VStack(alignment: .leading) {
+                Text(consumptions.day.formatted(.dateTime.month(.wide).day(.defaultDigits)))
+                    .font(.title2).fontWeight(.bold).foregroundStyle(.secondary)
+                
+                let consumptionList = consumptions.dayConsumptions
+                if (consumptions.currentDayFetched || true) {
+                    GroupBox {
+                        // TODO figure something out for missing bodymass
+                        DailySummary(bodyMass: bodyMass ?? 75, energyGoal: energyGoal, consumptions: consumptionList)
+                    }.backgroundStyle(Color(UIColor.secondarySystemGroupedBackground))
+                    
+                    DailyConsumptionList(consumptions: consumptionList)
+                        .padding(.top)
+                } else {
+                    ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+            }.padding([.horizontal, .bottom], 16)
         }.toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: { changeDate(offset: -1) }) {
@@ -57,9 +59,20 @@ struct DailyView: View {
                     Image(systemName: "chevron.right")
                 }
             }
-        }.navigationTitle(consumptions.day.formatted(.dateTime.weekday(.wide).month(.wide).day()))
+        }.onAppear { Task { await fetchData(refresh: false) } }
+            .refreshable { await fetchData(refresh: true) }
+            .navigationTitle(consumptions.day.formatted(.dateTime.weekday(.wide)))
             .background(Color(UIColor.systemGroupedBackground))
-            .navigationBarTitleDisplayMode(.inline)
-                
+    }
+}
+
+#Preview {
+    NavigationView {
+        DailyView()
+            .environment(EetmeterAPI())
+            .environment(TrackingNavigationState())
+            .environment(ConsumptionState(api: EetmeterAPI()))
+            .environment(SettingsState())
+            .environment(HealthState())
     }
 }
