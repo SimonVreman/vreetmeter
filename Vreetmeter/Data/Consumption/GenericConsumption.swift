@@ -14,6 +14,11 @@ class GenericConsumption: Consumption {
     var unitName: String
     var productUnitId: UUID
     
+    // Schijf van vijf
+    var isSchijfVanVijf: Bool
+    var schijfVanVijfColumn: SchijfVanVijfColumn?
+    var schijfVanVijfCategory: SchijfVanVijfCategory?
+    
     // Optional nutritional values
     // Macronutrients
     var fiber: Double?
@@ -56,20 +61,6 @@ class GenericConsumption: Consumption {
     var molybdenum: Double?
     var selenium: Double?
     
-    init(id: UUID, date: Date? = nil, meal: Meal? = nil, amount: Double, energy: Double, carbohydrates: Double, protein: Double, fat: Double, productName: String, unitName: String, productUnitId: UUID) {
-        self.id = id
-        self.date = date
-        self.meal = meal
-        self.amount = amount
-        self.energy = energy
-        self.carbohydrates = carbohydrates
-        self.protein = protein
-        self.fat = fat
-        self.productName = productName
-        self.unitName = unitName
-        self.productUnitId = productUnitId
-    }
-    
     init(consumption: Eetmeter.Consumption, date: Date?) {
         let meal = Meal(rawValue: consumption.period)
         
@@ -84,5 +75,10 @@ class GenericConsumption: Consumption {
         self.productName = consumption.productName
         self.unitName = consumption.unitName
         self.productUnitId = consumption.productUnitId
+        
+        let column = SchijfVanVijfColumn(rawValue: consumption.svvColumn)
+        self.schijfVanVijfColumn = column
+        self.schijfVanVijfCategory = column != nil ? SchijfVanVijfCategory(column: column!) : nil
+        self.isSchijfVanVijf = column != nil
     }
 }

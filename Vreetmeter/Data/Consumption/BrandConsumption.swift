@@ -16,6 +16,11 @@ class BrandConsumption: Consumption {
     var productUnitId: UUID
     var brandProductId: UUID
     
+    // Schijf van vijf
+    var isSchijfVanVijf: Bool
+    var schijfVanVijfColumn: SchijfVanVijfColumn?
+    var schijfVanVijfCategory: SchijfVanVijfCategory?
+    
     // Optional nutritional values
     // Macronutrients
     var fiber: Double?
@@ -58,22 +63,6 @@ class BrandConsumption: Consumption {
     var molybdenum: Double?
     var selenium: Double?
     
-    init(id: UUID, date: Date? = nil, meal: Meal? = nil, amount: Double, energy: Double, carbohydrates: Double, protein: Double, fat: Double, productName: String, brandName: String, unitName: String, productUnitId: UUID, brandProductId: UUID) {
-        self.id = id
-        self.date = date
-        self.meal = meal
-        self.amount = amount
-        self.energy = energy
-        self.carbohydrates = carbohydrates
-        self.protein = protein
-        self.fat = fat
-        self.productName = productName
-        self.brandName = brandName
-        self.unitName = unitName
-        self.productUnitId = productUnitId
-        self.brandProductId = brandProductId
-    }
-    
     init(consumption: Eetmeter.Consumption, date: Date?) {
         let meal = Meal(rawValue: consumption.period)
         
@@ -90,5 +79,10 @@ class BrandConsumption: Consumption {
         self.unitName = consumption.unitName
         self.productUnitId = consumption.productUnitId
         self.brandProductId = consumption.brandProductId!
+        
+        let column = SchijfVanVijfColumn(rawValue: consumption.svvColumn)
+        self.schijfVanVijfColumn = column
+        self.schijfVanVijfCategory = column != nil ? SchijfVanVijfCategory(column: column!) : nil
+        self.isSchijfVanVijf = column != nil
     }
 }

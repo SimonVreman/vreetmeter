@@ -10,6 +10,11 @@ class GuessConsumption: Consumption {
     var protein: Double
     var fat: Double
     
+    // Schijf van vijf
+    var isSchijfVanVijf: Bool
+    var schijfVanVijfColumn: SchijfVanVijfColumn?
+    var schijfVanVijfCategory: SchijfVanVijfCategory?
+    
     // Optional nutritional values
     // Macronutrients
     var fiber: Double?
@@ -60,6 +65,8 @@ class GuessConsumption: Consumption {
         self.carbohydrates = carbohydrates
         self.protein = protein
         self.fat = fat
+        
+        self.isSchijfVanVijf = false
     }
     
     init(guess: Eetmeter.Guess, date: Date?) {
@@ -72,5 +79,7 @@ class GuessConsumption: Consumption {
         self.carbohydrates = guess.carbs
         self.protein = guess.protein
         self.fat = guess.fat
+        
+        self.isSchijfVanVijf = false
     }
 }
