@@ -28,6 +28,7 @@ struct VreetmeterApp: App {
                 TrackingTab().tabItem { Label("Tracking", systemImage: "pencil.and.list.clipboard") }
                 ProgressTab().tabItem { Label("Progress", systemImage: "chart.xyaxis.line") }
                 MealsTab().tabItem { Label("Meals", systemImage: "stove") }
+                FavoritesTab().tabItem { Label("Favorites", systemImage: "star") }
                 SettingsTab().tabItem { Label("Settings", systemImage: "gear") }
             }.onAppear {
                 if !initialLoad { return }

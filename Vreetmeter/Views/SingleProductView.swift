@@ -81,7 +81,9 @@ struct SingleProductView: View {
                     .disabled(loading || !isValid())
                     .padding([.leading, .trailing], 16)
                     .padding(.top, 8)
-            }.navigationTitle(productName)
+            }.toolbar { ToolbarItem(placement: .topBarTrailing) {
+                ToggleFavoriteButton(update: Eetmeter.FavoriteUpdate(amount: amount ?? 1, productUnitID: unit?.id, brandProductID: brandProductId))
+            } }.navigationTitle(productName)
                 .navigationBarTitleDisplayMode(.inline)
                 .padding([.top, .bottom], 8)
             if (loading) {

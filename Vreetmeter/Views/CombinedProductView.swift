@@ -66,7 +66,9 @@ struct CombinedProductView: View {
                     .disabled(loading || !isValid())
                     .padding([.leading, .trailing], 16)
                     .padding(.top, 8)
-            }.navigationTitle(product.name)
+            }.toolbar { ToolbarItem(placement: .topBarTrailing) {
+                ToggleFavoriteButton(update: Eetmeter.FavoriteUpdate(amount: amount ?? 1, combinedProductID: product.id))
+            } }.navigationTitle(product.name)
                 .navigationBarTitleDisplayMode(.inline)
                 .padding([.top, .bottom], 8)
             if (loading) {

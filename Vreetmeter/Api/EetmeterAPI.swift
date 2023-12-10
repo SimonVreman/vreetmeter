@@ -228,6 +228,22 @@ import SwiftUI
         return try await self.saveDayMeta(meta: dayMeta!, date: update.date)
     }
     
+    func saveFavorite(update: Eetmeter.FavoriteUpdate) async throws {
+        var urlRequest = self.client.makeRequest("userfavorite")
+        urlRequest.httpMethod = "PUT"
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .upperCaseFirstCharacter
+        urlRequest.httpBody = try encoder.encode(update)
+        
+        let data = try await self.client.requestData(urlRequest)
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .lowerCaseFirstCharacter
+        let result = try decoder.decode(Eetmeter.Favorite.self, from: data)
+        await MainActor.run { self.favorites.append(result) }
+    }
+    
     func deleteGuess(id: UUID, date: Date) async throws {
         var dayMeta = self.dayMetas[date]
         if (dayMeta == nil) {
@@ -244,6 +260,13 @@ import SwiftUI
         var urlRequest = self.client.makeRequest("consumption/" + id.uuidString)
         urlRequest.httpMethod = "DELETE"
         let _ = try await self.client.requestData(urlRequest)
+    }
+    
+    func deleteFavorite(id: UUID) async throws {
+        var urlRequest = self.client.makeRequest("userfavorite/" + id.uuidString)
+        urlRequest.httpMethod = "DELETE"
+        let _ = try await self.client.requestData(urlRequest)
+        await MainActor.run { self.favorites = self.favorites.filter { $0.id != id } }
     }
 
     func login(email: String, password: String) async throws {

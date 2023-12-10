@@ -1,18 +1,35 @@
-//
-//  FavoritesTab.swift
-//  Vreetmeter
-//
-//  Created by Simon2 on 10/12/2023.
-//
 
 import SwiftUI
 
 struct FavoritesTab: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    @Environment(EetmeterAPI.self) var eetmeter
+    
+    @State private var query: String = ""
+    
+    private var results: [Eetmeter.Favorite] {
+        if query.isEmpty { return eetmeter.favorites }
+        return eetmeter.favorites.filter { f in
+            f.productName.localizedCaseInsensitiveContains(query) || f.brandName.localizedCaseInsensitiveContains(query)
+        }
     }
-}
-
-#Preview {
-    FavoritesTab()
+    
+    func delete(indexes: IndexSet) {
+        // only support one delete
+        if (indexes.isEmpty) { return }
+        let index = indexes.first!
+        if (results.count <= index) { return }
+        let favorite = results[index]
+        Task { try await eetmeter.deleteFavorite(id: favorite.id) }
+    }
+    
+    var body: some View {
+        NavigationView {
+            List {
+                ForEach(results, id: \.id) { favorite in
+                    FavoriteConsumptionResult(label: favorite.productName, sublabel: favorite.brandName)
+                }.onDelete(perform: delete)
+            }.searchable(text: $query)
+                .navigationTitle("Favorites")
+        }
+    }
 }
