@@ -32,7 +32,6 @@ struct DailySchijfVanVijfSummary: View {
                 Text("%").font(.system(.title, design: .rounded, weight: .semibold)).foregroundStyle(.white.secondary)
             }
         }.backgroundStyle(color)
-            .shadow(color: color.opacity(0.1), radius: 10)
     }
 }
 

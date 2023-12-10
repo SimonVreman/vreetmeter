@@ -28,6 +28,7 @@ struct ConsumptionBox: View {
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }.backgroundStyle(.background.secondary)
+                .compositingGroup()
                 .shadow(color: .black.opacity(0.1), radius: 10)
         }.listRowSeparator(.hidden)
             .listRowInsets(.init())
