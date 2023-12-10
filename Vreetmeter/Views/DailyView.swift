@@ -37,10 +37,19 @@ struct DailyView: View {
                 
                 let consumptionList = consumptions.dayConsumptions
                 if (consumptions.currentDayFetched || true) {
+                    // TODO figure something out for missing bodymass
+                    
                     GroupBox {
-                        // TODO figure something out for missing bodymass
-                        DailySummary(bodyMass: bodyMass ?? 75, energyGoal: energyGoal, consumptions: consumptionList)
-                    }.backgroundStyle(Color(UIColor.secondarySystemGroupedBackground))
+                        DailyEnergySummary(bodyMass: bodyMass ?? 75, energyGoal: energyGoal, consumptions: consumptionList)
+                    }.backgroundStyle(.background.secondary)
+                        .shadow(color: .black.opacity(0.1), radius: 10)
+                    
+                    GroupBox {
+                        DailyMacroSummary(bodyMass: bodyMass ?? 75, energyGoal: energyGoal, consumptions: consumptionList)
+                    }.backgroundStyle(.background.secondary)
+                        .shadow(color: .black.opacity(0.1), radius: 10)
+                    
+                    DailySchijfVanVijfSummary(consumptions: consumptionList)
                     
                     DailyConsumptionList(consumptions: consumptionList)
                         .padding(.top)
@@ -62,7 +71,6 @@ struct DailyView: View {
         }.onAppear { Task { await fetchData(refresh: false) } }
             .refreshable { await fetchData(refresh: true) }
             .navigationTitle(consumptions.day.formatted(.dateTime.weekday(.wide)))
-            .background(Color(UIColor.systemGroupedBackground))
     }
 }
 

@@ -1,7 +1,7 @@
 
 import SwiftUI
 
-struct DailySummary: View {
+struct DailyMacroSummary: View {
     var bodyMass: Double
     var energyGoal: Int
     var consumptions: [Consumption]
@@ -18,22 +18,8 @@ struct DailySummary: View {
             let fatGoal = Int(fatMinimum.rounded())
             let fatMaxGoal = Int(fatMaximum.rounded())
             let proteinGoal = Int(protein.rounded())
-            let energyGoal = Int(energy.rounded())
             let carbGoal = Int(carbsMinimum.rounded())
             let carbMaxGoal = Int(carbsMaximum.rounded())
-            
-            HStack {
-                let calories = consumptions.reduce(0) { $0 + $1.energy }
-                let percentage = calories / Double(energyGoal) * 100
-                
-                Text("\(Int(calories.rounded()))")
-                    .font(.system(.title, design: .rounded, weight: .semibold)) +
-                Text("/\(energyGoal)kcal").font(.system(.body, weight: .semibold)).foregroundStyle(.secondary)
-                Spacer()
-                Text("\(Int(percentage.rounded()))")
-                    .font(.system(.title, design: .rounded, weight: .semibold)) +
-                Text("%").font(.system(.title, design: .rounded, weight: .semibold)).foregroundStyle(.secondary)
-            }
             
             Grid {
                 GridRow {
@@ -66,7 +52,7 @@ struct DailySummary: View {
 }
 
 #Preview {
-    DailySummary(bodyMass: 75, energyGoal: 2000, consumptions: [
+    DailyMacroSummary(bodyMass: 75, energyGoal: 2000, consumptions: [
         GuessConsumption(id: UUID(), energy: 300, carbohydrates: 140, protein: 250, fat: 60)
     ])
 }
