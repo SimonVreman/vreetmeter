@@ -6,3 +6,12 @@ protocol Consumption: AnyObject, Nutritional, SchijfVanVijf {
     var date: Date? { get }
     var meal: Meal? { get }
 }
+
+extension [Consumption] {
+    var percentageSchijfVanVijf: Double? {
+        let totalCalories = self.reduce(0) { $0 + $1.energy }
+        if totalCalories == 0 { return nil }
+        let schijfVanVijfCalories = self.reduce(0) { $1.isSchijfVanVijf ? $0 + $1.energy : $0 }
+        return schijfVanVijfCalories / totalCalories * 100
+    }
+}

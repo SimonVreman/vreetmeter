@@ -1,18 +1,24 @@
-//
-//  SchijfVanVijfPercentage.swift
-//  Vreetmeter
-//
-//  Created by Simon2 on 10/12/2023.
-//
 
 import SwiftUI
 
 struct SchijfVanVijfPercentage: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+    var percentage: Double?
 
-#Preview {
-    SchijfVanVijfPercentage()
+    private var color: Color {
+        if percentage == nil {
+            return .secondary
+        } else if percentage! < 50 {
+            return .red
+        } else if percentage!  < 85 {
+            return .yellow
+        }
+        return .green
+    }
+    
+    var body: some View {
+        Text(percentage != nil ? "\(Int(percentage!.rounded()))" : "--")
+            .font(.system(.title, design: .rounded, weight: .semibold))
+            .foregroundStyle(color) +
+        Text("%").font(.system(.title, design: .rounded, weight: .semibold)).foregroundStyle(color.secondary)
+    }
 }
