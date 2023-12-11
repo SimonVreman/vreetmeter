@@ -2,7 +2,7 @@
 import SwiftUI
 import Charts
 
-struct WeightCard: View {
+struct WeightChartCard: View {
     var data: [NumericalDatePoint]
     
     func getAverage(days: Int) -> Double? {

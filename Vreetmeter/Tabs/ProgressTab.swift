@@ -32,7 +32,7 @@ struct ProgressTab: View {
             } else {
                 HStack {
                     VStack {
-                        WeightCard(data: data!)
+                        WeightChartCard(data: data!)
                         
                         
                         
