@@ -54,7 +54,7 @@ struct DailyView: View {
                     DailyConsumptionList(consumptions: consumptionList)
                         .padding(.top)
                 } else {
-                    ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
+                    ProgressView().centered()
                 }
             }.padding([.horizontal, .bottom], 16)
         }.toolbar {
