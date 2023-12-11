@@ -40,7 +40,7 @@ struct WeightCard: View {
                 
                 WeightChart(data: data)
             }
-        }.backgroundStyle(Color(UIColor.secondarySystemGroupedBackground))
+        }.cardBackgroundAndShadow()
             .frame(height: 300)
             .onAppear { Task { try? await self.load() } }
     }

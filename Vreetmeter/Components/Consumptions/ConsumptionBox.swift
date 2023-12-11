@@ -27,9 +27,7 @@ struct ConsumptionBox: View {
                     ConsumptionSummary(consumptions: consumptions)
                         .fixedSize(horizontal: false, vertical: true)
                 }
-            }.backgroundStyle(.background.secondary)
-                .compositingGroup()
-                .shadow(color: .black.opacity(0.1), radius: 10)
+            }.cardBackgroundAndShadow()
         }.listRowSeparator(.hidden)
             .listRowInsets(.init())
             .listRowBackground(Color.clear)

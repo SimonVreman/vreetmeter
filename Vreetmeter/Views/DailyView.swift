@@ -41,15 +41,11 @@ struct DailyView: View {
                     
                     GroupBox {
                         DailyEnergySummary(bodyMass: bodyMass ?? 75, energyGoal: energyGoal, consumptions: consumptionList)
-                    }.backgroundStyle(.background.secondary)
-                        .compositingGroup()
-                        .shadow(color: .black.opacity(0.1), radius: 10)
+                    }.cardBackgroundAndShadow()
                     
                     GroupBox {
                         DailyMacroSummary(bodyMass: bodyMass ?? 75, energyGoal: energyGoal, consumptions: consumptionList)
-                    }.backgroundStyle(.background.secondary)
-                        .compositingGroup()
-                        .shadow(color: .black.opacity(0.1), radius: 10)
+                    }.cardBackgroundAndShadow()
                     
                     DailySchijfVanVijfSummary(consumptions: consumptionList)
                         .compositingGroup()
