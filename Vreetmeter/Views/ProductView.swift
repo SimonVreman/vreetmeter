@@ -21,7 +21,8 @@ struct ProductView: View {
                 product.type = .brand
                 product.id = favorite.brandProductId!
             } else {
-                product.type = .general
+                product.type = .unit
+                product.id = favorite.productUnitId!
             }
         }
         
@@ -30,11 +31,7 @@ struct ProductView: View {
         } else if (product.type == .brand) { Task { @MainActor in
             brandProduct = try await eetmeterAPI.getBrandProduct(id: product.id)
         }} else { Task { @MainActor in
-            do {
-                baseProduct = try await eetmeterAPI.getBaseProduct(id: product.id, isUnit: product.type == .unit)
-            } catch let e {
-                print(e)
-            }
+            baseProduct = try await eetmeterAPI.getBaseProduct(id: product.id, isUnit: product.type == .unit)
         }}
     }
     
