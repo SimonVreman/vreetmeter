@@ -27,10 +27,10 @@ struct ProgressTab: View {
     
     var body: some View {
         NavigationView {
-            if data == nil {
-                ProgressView().centered()
-            } else {
-                HStack {
+            HStack {
+                if data == nil {
+                    ProgressView().centered()
+                } else {
                     VStack {
                         WeightChartCard(data: data!)
                         
@@ -38,8 +38,8 @@ struct ProgressTab: View {
                         
                         Spacer()
                     }.padding()
-                }.navigationTitle("Progress")
-            }
+                }
+            }.navigationTitle("Progress")
         }.onAppear { Task { try? await self.load() } }
     }
 }
