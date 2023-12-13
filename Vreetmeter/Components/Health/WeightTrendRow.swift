@@ -2,6 +2,7 @@
 import SwiftUI
 
 struct WeightTrendRow: View {
+    var label: String
     var firstRange: [NumericalDatePoint]
     var secondRange: [NumericalDatePoint]
     
@@ -17,16 +18,21 @@ struct WeightTrendRow: View {
     
     var body: some View {
         GridRow {
+            Text(label)
+                .font(.headline)
+                .fontWeight(.regular)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: true, vertical: false)
+            
             VStack(alignment: .leading) {
                 TrendIndicator(value: trendFraction)
-            }
-            
-            Text("/").fontDesign(.rounded).foregroundStyle(.tertiary)
+            }.fixedSize(horizontal: true, vertical: false)
             
             VStack(alignment: .leading) {
                 Text(trend == nil ? "--.-" : "\(trend!, specifier: "%.1f")").fontDesign(.rounded) +
                 Text("kg").font(.headline).foregroundStyle(.secondary)
-            }
+            }.fixedSize(horizontal: true, vertical: false)
+                .gridColumnAlignment(.trailing)
             
             Spacer().gridCellUnsizedAxes(.vertical)
         }.font(.title).fontWeight(.semibold)

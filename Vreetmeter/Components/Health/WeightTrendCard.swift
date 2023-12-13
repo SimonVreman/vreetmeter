@@ -17,10 +17,10 @@ struct WeightTrendCard: View {
 
     var body: some View {
         GroupBox {
-            Grid(alignment: .leading, horizontalSpacing: 16) {
-                ForEach(0...2, id: \.self) {
+            Grid(alignment: .leading, horizontalSpacing: 24) {
+                ForEach(0..<3) {
                     let (first, second) = getRanges(length: 7, offset: $0 * 7)
-                    WeightTrendRow(firstRange: first, secondRange: second)
+                    WeightTrendRow(label: "\(3 - $0) - \(4 - $0)", firstRange: first, secondRange: second)
                 }
             }
         }.cardBackgroundAndShadow()
