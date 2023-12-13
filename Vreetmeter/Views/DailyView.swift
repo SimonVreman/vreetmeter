@@ -46,9 +46,9 @@ struct DailyView: View {
                         DailyMacroSummary(bodyMass: bodyMass ?? 75, energyGoal: energyGoal, consumptions: consumptionList)
                     }.cardBackgroundAndShadow()
                     
-                    DailySchijfVanVijfSummary(consumptions: consumptionList)
-                        .compositingGroup()
-                        .shadow(color: .black.opacity(0.2), radius: 10)
+                    GroupBox {
+                        DailySchijfVanVijfSummary(consumptions: consumptionList)
+                    }.cardBackgroundAndShadow()
                     
                     DailyConsumptionList(consumptions: consumptionList)
                         .padding(.top)

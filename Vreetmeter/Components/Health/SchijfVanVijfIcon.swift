@@ -40,33 +40,41 @@ private struct SchijfVanVijfSegment: View {
 }
 
 struct SchijfVanVijfIcon: View {
-    var highlighted: SchijfVanVijfCategory? = nil
+    private var highlighted: Set<SchijfVanVijfCategory>
+    
+    init(highlighted: SchijfVanVijfCategory? = nil) {
+        self.init(highlighted: highlighted == nil ? [] : [highlighted!])
+    }
+    
+    init(highlighted: Set<SchijfVanVijfCategory>) {
+        self.highlighted = highlighted
+    }
     
     var body: some View {
         GeometryReader { proxy in
             ZStack {
                 ZStack {
                     SchijfVanVijfSegment(start: -0.25, end: 0.05, size: proxy.size.width)
-                        .if(highlighted == .vegetablesAndFruits, transform: {
+                        .if(highlighted.contains(.vegetablesAndFruits), transform: {
                             $0.foregroundStyle(.green).scaleEffect(1.1)
                         })
                     SchijfVanVijfSegment(start: 0.05, end: 0.1, size: proxy.size.width)
-                        .if(highlighted == .oilsAndFats, transform: {
+                        .if(highlighted.contains(.oilsAndFats), transform: {
                             $0.foregroundStyle(.yellow).scaleEffect(1.1)
                         })
                     SchijfVanVijfSegment(start: 0.1, end: 0.28, size: proxy.size.width)
-                        .if(highlighted == .fishMeatDairyAndNuts, transform: {
+                        .if(highlighted.contains(.fishMeatDairyAndNuts), transform: {
                             $0.foregroundStyle(.pink).scaleEffect(1.1)
                         })
                     SchijfVanVijfSegment(start: 0.28, end: 0.55, size: proxy.size.width)
-                        .if(highlighted == .breadGrainsAndPotatos, transform: {
+                        .if(highlighted.contains(.breadGrainsAndPotatos), transform: {
                             $0.foregroundStyle(.orange).scaleEffect(1.1)
                         })
                     SchijfVanVijfSegment(start: 0.55, end: 0.75, size: proxy.size.width)
-                        .if(highlighted == .waterTeaAndCoffee, transform: {
+                        .if(highlighted.contains(.waterTeaAndCoffee), transform: {
                             $0.foregroundStyle(.blue).scaleEffect(1.1)
                         })
-                }.if(highlighted == nil, transform: {
+                }.if(highlighted.isEmpty, transform: {
                     $0.mask {
                         ZStack {
                             Rectangle().fill(.white).frame(width: proxy.size.width, height: proxy.size.height)
@@ -80,7 +88,7 @@ struct SchijfVanVijfIcon: View {
                     }
                 })
                 
-                if (highlighted == nil) {
+                if (highlighted.isEmpty) {
                     RoundedRectangle(cornerRadius: proxy.size.width / 10)
                         .fill(.red)
                         .frame(width: proxy.size.width, height: proxy.size.height / 20)
@@ -97,7 +105,7 @@ struct SchijfVanVijfIcon: View {
         SchijfVanVijfIcon(highlighted: nil)
         SchijfVanVijfIcon(highlighted: .vegetablesAndFruits)
         SchijfVanVijfIcon(highlighted: .oilsAndFats)
-        SchijfVanVijfIcon(highlighted: .fishMeatDairyAndNuts)
+        SchijfVanVijfIcon(highlighted: [.fishMeatDairyAndNuts, .waterTeaAndCoffee])
         SchijfVanVijfIcon(highlighted: .breadGrainsAndPotatos)
         SchijfVanVijfIcon(highlighted: .waterTeaAndCoffee)
     }
