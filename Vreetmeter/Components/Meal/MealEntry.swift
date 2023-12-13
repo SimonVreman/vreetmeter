@@ -28,6 +28,9 @@ struct MealEntry: View {
     var body: some View {
         VStack(spacing: 4) {
             HStack {
+                SchijfVanVijfIcon(highlighted: consumption.schijfVanVijfCategory)
+                    .frame(width: 30)
+                
                 VStack(alignment: .leading, spacing: -2) {
                     Text(labels.productName)
                     Text(labels.brandName)
@@ -36,7 +39,9 @@ struct MealEntry: View {
                         .lineLimit(1)
                         .truncationMode(.tail)
                 }
+                
                 Spacer()
+                
                 VStack(alignment: .trailing, spacing: -2) {
                     let rounded = (labels.amount * 10).rounded() / 10
                     let specifier = rounded.truncatingRemainder(dividingBy: 1) == 0 ? "%.0f" : "%.1f"
@@ -67,5 +72,13 @@ struct MealEntry: View {
                 height: detailed ? 10 : 5
             )
         }
+    }
+}
+
+
+#Preview {
+    List {
+        MealEntry(consumption: GuessConsumption(id: UUID(), energy: 100, carbohydrates: 30, protein: 39, fat: 2), detailed: false)
+        MealEntry(consumption: GuessConsumption(id: UUID(), energy: 100, carbohydrates: 30, protein: 39, fat: 2), detailed: false)
     }
 }
