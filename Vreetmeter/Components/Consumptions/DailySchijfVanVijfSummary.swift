@@ -4,6 +4,8 @@ import SwiftUI
 struct DailySchijfVanVijfSummary: View {
     var consumptions: [Consumption]
     
+    @State private var showSheet: Bool = false
+    
     private var percentage: Double? {
         consumptions.percentageSchijfVanVijf
     }
@@ -39,6 +41,11 @@ struct DailySchijfVanVijfSummary: View {
             Text(percentage != nil ? "\(Int(percentage!.rounded()))" : "--")
                 .font(.system(.title, design: .rounded, weight: .semibold)) +
             Text("%").font(.system(.title, design: .rounded, weight: .semibold)).foregroundStyle(.secondary)
+        }.onTapGesture { showSheet.toggle() }
+        .sheet(isPresented: $showSheet) {
+            NavigationView {
+                VStack { }.navigationTitle("Overview")
+            }.presentationBackground(.ultraThinMaterial)
         }
     }
 }
