@@ -91,7 +91,7 @@ struct SchijfVanVijfIcon: View {
                 if (highlighted.isEmpty) {
                     RoundedRectangle(cornerRadius: proxy.size.width / 10)
                         .fill(.red)
-                        .frame(width: proxy.size.width, height: proxy.size.height / 20)
+                        .frame(width: proxy.size.width * 0.9, height: proxy.size.height / 20)
                         .scaleEffect(1.2)
                         .rotationEffect(Angle(degrees: 45))
                 }
