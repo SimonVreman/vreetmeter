@@ -9,14 +9,12 @@ struct DailySchijfVanVijfSummary: View {
     }
 
     private var color: Color {
-        if percentage == nil {
-            return .secondary
-        } else if percentage! < 40 {
-            return .red
-        } else if percentage!  < 85 {
+        if percentage == nil || percentage! >= 85 {
+            return .green
+        } else if percentage! >= 40 {
             return .orange
         }
-        return .green
+        return .red
     }
     
     var body: some View {

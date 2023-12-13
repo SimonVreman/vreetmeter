@@ -48,10 +48,8 @@ struct DailyView: View {
                     }.cardBackgroundAndShadow()
                     
                     DailySchijfVanVijfSummary(consumptions: consumptionList)
-                        .background(
-                            RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                                .shadow(color: .black.opacity(0.2), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                        )
+                        .compositingGroup()
+                        .shadow(color: .black.opacity(0.2), radius: 10)
                     
                     DailyConsumptionList(consumptions: consumptionList)
                         .padding(.top)
