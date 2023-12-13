@@ -16,10 +16,12 @@ struct MacroLine: View {
                 .foregroundStyle(by: .value("source", "Protein"))
             BarMark(x: .value("Fat", fat * 9), stacking: .normalized)
                 .foregroundStyle(by: .value("source", "Fat"))
+                .cornerRadius(0)
             
             if carbs == 0 && protein == 0 &&  fat == 0 {
                 BarMark(x: .value("Empty", 100))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.gray.secondary)
+                    .cornerRadius(0)
             }
         }.frame(height: CGFloat(height))
             .chartXScale(domain: [0, 100])
