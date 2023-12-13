@@ -8,7 +8,7 @@ struct ProgressTab: View {
     func load() async throws {
         let calendar = Calendar.current
         let end = calendar.date(byAdding: .day, value: 1, to: Date().startOfDay)!
-        let start = calendar.date(byAdding: .day, value: -30, to: end)!
+        let start = calendar.date(byAdding: .day, value: -28, to: end)!
         let statistics = try await self.health.queryBodyMass(start: start, end: end, interval: DateComponents(day: 1))
         
         if statistics == nil { return }
