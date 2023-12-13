@@ -21,18 +21,10 @@ struct DailySchijfVanVijfSummary: View {
         return AnyView(Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.white, .red))
     }
     
-    private var categories: Set<SchijfVanVijfCategory> {
-        return Set(consumptions.reduce([]) {
-            if $1.schijfVanVijfCategory == nil { return $0 }
-            return $0 + [$1.schijfVanVijfCategory!]
-        })
-    }
-    
     var body: some View {
         HStack {
-            SchijfVanVijfIcon(highlighted: categories)
+            SchijfVanVijfIcon(highlighted: consumptions.schijfVanVijfCategories, empty: consumptions.isEmpty)
                 .frame(width: 75)
-                .if(consumptions.isEmpty, transform: { $0.grayscale(1) })
             
             Spacer()
             

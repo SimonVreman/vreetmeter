@@ -1,5 +1,4 @@
 
-import Foundation
 import SwiftUI
 
 struct DailyConsumptionList: View {

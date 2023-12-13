@@ -41,13 +41,15 @@ private struct SchijfVanVijfSegment: View {
 
 struct SchijfVanVijfIcon: View {
     private var highlighted: Set<SchijfVanVijfCategory>
+    private var empty: Bool
     
-    init(highlighted: SchijfVanVijfCategory? = nil) {
-        self.init(highlighted: highlighted == nil ? [] : [highlighted!])
+    init(highlighted: SchijfVanVijfCategory? = nil, empty: Bool = false) {
+        self.init(highlighted: highlighted == nil ? [] : [highlighted!], empty: empty)
     }
     
-    init(highlighted: Set<SchijfVanVijfCategory>) {
+    init(highlighted: Set<SchijfVanVijfCategory>, empty: Bool = false) {
         self.highlighted = highlighted
+        self.empty = empty
     }
     
     var body: some View {
@@ -74,7 +76,7 @@ struct SchijfVanVijfIcon: View {
                         .if(highlighted.contains(.waterTeaAndCoffee), transform: {
                             $0.foregroundStyle(.blue).scaleEffect(1.1)
                         })
-                }.if(highlighted.isEmpty, transform: {
+                }.if(highlighted.isEmpty && !empty, transform: {
                     $0.mask {
                         ZStack {
                             Rectangle().fill(.white).frame(width: proxy.size.width, height: proxy.size.height)
@@ -88,7 +90,7 @@ struct SchijfVanVijfIcon: View {
                     }
                 })
                 
-                if (highlighted.isEmpty) {
+                if (highlighted.isEmpty && !empty) {
                     RoundedRectangle(cornerRadius: proxy.size.width / 10)
                         .fill(.red)
                         .frame(width: proxy.size.width * 0.9, height: proxy.size.height / 20)
@@ -103,7 +105,7 @@ struct SchijfVanVijfIcon: View {
 #Preview {
     VStack {
         SchijfVanVijfIcon(highlighted: nil)
-        SchijfVanVijfIcon(highlighted: .vegetablesAndFruits)
+        SchijfVanVijfIcon(highlighted: nil, empty: true)
         SchijfVanVijfIcon(highlighted: .oilsAndFats)
         SchijfVanVijfIcon(highlighted: [.fishMeatDairyAndNuts, .waterTeaAndCoffee])
         SchijfVanVijfIcon(highlighted: .breadGrainsAndPotatos)

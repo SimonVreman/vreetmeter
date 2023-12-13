@@ -14,4 +14,11 @@ extension [Consumption] {
         let schijfVanVijfCalories = self.reduce(0) { $1.isSchijfVanVijf ? $0 + $1.energy : $0 }
         return schijfVanVijfCalories / totalCalories * 100
     }
+    
+    var schijfVanVijfCategories: Set<SchijfVanVijfCategory> {
+        return Set(self.reduce([]) {
+            if $1.schijfVanVijfCategory == nil { return $0 }
+            return $0 + [$1.schijfVanVijfCategory!]
+        })
+    }
 }
