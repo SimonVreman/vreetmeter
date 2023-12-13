@@ -34,7 +34,7 @@ struct ProgressTab: View {
                     VStack {
                         WeightChartCard(data: data!)
                         
-                        
+                        WeightTrendCard(data: data!)
                         
                         Spacer()
                     }.padding()
