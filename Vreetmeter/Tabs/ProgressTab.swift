@@ -5,10 +5,16 @@ struct ProgressTab: View {
     @Environment(HealthState.self) var health
     @State private var data: [NumericalDatePoint]?
     
-    func load() async throws {
+    private var domain: [Date] {
         let calendar = Calendar.current
         let end = calendar.date(byAdding: .day, value: 1, to: Date().startOfDay)!
         let start = calendar.date(byAdding: .day, value: -28, to: end)!
+        return [start, end]
+    }
+    
+    func load() async throws {
+        let start = self.domain[0]
+        let end = self.domain[1]
         let statistics = try await self.health.queryBodyMass(start: start, end: end, interval: DateComponents(day: 1))
         
         if statistics == nil { return }
@@ -32,7 +38,7 @@ struct ProgressTab: View {
                     ProgressView().centered()
                 } else {
                     VStack {
-                        WeightChartCard(data: data!)
+                        WeightChartCard(domain: domain, data: data!)
                         
                         WeightTrendCard(data: data!)
                         

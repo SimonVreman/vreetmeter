@@ -3,6 +3,7 @@ import SwiftUI
 import Charts
 
 struct WeightChartCard: View {
+    var domain: [Date]
     var data: [NumericalDatePoint]
     
     func getAverage(days: Int) -> Double? {
@@ -14,21 +15,7 @@ struct WeightChartCard: View {
     
     var body: some View {
         GroupBox {
-            VStack(alignment: .leading) {
-                HStack(alignment: .firstTextBaseline) {
-                    let average = getAverage(days: 7)
-                    
-                    Text(average != nil ? "\(average!, specifier: "%.1f")" : "--.-")
-                        .font(.largeTitle).fontDesign(.rounded).fontWeight(.semibold)
-                    + Text("kg").font(.headline).foregroundStyle(.primary.secondary)
-                    
-                    Spacer()
-                    
-                    Text("7 day average").font(.headline).foregroundStyle(.primary.secondary)
-                }
-                
-                if data.count > 1 { WeightChart(data: data).frame(height: 200) }
-            }
+            WeightChart(domain: domain, data: data, zones: 4).frame(height: 300)
         }.cardBackgroundAndShadow()
     }
 }
