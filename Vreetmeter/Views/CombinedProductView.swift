@@ -27,8 +27,8 @@ struct CombinedProductView: View {
         
         Task {
             try? await eetmeterAPI.saveCombinedProduct(id: product.id, update: update)
-            try? await consumptions.fetchDayConsumptions()
-            try? await health.synchronizeConsumptions(day: navigation.date, consumptions: consumptions.dayConsumptions)
+            try? await consumptions.fetchForDay(date)
+            try? await health.synchronizeConsumptions(day: date, consumptions: consumptions.getAllForDay(date))
             
             DispatchQueue.main.async {
                 navigation.removeLast()

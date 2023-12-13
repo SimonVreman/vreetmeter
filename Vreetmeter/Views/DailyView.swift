@@ -16,14 +16,13 @@ struct DailyView: View {
             let mass = try await health.queryRecentBodyMass(date: navigation.date)
             DispatchQueue.main.async { bodyMass = mass }
         }
-        if (!refresh && consumptions.currentDayFetched) { return }
-        try? await consumptions.fetchDayConsumptions()
-        try? await health.synchronizeConsumptions(day: navigation.date, consumptions: consumptions.dayConsumptions)
+        if (!refresh && consumptions.didFetchForDay(navigation.date)) { return }
+        try? await consumptions.fetchForDay(navigation.date)
+        try? await health.synchronizeConsumptions(day: navigation.date, consumptions: consumptions.getAllForDay(navigation.date))
     }
     
     func changeDate(offset: Int) {
         if let date = Calendar.current.date(byAdding: .day, value: offset, to: navigation.date) {
-            consumptions.day = date
             navigation.date = date
             Task { await fetchData(refresh: false) }
         }
@@ -32,11 +31,11 @@ struct DailyView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Text(consumptions.day.formatted(.dateTime.month(.wide).day(.defaultDigits)))
+                Text(navigation.date.formatted(.dateTime.month(.wide).day(.defaultDigits)))
                     .font(.title2).fontWeight(.bold).foregroundStyle(.secondary)
                 
-                let consumptionList = consumptions.dayConsumptions
-                if (consumptions.currentDayFetched || true) {
+                let consumptionList = consumptions.getAllForDay(navigation.date)
+                if (consumptions.didFetchForDay(navigation.date) || true) {
                     // TODO figure something out for missing bodymass
                     
                     GroupBox {
@@ -70,7 +69,7 @@ struct DailyView: View {
             }
         }.onAppear { Task { await fetchData(refresh: false) } }
             .refreshable { await fetchData(refresh: true) }
-            .navigationTitle(consumptions.day.formatted(.dateTime.weekday(.wide)))
+            .navigationTitle(navigation.date.formatted(.dateTime.weekday(.wide)))
     }
 }
 

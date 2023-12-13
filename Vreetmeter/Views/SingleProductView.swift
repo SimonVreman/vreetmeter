@@ -23,12 +23,12 @@ struct SingleProductView: View {
     func save() {
         loading = true
         let meal = navigation.meal!
-        let date = navigation.date
+        let date = navigation.date.startOfDay
         
         let update = Eetmeter.ProductUpdate(
             id: product.storedAs ?? UUID(),
             period: meal.id,
-            consumptionDate: date.startOfDay,
+            consumptionDate: date,
             amount: amount ?? 1,
             productUnitID: unit!.id,
             brandProductID: brandProductId
@@ -36,8 +36,8 @@ struct SingleProductView: View {
         
         Task {
             try? await eetmeterAPI.saveProduct(update: update)
-            try? await consumptions.fetchDayConsumptions()
-            try? await health.synchronizeConsumptions(day: navigation.date, consumptions: consumptions.dayConsumptions)
+            try? await consumptions.fetchForDay(date)
+            try? await health.synchronizeConsumptions(day: date, consumptions: consumptions.getAllForDay(date))
             
             DispatchQueue.main.async {
                 navigation.removeLast()

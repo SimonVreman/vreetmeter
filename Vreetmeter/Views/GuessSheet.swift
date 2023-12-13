@@ -16,16 +16,17 @@ struct GuessSheet: View {
         busy = true
         Task { do {
             let meal = navigation.meal!
+            let date = navigation.date.startOfDay
             try await eetmeterAPI.saveGuess(update: Eetmeter.GuessUpdate(
                 period: meal.id,
-                date: navigation.date.startOfDay,
+                date: date,
                 energy: calories,
                 protein: protein / 100 * calories / 4,
                 fat: fat / 100 * calories / 9,
                 carbs: carbs / 100 * calories / 4
             ))
-            try await consumptions.fetchDayConsumptions()
-            try await health.synchronizeConsumptions(day: navigation.date, consumptions: consumptions.dayConsumptions)
+            try await consumptions.fetchForDay(date)
+            try await health.synchronizeConsumptions(day: date, consumptions: consumptions.getAllForDay(date))
             
             await navigation.removeLast()
         } catch {

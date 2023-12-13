@@ -5,22 +5,21 @@ import SwiftUI
     private let api: EetmeterAPI
     private var consumptions: [any Consumption] = []
     private var daysFetched: Set<Date> = []
-    var day: Date = Date().startOfDay
-    
-    var dayConsumptions: [any Consumption] {
-        return self.consumptions.filter { c in c.date?.startOfDay == day.startOfDay }
-    }
-    
-    var currentDayFetched: Bool {
-        return self.daysFetched.contains(self.day.startOfDay)
-    }
     
     init(api: EetmeterAPI) {
         self.api = api
     }
     
-    func fetchDayConsumptions() async throws {
-        let day = self.day.startOfDay
+    func getAllForDay(_ day: Date) -> [any Consumption] {
+        return self.consumptions.filter { c in c.date?.startOfDay == day.startOfDay }
+    }
+    
+    func didFetchForDay(_ day: Date) -> Bool {
+        return self.daysFetched.contains(day.startOfDay)
+    }
+    
+    func fetchForDay(_ day: Date) async throws {
+        let day = day.startOfDay
         
         // Fetch required data from the API
         // TODO: make it work in parallel
@@ -56,7 +55,7 @@ import SwiftUI
             return GuessConsumption(guess: g, date: day)
         }
         
-        DispatchQueue.main.async {
+        await MainActor.run {
             // Filter old consumptions
             self.consumptions = self.consumptions.filter { c in
                 c.date?.startOfDay != day

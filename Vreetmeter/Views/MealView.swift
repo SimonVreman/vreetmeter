@@ -11,7 +11,7 @@ struct MealView: View {
     var meal: Meal
     
     var consumptions: [Consumption] {
-        return consumptionState.dayConsumptions.filter { c in c.meal == self.meal }
+        return consumptionState.getAllForDay(navigation.date).filter { c in c.meal == self.meal }
     }
     
     func getResultForConsumption(consumption: Consumption) -> Eetmeter.GenericProduct? {
@@ -45,14 +45,14 @@ struct MealView: View {
         loading = true
         Task {
             do {
+                let date = consumption.date ?? navigation.date
                 if consumption is GuessConsumption {
-                    let date = consumption.date ?? navigation.date
                     try await eetmeterAPI.deleteGuess(id: consumption.id, date: date)
                 } else {
                     try await eetmeterAPI.deleteProduct(id: consumption.id)
                 }
-                try await consumptionState.fetchDayConsumptions()
-                try await health.synchronizeConsumptions(day: navigation.date, consumptions: consumptionState.dayConsumptions)
+                try await consumptionState.fetchForDay(date)
+                try await health.synchronizeConsumptions(day: date, consumptions: consumptionState.getAllForDay(date))
                 loading = false
             } catch {
                 loading = false
