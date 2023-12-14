@@ -6,6 +6,7 @@ class GenericConsumption: Consumption {
     var date: Date?
     var meal: Meal?
     var amount: Double
+    var grams: Double?
     var energy: Double
     var carbohydrates: Double
     var protein: Double
@@ -61,13 +62,14 @@ class GenericConsumption: Consumption {
     var molybdenum: Double?
     var selenium: Double?
     
-    init(consumption: Eetmeter.Consumption, date: Date?) {
+    init(consumption: Eetmeter.Consumption, grams: Double, date: Date?) {
         let meal = Meal(rawValue: consumption.period)
         
         self.id = consumption.id
         self.date = date
         self.meal = meal
         self.amount = consumption.amount
+        self.grams = grams
         self.energy = consumption.energie
         self.carbohydrates = consumption.koolhydraten
         self.protein = consumption.eiwit

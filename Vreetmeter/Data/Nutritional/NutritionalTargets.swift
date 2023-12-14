@@ -6,7 +6,7 @@ import Foundation
  */
 
 struct NutritionalTargets {
-    let columnTargets: [SchijfVanVijfColumn:(min: Int, max: Int)] = [
+    let columnTargets: [SchijfVanVijfColumn:(min: Double, max: Double)] = [
         .vegetables: (min: 250, max: 250),
         .fruits: (min: 200, max: 200),
         .fats: (min: 65, max: 65),

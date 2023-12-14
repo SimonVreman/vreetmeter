@@ -44,7 +44,7 @@ enum SchijfVanVijfCategory: Int {
     }
 }
 
-enum SchijfVanVijfColumn: Int {
+enum SchijfVanVijfColumn: Int, CaseIterable {
     case vegetables = 1
     case fruits = 2
     case fats = 3
@@ -55,4 +55,19 @@ enum SchijfVanVijfColumn: Int {
     case bread = 8
     case grainAndPotatos = 9
     case drinks = 10
+    
+    func getLabel() -> String {
+        switch self {
+        case .vegetables: return "Vegetables"
+        case .fruits: return "Fruits"
+        case .fats: return "Fats"
+        case .fishAndMeat: return "Fish and meat"
+        case .nuts: return "Nuts"
+        case .dairy: return "Dairy"
+        case .cheese: return "Cheese"
+        case .bread: return "Bread"
+        case .grainAndPotatos: return "Grain and potatoes"
+        case .drinks: return "Drinks"
+        }
+    }
 }

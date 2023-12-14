@@ -16,7 +16,7 @@ struct DailySchijfVanVijfSummary: View {
         } else if percentage! >= 85 {
             return AnyView(Image(systemName: "checkmark.circle.fill").foregroundStyle(.white, .green))
         } else if percentage! >= 40 {
-            return AnyView(Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.white, .orange))
+            return AnyView(Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.white, .yellow))
         }
         return AnyView(Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.white, .red))
     }
@@ -36,7 +36,11 @@ struct DailySchijfVanVijfSummary: View {
         }.onTapGesture { showSheet.toggle() }
         .sheet(isPresented: $showSheet) {
             NavigationView {
-                VStack { }.navigationTitle("Overview")
+                VStack {
+                    ForEach(SchijfVanVijfColumn.allCases, id: \.self) {
+                        NutritionalTargetProgress(column: $0, consumptions: consumptions)
+                    }
+                }.navigationTitle("Overview")
             }.presentationBackground(.ultraThinMaterial)
         }
     }

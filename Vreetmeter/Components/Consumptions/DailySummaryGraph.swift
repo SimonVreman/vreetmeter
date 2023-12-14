@@ -45,7 +45,7 @@ struct DailySummaryGraph: View {
             if overLimit || (limit == nil && overGoal) {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .font(.caption)
-                    .foregroundStyle(.yellow)
+                    .foregroundStyle(.white, .yellow)
             }
         }.padding(1)
     }

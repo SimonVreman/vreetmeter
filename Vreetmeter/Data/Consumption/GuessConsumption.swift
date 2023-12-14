@@ -5,6 +5,7 @@ class GuessConsumption: Consumption {
     var id: UUID
     var date: Date?
     var meal: Meal?
+    var grams: Double?
     var energy: Double
     var carbohydrates: Double
     var protein: Double

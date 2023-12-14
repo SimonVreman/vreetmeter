@@ -36,12 +36,12 @@ import SwiftUI
             var consumption: Consumption
             var nutritional: EetmeterNutritional
             if (isBrand) {
-                consumption = BrandConsumption(consumption: c, date: day)
+                consumption = BrandConsumption(consumption: c, grams: consumed, date: day)
                 let product = try await self.api.getBrandProduct(id: c.brandProductId!)
                 let variant = product.product.preparationVariants.first { v in v.product.units.contains { u in u.id == c.productUnitId } }
                 nutritional = variant == nil || variant!.product.preparationMethod.isRaw ? product : variant!.product
             } else {
-                consumption = GenericConsumption(consumption: c, date: day)
+                consumption = GenericConsumption(consumption: c, grams: consumed, date: day)
                 let product = try await self.api.getProduct(id: c.productUnitId, isUnit: true)
                 nutritional = product.preparationVariants.first { v in v.product.units.contains { u in u.id == c.productUnitId } }!.product
             }
