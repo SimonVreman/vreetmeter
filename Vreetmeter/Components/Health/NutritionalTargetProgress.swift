@@ -31,7 +31,7 @@ struct NutritionalTargetProgress: View {
                     .font(.headline)
                 if progress > target.max {
                     Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundStyle(.white, .yellow)
+                        .foregroundStyle(.black, .yellow)
                 }
             }
             

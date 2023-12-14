@@ -16,7 +16,7 @@ struct DailySchijfVanVijfSummary: View {
         } else if percentage! >= 85 {
             return AnyView(Image(systemName: "checkmark.circle.fill").foregroundStyle(.white, .green))
         } else if percentage! >= 40 {
-            return AnyView(Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.white, .yellow))
+            return AnyView(Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.black, .yellow))
         }
         return AnyView(Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.white, .red))
     }
