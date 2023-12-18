@@ -137,4 +137,51 @@ extension Nutritional {
         self.iodine = convertMicrograms(p.jodium, self.iodine)
         self.selenium = convertMicrograms(p.selenium, self.selenium)
     }
+    
+    func getLabelForProperty(_ path: KeyPath<Nutritional, Any>) -> String {
+        switch path {
+        case \.energy: return "Energy"
+        case \.carbohydrates: return "Carbohydrates"
+        case \.protein: return "Protein"
+        case \.fat: return "Fat"
+            
+        case \.fiber: return "Fiber"
+        case \.sugar: return "Sugar"
+        case \.fatMonounsaturated: return "Fat monounsaturated"
+        case \.fatPolyunsaturated: return "Fat polyunsaturated"
+        case \.fatSaturated: return "Fat saturated"
+        case \.cholesterol: return "Cholesterol"
+            
+        case \.vitaminA: return "Vitamin A"
+        case \.thiamin: return "Thiamin"
+        case \.riboflavin: return "Riboflavin"
+        case \.niacin: return "Niacin"
+        case \.pantothenicAcid: return "Pantothenic acid"
+        case \.vitaminB6: return "Vitamin B6"
+        case \.biotin: return "Biotin"
+        case \.vitaminB12: return "Vitamin B12"
+        case \.vitaminC: return "Vitamin C"
+        case \.vitaminD: return "Vitamin D"
+        case \.vitaminE: return "Vitamin E"
+        case \.vitaminK: return "Vitamin K"
+        case \.folate: return "Folate"
+            
+        case \.calcium: return "Calcium"
+        case \.chloride: return "Chloride"
+        case \.iron: return "Iron"
+        case \.magnesium: return "Magnesium"
+        case \.phosphorus: return "Phosphorus"
+        case \.potassium: return "Potassium"
+        case \.sodium: return "Sodium"
+        case \.zinc: return "Zinc"
+            
+        case \.chromium: return "Chromium"
+        case \.copper: return "Copper"
+        case \.iodine: return "Iodine"
+        case \.manganese: return "Manganese"
+        case \.molybdenum: return "Molybdenum"
+        case \.selenium: return "Selenium"
+        default: return ""
+        }
+    }
 }
