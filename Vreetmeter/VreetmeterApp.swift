@@ -27,7 +27,7 @@ struct VreetmeterApp: App {
             TabView {
                 TrackingTab().tabItem { Label("Tracking", systemImage: "pencil.and.list.clipboard") }
                 ProgressTab().tabItem { Label("Progress", systemImage: "chart.xyaxis.line") }
-                MealsTab().tabItem { Label("Meals", systemImage: "stove") }
+                NutrientsTab().tabItem { Label("Nutrients", systemImage: "gauge.with.needle") }
                 FavoritesTab().tabItem { Label("Favorites", systemImage: "star") }
                 SettingsTab().tabItem { Label("Settings", systemImage: "gear") }
             }.onAppear {

@@ -1,10 +1,10 @@
 
 import SwiftUI
 
-struct MealsTab: View {
+struct NutrientsTab: View {
     var body: some View {
         NavigationView {
-            VStack { }.navigationTitle("Meals")
+            ScrollView { }.navigationTitle("Meals")
         }
     }
 }
