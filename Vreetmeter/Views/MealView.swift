@@ -51,7 +51,7 @@ struct MealView: View {
                 } else {
                     try await eetmeterAPI.deleteProduct(id: consumption.id)
                 }
-                try await consumptionState.fetchForDay(date)
+                try await consumptionState.fetchForDay(date, tryCache: false)
                 try await health.synchronizeConsumptions(day: date, consumptions: consumptionState.getAllForDay(date))
                 loading = false
             } catch {

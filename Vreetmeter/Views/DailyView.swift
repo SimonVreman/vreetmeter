@@ -16,9 +16,12 @@ struct DailyView: View {
             let mass = try await health.queryRecentBodyMass(date: navigation.date)
             DispatchQueue.main.async { bodyMass = mass }
         }
-        if (!refresh && consumptions.didFetchForDay(navigation.date)) { return }
-        try? await consumptions.fetchForDay(navigation.date)
-        try? await health.synchronizeConsumptions(day: navigation.date, consumptions: consumptions.getAllForDay(navigation.date))
+        if refresh {
+            try? await consumptions.fetchForDay(navigation.date, tryCache: false)
+            try? await health.synchronizeConsumptions(day: navigation.date, consumptions: consumptions.getAllForDay(navigation.date))
+        } else if !consumptions.didFetchForDay(navigation.date) {
+            try? await consumptions.fetchForDay(navigation.date, tryCache: true)
+        }
     }
     
     func changeDate(offset: Int) {

@@ -25,7 +25,7 @@ struct GuessSheet: View {
                 fat: fat / 100 * calories / 9,
                 carbs: carbs / 100 * calories / 4
             ))
-            try await consumptions.fetchForDay(date)
+            try await consumptions.fetchForDay(date, tryCache: false)
             try await health.synchronizeConsumptions(day: date, consumptions: consumptions.getAllForDay(date))
             
             await navigation.removeLast()

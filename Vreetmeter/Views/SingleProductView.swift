@@ -36,7 +36,7 @@ struct SingleProductView: View {
         
         Task {
             try? await eetmeterAPI.saveProduct(update: update)
-            try? await consumptions.fetchForDay(date)
+            try? await consumptions.fetchForDay(date, tryCache: false)
             try? await health.synchronizeConsumptions(day: date, consumptions: consumptions.getAllForDay(date))
             
             DispatchQueue.main.async {
