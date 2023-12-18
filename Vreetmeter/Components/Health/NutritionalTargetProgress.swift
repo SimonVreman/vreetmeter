@@ -17,7 +17,9 @@ struct NutritionalTargetProgress: View {
     }
     
     private var target: (min: Double, max: Double) {
-        NutritionalTargets().columnTargets[column]!
+        let target = NutritionalTargets().columnTargets[column]!
+        if target.min == nil { return (min: target.max ?? 0, max: target.max ?? 0) }
+        return (min: target.min ?? 0, max: target.max ?? target.min ?? 0)
     }
     
     var body: some View {
