@@ -19,7 +19,12 @@ import SwiftUI
         if (self.loggedIn) { Task { try await self.fetchFavorites() } }
     }
     
-    func fetchDayConsumptions(date: Date) async throws -> Eetmeter.DayConsumptions {
+    func fetchDayConsumptions(date: Date, tryCache: Bool = true) async throws -> Eetmeter.DayConsumptions {
+        if tryCache {
+            let cached = self.cache.getDayConsumptions(date: date)
+            if (cached != nil) { return cached! }
+        }
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
         let formattedDate = dateFormatter.string(from: date)
@@ -30,7 +35,9 @@ import SwiftUI
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .lowerCaseFirstCharacter
         decoder.dateDecodingStrategy = .eetmeterDate
-        return try decoder.decode(Eetmeter.DayConsumptions.self, from: data)
+        let decoded = try decoder.decode(Eetmeter.DayConsumptions.self, from: data)
+        self.cache.setDayConsumptions(consumptions: decoded)
+        return decoded
     }
     
     func fetchDayMeta(date: Date) async throws -> Eetmeter.DayMeta {

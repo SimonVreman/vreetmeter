@@ -2,13 +2,13 @@
 import Foundation
 
 extension Eetmeter {
-    struct DayConsumptions: Decodable, Equatable {
+    struct DayConsumptions: Codable, Equatable {
         var startDate: Date
         var endDate: Date
         var items: [Consumption]
     }
 
-    struct Consumption: Identifiable, Decodable, Equatable, Hashable {
+    struct Consumption: Identifiable, Codable, Equatable, Hashable {
         var id: UUID
         var active: Bool
         var amount: Double
