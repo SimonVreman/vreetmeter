@@ -34,12 +34,16 @@ struct DailySchijfVanVijfSummary: View {
                 .font(.system(.title, design: .rounded, weight: .semibold)) +
             Text("%").font(.system(.title, design: .rounded, weight: .semibold)).foregroundStyle(.secondary)
         }.onTapGesture { showSheet.toggle() }
-        .sheet(isPresented: $showSheet) {
+            .sheet(isPresented: $showSheet) {
             NavigationView {
-                VStack {
-                    ForEach(SchijfVanVijfColumn.allCases, id: \.self) {
-                        NutritionalTargetProgress(column: $0, consumptions: consumptions)
-                    }
+                ScrollView {
+                    VStack {
+                        ForEach(SchijfVanVijfColumn.allCases, id: \.self) { column in
+                            GroupBox {
+                                NutritionalTargetProgress(column: column, consumptions: consumptions)
+                            }.cardBackgroundAndShadow()
+                        }
+                    }.padding()
                 }.navigationTitle("Overview")
             }.presentationBackground(.ultraThinMaterial)
         }

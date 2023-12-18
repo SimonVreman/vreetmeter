@@ -20,45 +20,43 @@ struct NutritionalTargetProgress: View {
         NutritionalTargets().columnTargets[column]!
     }
     
-    private var xMax: Double {
-        max(Double(target.max), progress) * 1.2
-    }
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
+            let hasMax = target.max > target.min
             HStack {
                 Text(column.getLabel())
                     .font(.headline)
-                if progress > target.max {
+                if hasMax && progress > target.max {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundStyle(.black, .yellow)
                 }
+                Spacer()
+                let min = "\(Int(target.min))g"
+                let max = "\(Int(target.max))g"
+                Text(hasMax ? (min + " - " + max) : "> \(min)").font(.caption)
             }
             
             Chart {
                 BarMark(x: .value("Progress", progress))
                     .foregroundStyle(.blue)
                 
-                if target.max > target.min {
+                if hasMax {
                     RectangleMark(xStart: .value("", target.min), xEnd: .value("", target.max))
-                        .foregroundStyle(.background.secondary.opacity(0.8))
-                        .annotation(position: .overlay) {
-                            Text("Goal").font(.caption)
-                        }
+                        .foregroundStyle(.gray.secondary.blendMode(.colorBurn))
+                } else {
+                    RuleMark(x: .value("", target.min))
+                        .foregroundStyle(.gray.secondary.blendMode(.colorBurn))
+                        .lineStyle(StrokeStyle(lineWidth: 5))
                 }
             }.chartXAxis {
-                AxisMarks(
-                    values: [0, target.min] + (target.max > target.min ? [target.max] : [])
-                ) { value in
+                AxisMarks() { value in
                     AxisValueLabel {
                         let number = value.as(Double.self) ?? 0
                         Text("\(number, specifier: "%.0f")g")
                     }
                     AxisGridLine()
                 }
-            }
-                .chartXScale(domain: [0, xMax])
-                .chartLegend(.hidden)
+            }.chartLegend(.hidden)
                 .frame(height: 40)
         }
     }
