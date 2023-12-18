@@ -40,7 +40,12 @@ import SwiftUI
         return decoded
     }
     
-    func fetchDayMeta(date: Date) async throws -> Eetmeter.DayMeta {
+    func fetchDayMeta(date: Date, tryCache: Bool = true) async throws -> Eetmeter.DayMeta {
+        if tryCache {
+            let cached = self.cache.getDayMeta(date: date)
+            if (cached != nil) { return cached! }
+        }
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
         let formattedDate = dateFormatter.string(from: date)
@@ -63,6 +68,8 @@ import SwiftUI
             self.dayNotes[date] = note
             self.dayMetas[date] = meta
         }
+        
+        self.cache.setDayMeta(meta: meta, date: date)
         return meta
     }
     

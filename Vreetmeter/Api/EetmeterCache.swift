@@ -11,6 +11,7 @@ class EetmeterCache {
         case barcodeMapping = "barcode"
         case unitProductMapping = "unitProduct"
         case dayConsumptions = "dayConsumptions"
+        case dayMeta = "dayMeta"
     }
     
     private let cache: Storage<String, Data>?
@@ -66,11 +67,15 @@ class EetmeterCache {
     }
     
     func getDayConsumptions(date: Date) -> Eetmeter.DayConsumptions? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        let key = dateFormatter.string(from: date)
+        let key = self.getDateKey(date: date)
         guard let data = try? self.cache?.object(forKey: self.getKey(prefix: .dayConsumptions, id: key)) else { return nil }
         return try? self.decoder.decode(Eetmeter.DayConsumptions.self, from: data)
+    }
+    
+    func getDayMeta(date: Date) -> Eetmeter.DayMeta? {
+        let key = self.getDateKey(date: date)
+        guard let data = try? self.cache?.object(forKey: self.getKey(prefix: .dayMeta, id: key)) else { return nil }
+        return try? self.decoder.decode(Eetmeter.DayMeta.self, from: data)
     }
     
     func setProduct(product: Eetmeter.Product) {
@@ -97,10 +102,12 @@ class EetmeterCache {
     
     func setDayConsumptions(consumptions: Eetmeter.DayConsumptions) {
         guard let data = try? self.encoder.encode(consumptions) else { return }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        let key = dateFormatter.string(from: consumptions.startDate)
-        try? self.cache?.setObject(data, forKey: self.getKey(prefix: .dayConsumptions, id: key))
+        try? self.cache?.setObject(data, forKey: self.getKey(prefix: .dayConsumptions, id: self.getDateKey(date: consumptions.startDate)))
+    }
+    
+    func setDayMeta(meta: Eetmeter.DayMeta, date: Date) {
+        guard let data = try? self.encoder.encode(meta) else { return }
+        try? self.cache?.setObject(data, forKey: self.getKey(prefix: .dayMeta, id: self.getDateKey(date: date)))
     }
     
     func setProduct(product: Eetmeter.BrandProduct) {
@@ -125,6 +132,12 @@ class EetmeterCache {
         guard let data = try? self.cache?.object(forKey: key) else { return nil }
         let uuidString = String(decoding: data, as: UTF8.self)
         return UUID(uuidString: uuidString)
+    }
+    
+    private func getDateKey(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        return dateFormatter.string(from: date)
     }
     
     private func getKey(prefix: Prefix, id: String) -> String {

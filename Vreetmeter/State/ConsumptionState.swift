@@ -18,13 +18,13 @@ import SwiftUI
         return self.daysFetched.contains(day.startOfDay)
     }
     
-    func fetchForDay(_ day: Date) async throws {
+    func fetchForDay(_ day: Date, tryCache: Bool = true) async throws {
         let day = day.startOfDay
         
         // Fetch required data from the API
         // TODO: make it work in parallel
-        let dayConsumptions = try await self.api.fetchDayConsumptions(date: day)
-        let dayMeta = try await self.api.fetchDayMeta(date: day)
+        let dayConsumptions = try await self.api.fetchDayConsumptions(date: day, tryCache: tryCache)
+        let dayMeta = try await self.api.fetchDayMeta(date: day, tryCache: tryCache)
         
         // Transform to proper types
         var filledConsumptions: [Consumption] = []
