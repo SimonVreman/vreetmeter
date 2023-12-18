@@ -21,6 +21,16 @@ struct DailySchijfVanVijfSummary: View {
         return AnyView(Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.white, .red))
     }
     
+    private func columnProgress(_ column: SchijfVanVijfColumn) -> Double {
+        return consumptions.reduce(0) {
+            if ($1.schijfVanVijfColumn == column) {
+                return $0 + ($1.grams ?? 0)
+            } else {
+                return $0
+            }
+        }
+    }
+    
     var body: some View {
         HStack {
             SchijfVanVijfIcon(highlighted: consumptions.schijfVanVijfCategories, empty: consumptions.isEmpty)
@@ -40,7 +50,12 @@ struct DailySchijfVanVijfSummary: View {
                     VStack {
                         ForEach(SchijfVanVijfColumn.allCases, id: \.self) { column in
                             GroupBox {
-                                NutritionalTargetProgress(column: column, consumptions: consumptions)
+                                NutritionalTargetProgress(
+                                    label: column.getLabel(),
+                                    target: column.getTarget(),
+                                    unit: NutritionUnit.gram,
+                                    progress: self.columnProgress(column)
+                                )
                             }.cardBackgroundAndShadow()
                         }
                     }.padding()

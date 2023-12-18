@@ -3,90 +3,143 @@ import SwiftUI
 import Charts
 
 struct NutritionalTargetProgress: View {
-    var column: SchijfVanVijfColumn
-    var consumptions: [Consumption]
+    var label: String
+    var target: NutritionalTarget
+    var unit: NutritionUnit
+    var progress: Double
     
-    private var progress: Double {
-        consumptions.reduce(0) {
-            if ($1.schijfVanVijfColumn == column) {
-                return $0 + ($1.grams ?? 0)
-            } else {
-                return $0
-            }
-        }
+    var domainEnd: Double {
+        let maximum = max(progress, target.dangerMax ?? target.max ?? target.min ?? 0)
+        return maximum * 1.2
     }
     
-    private var target: (min: Double, max: Double) {
-        let target = NutritionalTargets().columnTargets[column]!
-        if target.min == nil { return (min: target.max ?? 0, max: target.max ?? 0) }
-        return (min: target.min ?? 0, max: target.max ?? target.min ?? 0)
+    var rangeLabel: String {
+        let hasMax = (target.dangerMax ?? target.max) != nil
+        let hasMin = (target.dangerMin ?? target.min) != nil
+        let maxLabel = "\(Int(target.max ?? target.dangerMax ?? 0))\(unit.rawValue)"
+        let minLabel = "\(Int(target.min ?? target.dangerMin ?? 0))\(unit.rawValue)"
+        if hasMin && hasMax {
+            return "\(minLabel) - \(maxLabel)"
+        } else if hasMin {
+            return "> \(minLabel)"
+        } else if hasMax {
+            return "< \(maxLabel)"
+        }
+        return ""
+    }
+    
+    var zoneIcon: AnyView {
+        let dangerMin = target.dangerMin != nil && progress < target.dangerMin!
+        let dangerMax = target.dangerMax != nil && progress > target.dangerMax!
+        
+        if dangerMin || dangerMax {
+            return AnyView(Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundStyle(.white, .red))
+        }
+        
+        let warningMin = target.min != nil && progress < target.min!
+        let warningMax = target.max != nil && progress > target.max!
+        
+        if warningMin || warningMax {
+            return AnyView(Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundStyle(.black, .yellow))
+        }
+        
+        return AnyView(Image(systemName: "checkmark.circle.fill")
+            .foregroundStyle(.white, .green))
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            let hasMax = target.max > target.min
             HStack {
-                Text(column.getLabel())
-                    .font(.headline)
-                if hasMax && progress > target.max {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundStyle(.black, .yellow)
-                }
+                Text(label).font(.headline)
+                zoneIcon
                 Spacer()
-                let min = "\(Int(target.min))g"
-                let max = "\(Int(target.max))g"
-                Text(hasMax ? (min + " - " + max) : "> \(min)").font(.caption)
+                Text(rangeLabel).font(.caption)
+                    .foregroundStyle(.secondary)
             }
             
             Chart {
-                BarMark(x: .value("Progress", progress))
-                    .foregroundStyle(.blue)
-                
-                if hasMax {
-                    RectangleMark(xStart: .value("", target.min), xEnd: .value("", target.max))
-                        .foregroundStyle(.gray.secondary.blendMode(.colorBurn))
-                } else {
-                    RuleMark(x: .value("", target.min))
-                        .foregroundStyle(.gray.secondary.blendMode(.colorBurn))
-                        .lineStyle(StrokeStyle(lineWidth: 5))
+                // Dangerously low
+                if target.dangerMin != nil {
+                    RectangleMark(
+                        xStart: .value("start", 0),
+                        xEnd: .value("end", target.dangerMin!)
+                    ).foregroundStyle(.red).opacity(0.4)
                 }
+                
+                // Low
+                if target.min != nil {
+                    RectangleMark(
+                        xStart: .value("start", target.dangerMin ?? 0),
+                        xEnd: .value("end", target.min!)
+                    ).foregroundStyle(.yellow).opacity(0.4)
+                }
+                
+                // Normal
+                RectangleMark(
+                    xStart: .value("start", target.min ?? target.dangerMin ?? 0),
+                    xEnd: .value("end", target.max ?? target.dangerMax ?? domainEnd)
+                ).foregroundStyle(.green).opacity(0.4)
+                
+                // High
+                if target.max != nil {
+                    RectangleMark(
+                        xStart: .value("start", target.max!),
+                        xEnd: .value("end", target.dangerMax ?? domainEnd)
+                    ).foregroundStyle(.yellow).opacity(0.4)
+                }
+                
+                // Dangerously high
+                if target.dangerMax != nil {
+                    RectangleMark(
+                        xStart: .value("start", target.dangerMax!),
+                        xEnd: .value("end", domainEnd)
+                    ).foregroundStyle(.red).opacity(0.4)
+                }
+                
+                RuleMark(x: .value("progress", progress))
+                    .foregroundStyle(.blue)
+                    .annotation(position: .trailing) {
+                        ZStack {
+                            let specifier = progress > 10 ? "%.0f" : "%.1f"
+                            Text("\(progress, specifier: "%.0f")\(unit.rawValue)")
+                                .font(.caption)
+                                .foregroundStyle(.white)
+                                .padding(1)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 2).fill(.blue)
+                                }
+                        }
+                    }
             }.chartXAxis {
                 AxisMarks() { value in
                     AxisValueLabel {
                         let number = value.as(Double.self) ?? 0
-                        Text("\(number, specifier: "%.0f")g")
+                        Text("\(number, specifier: "%.0f")\(unit.rawValue)")
                     }
                     AxisGridLine()
                 }
             }.chartLegend(.hidden)
                 .frame(height: 40)
+                .chartXScale(domain: [0, domainEnd])
         }
     }
 }
 
 #Preview {
     VStack {
-        var consumption = Eetmeter.Consumption(id: UUID(), active: true, amount: 1, brandName: "", consumptionDate: Date.now, createdDate: Date.now, eiwit: 0, eiwitPlantaardig: 0, energie: 0, fosfor: 0, isCombinedProduct: false, isDaily: false, koolhydraten: 0, natrium: 0, period: 0, preparationMethodName: "", productName: "", productType: 0, productUnitId: UUID(), suikers: 0, svvCategory: "", svvColumn: SchijfVanVijfColumn.dairy.rawValue, unitName: "", updatedDate: Date.now, verzadigdVet: 0, vet: 0, vezels: 0, webAccountId: UUID(), zout: 0)
-        
-        NutritionalTargetProgress(column: .dairy, consumptions: [])
-        NutritionalTargetProgress(column: .dairy, consumptions: [
-            GenericConsumption(consumption: consumption, grams: 126, date: Date.now)
-        ])
-        NutritionalTargetProgress(column: .dairy, consumptions: [
-            GenericConsumption(consumption: consumption, grams: 371, date: Date.now)
-        ])
-        NutritionalTargetProgress(column: .dairy, consumptions: [
-            GenericConsumption(consumption: consumption, grams: 621, date: Date.now)
-        ])
-        
-        let _ = consumption.svvColumn = SchijfVanVijfColumn.nuts.rawValue
-        NutritionalTargetProgress(column: .nuts, consumptions: [
-            GenericConsumption(consumption: consumption, grams: 50, date: Date.now)
-        ])
-        
-        let _ = consumption.svvColumn = SchijfVanVijfColumn.grainAndPotatos.rawValue
-        NutritionalTargetProgress(column: .grainAndPotatos, consumptions: [
-            GenericConsumption(consumption: consumption, grams: 220, date: Date.now)
-        ])
+        NutritionalTargetProgress(
+            label: NutritionalProperties.getLabelForProperty(\.vitaminA)!,
+            target: NutritionalProperties.getTargetForProperty(\.vitaminA)!,
+            unit: NutritionUnit.microgram,
+            progress: 380.7
+        )
+        NutritionalTargetProgress(
+            label: NutritionalProperties.getLabelForProperty(\.vitaminB12)!,
+            target: NutritionalProperties.getTargetForProperty(\.vitaminB12)!,
+            unit: NutritionUnit.microgram,
+            progress: 10.4
+        )
     }
 }

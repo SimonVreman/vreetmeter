@@ -70,4 +70,19 @@ enum SchijfVanVijfColumn: Int, CaseIterable {
         case .drinks: return "Drinks"
         }
     }
+    
+    func getTarget() -> NutritionalTarget {
+        switch self {
+        case .vegetables: return NutritionalTarget(dangerMin: 250, min: 250, max: nil, dangerMax: nil)
+        case .fruits: return NutritionalTarget(dangerMin: 200, min: 200, max: nil, dangerMax: nil)
+        case .fats: return NutritionalTarget(dangerMin: 65, min: 65, max: nil, dangerMax: nil)
+        case .fishAndMeat: return NutritionalTarget(dangerMin: 100, min: 100, max: nil, dangerMax: nil)
+        case .nuts: return NutritionalTarget(dangerMin: 25, min: 25, max: nil, dangerMax: nil)
+        case .dairy: return NutritionalTarget(dangerMin: 300, min: 300, max: 450, dangerMax: nil)
+        case .cheese: return NutritionalTarget(dangerMin: 40, min: 40, max: nil, dangerMax: nil)
+        case .bread: return NutritionalTarget(dangerMin: 210, min: 210, max: 280, dangerMax: nil)
+        case .grainAndPotatos: return NutritionalTarget(dangerMin: 200, min: 200, max: 350, dangerMax: nil)
+        case .drinks: return NutritionalTarget(dangerMin: 1500, min: 1500, max: 2000, dangerMax: nil)
+        }
+    }
 }

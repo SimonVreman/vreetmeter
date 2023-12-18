@@ -99,6 +99,12 @@ protocol Nutritional {
     var selenium: Double? { get set }
 }
 
+enum NutritionUnit: String {
+    case gram = "g"
+    case milligram = "mg"
+    case microgram = "μg"
+}
+
 extension Nutritional {
     mutating func fillOptionalNutrionalValues(p: EetmeterNutritional, consumed: Double?) {
         let consumedFactor = consumed != nil ? consumed! / 100 : 1
@@ -137,8 +143,10 @@ extension Nutritional {
         self.iodine = convertMicrograms(p.jodium, self.iodine)
         self.selenium = convertMicrograms(p.selenium, self.selenium)
     }
-    
-    func getLabelForProperty(_ path: KeyPath<Nutritional, Any>) -> String {
+}
+
+enum NutritionalProperties {
+    static func getLabelForProperty(_ path: PartialKeyPath<Nutritional>) -> String? {
         switch path {
         case \.energy: return "Energy"
         case \.carbohydrates: return "Carbohydrates"
@@ -181,7 +189,40 @@ extension Nutritional {
         case \.manganese: return "Manganese"
         case \.molybdenum: return "Molybdenum"
         case \.selenium: return "Selenium"
-        default: return ""
+        default: return nil
+        }
+    }
+    
+    static func getTargetForProperty(_ path: PartialKeyPath<Nutritional>) -> NutritionalTarget? {
+        switch path {
+        case \.fiber: return NutritionalTarget(dangerMin: 9.6, min: 14.2, max: nil, dangerMax: nil, per1000kcal: true)
+        case \.fatSaturated: return NutritionalTarget(dangerMin: nil, min: nil, max: 11.1, dangerMax: 14.4, per1000kcal: true)
+
+        // Vitamins
+        case \.vitaminA: return NutritionalTarget(dangerMin: 615, min: 800, max: 3000, dangerMax: 3000)
+        case \.thiamin: return NutritionalTarget(dangerMin: 0.3, min: 0.4, max: nil, dangerMax: nil, per1000kcal: true)
+        case \.riboflavin: return NutritionalTarget(dangerMin: 1.3, min: 1.6, max: nil, dangerMax: nil)
+        case \.niacin: return NutritionalTarget(dangerMin: 5.4, min: 6.7, max: nil, dangerMax: nil, per1000kcal: true)
+        case \.vitaminB6: return NutritionalTarget(dangerMin: 1.1, min: 1.5, max: 12, dangerMax: 12)
+        case \.vitaminB12: return NutritionalTarget(dangerMin: 2, min: 2.8, max: nil, dangerMax: nil)
+        case \.vitaminC: return NutritionalTarget(dangerMin: 60, min: 80, max: 2000, dangerMax: nil)
+        case \.vitaminD: return NutritionalTarget(dangerMin: nil, min: 3, max: 100, dangerMax: 100)
+        case \.vitaminE: return NutritionalTarget(dangerMin: nil, min: nil, max: nil, dangerMax: 300)
+        case \.folate: return NutritionalTarget(dangerMin: 200, min: 300, max: 2000, dangerMax: 2000)
+
+        // Minerals
+        case \.calcium: return NutritionalTarget(dangerMin: 860, min: 1000, max: 2500, dangerMax: 2500)
+        case \.iron: return NutritionalTarget(dangerMin: 6, min: 11, max: 25, dangerMax: 25)
+        case \.magnesium: return NutritionalTarget(dangerMin: 300, min: 350, max: 850, dangerMax: nil)
+        case \.phosphorus: return NutritionalTarget(dangerMin: nil, min: nil, max: nil, dangerMax: 3000)
+        case \.potassium: return NutritionalTarget(dangerMin: 1600, min: 3500, max: nil, dangerMax: nil)
+        case \.sodium: return NutritionalTarget(dangerMin: 575, min: 1500, max: 2400, dangerMax: 2400)
+        case \.zinc: return NutritionalTarget(dangerMin: 6.4, min: 9, max: 25, dangerMax: 25)
+
+        // Ultratrace Minerals
+        case \.iodine: return NutritionalTarget(dangerMin: 100, min: 150, max: 600, dangerMax: 600)
+        case \.selenium: return NutritionalTarget(dangerMin: 15, min: 15, max: 255, dangerMax: 255)
+        default: return nil
         }
     }
 }
