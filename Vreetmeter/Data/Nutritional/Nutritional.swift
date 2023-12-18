@@ -103,38 +103,38 @@ extension Nutritional {
     mutating func fillOptionalNutrionalValues(p: EetmeterNutritional, consumed: Double?) {
         let consumedFactor = consumed != nil ? consumed! / 100 : 1
         
-        let convertGrams = { (amount: Double?) -> Double? in amount != nil ? amount! * consumedFactor : nil }
-        let convertMilligrams = { (amount: Double?) -> Double? in amount != nil ? amount! * consumedFactor / 1_000 : nil }
-        let convertMicrograms = { (amount: Double?) -> Double? in amount != nil ? amount! * consumedFactor / 1_000_000 : nil }
+        let convertGrams = { (amount: Double?, fallback: Double?) -> Double? in amount != nil ? amount! * consumedFactor : fallback }
+        let convertMilligrams = { (amount: Double?, fallback: Double?) -> Double? in amount != nil ? amount! * consumedFactor / 1_000 : fallback }
+        let convertMicrograms = { (amount: Double?, fallback: Double?) -> Double? in amount != nil ? amount! * consumedFactor / 1_000_000 : fallback }
         
         // Macronutrients
-        self.fiber = convertGrams(p.vezels)
-        self.sugar = convertGrams(p.suikers)
-        self.fatSaturated = convertGrams(p.verzadigdVet)
+        self.fiber = convertGrams(p.vezels, self.fiber)
+        self.sugar = convertGrams(p.suikers, self.sugar)
+        self.fatSaturated = convertGrams(p.verzadigdVet, self.fatSaturated)
 
         // Vitamins
-        self.vitaminA = convertMicrograms(p.vitamineA)
-        self.thiamin = convertMilligrams(p.vitamineB1)
-        self.riboflavin = convertMilligrams(p.vitamineB2)
-        self.niacin = convertMilligrams(p.nicotinezuur)
-        self.vitaminB6 = convertMilligrams(p.vitamineB6)
-        self.vitaminB12 = convertMicrograms(p.vitamineB12)
-        self.vitaminC = convertMilligrams(p.vitamineC)
-        self.vitaminD = convertMicrograms(p.vitamineD)
-        self.vitaminE = convertMilligrams(p.vitamineE)
-        self.folate = convertMicrograms(p.foliumzuur)
+        self.vitaminA = convertMicrograms(p.vitamineA, self.vitaminA)
+        self.thiamin = convertMilligrams(p.vitamineB1, self.thiamin)
+        self.riboflavin = convertMilligrams(p.vitamineB2, self.riboflavin)
+        self.niacin = convertMilligrams(p.nicotinezuur, self.niacin)
+        self.vitaminB6 = convertMilligrams(p.vitamineB6, self.vitaminB6)
+        self.vitaminB12 = convertMicrograms(p.vitamineB12, self.vitaminB12)
+        self.vitaminC = convertMilligrams(p.vitamineC, self.vitaminC)
+        self.vitaminD = convertMicrograms(p.vitamineD, self.vitaminD)
+        self.vitaminE = convertMilligrams(p.vitamineE, self.vitaminE)
+        self.folate = convertMicrograms(p.foliumzuur, self.folate)
         
         // Minerals
-        self.calcium = convertMilligrams(p.calcium)
-        self.iron = convertMilligrams(p.iJzer)
-        self.magnesium = convertMilligrams(p.magnesium)
-        self.phosphorus = convertMilligrams(p.fosfor)
-        self.potassium = convertMilligrams(p.kalium)
-        self.sodium = convertMilligrams(p.natrium)
-        self.zinc = convertMilligrams(p.zink)
+        self.calcium = convertMilligrams(p.calcium, self.calcium)
+        self.iron = convertMilligrams(p.iJzer, self.iron)
+        self.magnesium = convertMilligrams(p.magnesium, self.magnesium)
+        self.phosphorus = convertMilligrams(p.fosfor, self.phosphorus)
+        self.potassium = convertMilligrams(p.kalium, self.potassium)
+        self.sodium = convertMilligrams(p.natrium, self.sodium)
+        self.zinc = convertMilligrams(p.zink, self.zinc)
 
         // Ultratrace Minerals
-        self.iodine = convertMicrograms(p.jodium)
-        self.selenium = convertMicrograms(p.selenium)
+        self.iodine = convertMicrograms(p.jodium, self.iodine)
+        self.selenium = convertMicrograms(p.selenium, self.selenium)
     }
 }

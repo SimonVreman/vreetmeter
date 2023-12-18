@@ -29,25 +29,8 @@ import SwiftUI
         // Transform to proper types
         var filledConsumptions: [Consumption] = []
         for c in dayConsumptions.items {
-            let isBrand = c.brandProductId != nil
-            let unit = try await self.api.getUnit(id: c.productUnitId)
-            let consumed = c.amount * Double(unit.gramsPerUnit)
-            
-            var consumption: Consumption
-            var nutritional: EetmeterNutritional
-            if (isBrand) {
-                consumption = BrandConsumption(consumption: c, grams: consumed, date: day)
-                let product = try await self.api.getBrandProduct(id: c.brandProductId!)
-                let variant = product.product.preparationVariants.first { v in v.product.units.contains { u in u.id == c.productUnitId } }
-                nutritional = variant == nil || variant!.product.preparationMethod.isRaw ? product : variant!.product
-            } else {
-                consumption = GenericConsumption(consumption: c, grams: consumed, date: day)
-                let product = try await self.api.getProduct(id: c.productUnitId, isUnit: true)
-                nutritional = product.preparationVariants.first { v in v.product.units.contains { u in u.id == c.productUnitId } }!.product
-            }
-            
-            consumption.fillOptionalNutrionalValues(p: nutritional, consumed: consumed)
-            filledConsumptions.append(consumption)
+            let consumption = try? await self.createConsumptionObject(c, day: day)
+            if consumption != nil { filledConsumptions.append(consumption!) }
         }
         
         let regularConsumptions = filledConsumptions
@@ -66,5 +49,47 @@ import SwiftUI
             self.consumptions.append(contentsOf: guessConsumptions)
             self.daysFetched.insert(day)
         }
+    }
+    
+    private func createConsumptionObject(_ c: Eetmeter.Consumption, day: Date) async throws -> Consumption? {
+        let isBrand = c.brandProductId != nil
+        let unit = try await self.api.getUnit(id: c.productUnitId)
+        let consumed = c.amount * Double(unit.gramsPerUnit)
+        
+        if (isBrand) {
+            var consumption = BrandConsumption(consumption: c, grams: consumed, date: day)
+            let product = try await self.api.getBrandProduct(id: c.brandProductId!)
+            let variant = product.product.preparationVariants.first { v in v.product.units.contains { u in u.id == c.productUnitId } }
+            
+            // For brand consumptions, we have three different data sources
+            //   1. The brand nutritional values, if product is raw
+            //   2. A fallback to generic nutritional values, if the product is raw
+            //   3. The preparation variant values, if product is not raw and we have such a variant
+            
+            if variant != nil && !variant!.product.preparationMethod.isRaw {
+                consumption.fillOptionalNutrionalValues(p: variant!.product, consumed: consumed) // Source 3.
+                return consumption
+            }
+            
+            let genericNutritional: EetmeterNutritional?
+            if variant != nil {
+                genericNutritional = variant!.product
+            } else {
+                let baseProductId = product.product.baseProductId
+                let baseProduct = baseProductId != nil ? try? await self.api.getBaseProduct(id: baseProductId!) : nil
+                genericNutritional = baseProduct?.products.first
+            }
+            
+            if genericNutritional != nil { consumption.fillOptionalNutrionalValues(p: genericNutritional!, consumed: consumed) } // Source 2.
+            consumption.fillOptionalNutrionalValues(p: product, consumed: consumed) // Source 1.
+            
+            return consumption
+        }
+        
+        var consumption = GenericConsumption(consumption: c, grams: consumed, date: day)
+        let product = try await self.api.getProduct(id: c.productUnitId, isUnit: true)
+        let nutritional = product.preparationVariants.first { v in v.product.units.contains { u in u.id == c.productUnitId } }!.product
+        consumption.fillOptionalNutrionalValues(p: nutritional, consumed: consumed)
+        return consumption
     }
 }

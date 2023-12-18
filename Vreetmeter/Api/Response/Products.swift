@@ -2,11 +2,42 @@
 import Foundation
 
 extension Eetmeter {
-    struct Product: Codable, Hashable, Identifiable {
+    struct Product: Codable, Hashable, Identifiable, EetmeterNutritional {
         let id: UUID
         let baseProductId: UUID?
         let baseProductName: String?
         let preparationVariants: [PreparationVariant]
+        
+        var alcohol: Double?
+        var calcium: Double?
+        var eiwit: Double?
+        var eiwitPlantaardig: Double?
+        var energie: Double?
+        var foliumzuur: Double?
+        var fosfor: Double?
+        var iJzer: Double?
+        var jodium: Double?
+        var kalium: Double?
+        var koolhydraten: Double?
+        var magnesium: Double?
+        var natrium: Double?
+        var nicotinezuur: Double?
+        var selenium: Double?
+        var suikers: Double?
+        var verzadigdVet: Double?
+        var vet: Double?
+        var vezels: Double?
+        var vitamineA: Double?
+        var vitamineB1: Double?
+        var vitamineB12: Double?
+        var vitamineB2: Double?
+        var vitamineB6: Double?
+        var vitamineC: Double?
+        var vitamineD: Double?
+        var vitamineE: Double?
+        var water: Double?
+        var zink: Double?
+        var zout: Double?
     }
     
     struct PreparationVariant: Codable, Hashable {
