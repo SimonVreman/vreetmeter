@@ -10,7 +10,7 @@ struct NutritionalTargetProgress: View {
     
     var domainEnd: Double {
         let maximum = max(progress, target.dangerMax ?? target.max ?? target.min ?? 0)
-        return maximum * 1.2
+        return maximum * 1.3
     }
     
     var rangeLabel: String {
@@ -52,8 +52,8 @@ struct NutritionalTargetProgress: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
-                Text(label).font(.headline)
                 zoneIcon
+                Text(label).font(.headline)
                 Spacer()
                 Text(rangeLabel).font(.caption)
                     .foregroundStyle(.secondary)
@@ -99,16 +99,16 @@ struct NutritionalTargetProgress: View {
                 }
                 
                 RuleMark(x: .value("progress", progress))
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(.black)
                     .annotation(position: .trailing) {
                         ZStack {
                             let specifier = progress > 10 ? "%.0f" : "%.1f"
-                            Text("\(progress, specifier: "%.0f")\(unit.rawValue)")
+                            Text("\(progress, specifier: specifier)\(unit.rawValue)")
                                 .font(.caption)
                                 .foregroundStyle(.white)
                                 .padding(1)
                                 .background {
-                                    RoundedRectangle(cornerRadius: 2).fill(.blue)
+                                    RoundedRectangle(cornerRadius: 2).fill(.black)
                                 }
                         }
                     }
