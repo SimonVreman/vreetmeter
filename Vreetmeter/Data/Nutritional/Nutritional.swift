@@ -225,4 +225,65 @@ enum NutritionalProperties {
         default: return nil
         }
     }
+    
+    static func getUnitForProperty(_ path: PartialKeyPath<Nutritional>) -> NutritionUnit? {
+        switch path {
+        case \.carbohydrates: fallthrough
+        case \.protein: fallthrough
+        case \.fat: fallthrough
+        case \.fiber: fallthrough
+        case \.sugar: fallthrough
+        case \.fatSaturated: return .gram
+        case \.thiamin: fallthrough
+        case \.riboflavin: fallthrough
+        case \.niacin: fallthrough
+        case \.vitaminB6: fallthrough
+        case \.vitaminC: fallthrough
+        case \.vitaminE: fallthrough
+        case \.calcium: fallthrough
+        case \.iron: fallthrough
+        case \.magnesium: fallthrough
+        case \.phosphorus: fallthrough
+        case \.potassium: fallthrough
+        case \.sodium: fallthrough
+        case \.zinc: return .milligram
+        case \.vitaminA: fallthrough
+        case \.vitaminB12: fallthrough
+        case \.vitaminD: fallthrough
+        case \.folate: fallthrough
+        case \.iodine: fallthrough
+        case \.selenium: return .microgram
+        default: return nil
+        }
+    }
+    
+    static let propertiesWithTarget: [PartialKeyPath<Nutritional>] = [
+        \.fiber,
+        \.fatSaturated,
+         
+        // Vitamins
+        \.vitaminA,
+        \.thiamin,
+        \.riboflavin,
+        \.niacin,
+        \.vitaminB6,
+        \.vitaminB12,
+        \.vitaminC,
+        \.vitaminD,
+        \.vitaminE,
+        \.folate,
+
+        // Minerals
+        \.calcium,
+        \.iron,
+        \.magnesium,
+        \.phosphorus,
+        \.potassium,
+        \.sodium,
+        \.zinc,
+
+        // Ultratrace Minerals
+        \.iodine,
+        \.selenium
+    ]
 }

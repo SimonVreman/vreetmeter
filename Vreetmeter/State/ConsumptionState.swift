@@ -14,8 +14,24 @@ import SwiftUI
         return self.consumptions.filter { c in c.date?.startOfDay == day.startOfDay }
     }
     
+    func getAllForRange(start: Date, days: Int) -> [any Consumption] {
+        var result: [Consumption] = []
+        for i in 0..<Int(days) {
+            let day = Calendar.current.date(byAdding: .day, value: i, to: start)!
+            result.append(contentsOf: getAllForDay(day))
+        }
+        return result
+    }
+    
     func didFetchForDay(_ day: Date) -> Bool {
         return self.daysFetched.contains(day.startOfDay)
+    }
+    
+    func fetchForRange(start: Date, days: Int) async throws {
+        for i in 0..<Int(days) {
+            let day = Calendar.current.date(byAdding: .day, value: i, to: start)!
+            try await self.fetchForDay(day)
+        }
     }
     
     func fetchForDay(_ day: Date, tryCache: Bool = true) async throws {
