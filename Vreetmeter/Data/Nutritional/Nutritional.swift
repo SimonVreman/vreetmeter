@@ -256,34 +256,4 @@ enum NutritionalProperties {
         default: return nil
         }
     }
-    
-    static let propertiesWithTarget: [PartialKeyPath<Nutritional>] = [
-        \.fiber,
-        \.fatSaturated,
-         
-        // Vitamins
-        \.vitaminA,
-        \.thiamin,
-        \.riboflavin,
-        \.niacin,
-        \.vitaminB6,
-        \.vitaminB12,
-        \.vitaminC,
-        \.vitaminD,
-        \.vitaminE,
-        \.folate,
-
-        // Minerals
-        \.calcium,
-        \.iron,
-        \.magnesium,
-        \.phosphorus,
-        \.potassium,
-        \.sodium,
-        \.zinc,
-
-        // Ultratrace Minerals
-        \.iodine,
-        \.selenium
-    ]
 }
