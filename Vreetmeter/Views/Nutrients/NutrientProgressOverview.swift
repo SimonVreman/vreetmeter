@@ -17,6 +17,8 @@ private struct ProgressItem: View {
 
 struct NutrientProgressOverview: View {
     @Environment(ConsumptionState.self) var consumptionState
+    @State private var startDate: Date = Date.now.startOfDay
+    @State private var endDate: Date = Date.now.startOfDay
     @State private var consumptions: [Consumption]?
     
     private let days: Int = 7
@@ -29,10 +31,9 @@ struct NutrientProgressOverview: View {
     }
     
     private func fetchConsumptions() async throws {
-        let start = Calendar.current.date(byAdding: .day, value: -self.days - 1, to: Date.now)!
-        try await self.consumptionState.fetchForRange(start: start, days: self.days)
+        try await self.consumptionState.fetchForRange(start: startDate, days: self.days)
         await MainActor.run {
-            self.consumptions = self.consumptionState.getAllForRange(start: start, days: self.days)
+            self.consumptions = self.consumptionState.getAllForRange(start: startDate, days: self.days)
         }
     }
     
@@ -54,11 +55,12 @@ struct NutrientProgressOverview: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             if consumptions != nil {
-                Text("placeholder timeframe")
+                let start = startDate.formatted(.dateTime.day(.defaultDigits).month(.abbreviated))
+                let end = endDate.formatted(.dateTime.day(.defaultDigits).month(.abbreviated))
+                Text("\(start) to \(end)")
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundStyle(.secondary)
-                Text("Excluding guesses").foregroundStyle(.tertiary)
                 
                 GroupBox { VStack {
                     ProgressItem(property: \.fiber, progress: self.calculateProgress(\.fiber))
@@ -116,7 +118,11 @@ struct NutrientProgressOverview: View {
             } else {
                 ProgressView().centered()
             }
-        }.onAppear { Task { try await self.fetchConsumptions() } }
+        }.onAppear {
+            endDate = Calendar.current.date(byAdding: .second, value: -1, to: Date.now.startOfDay)!
+            startDate = Calendar.current.date(byAdding: .day, value: -self.days, to: endDate)!
+            Task { try await self.fetchConsumptions() }
+        }
             .padding([.horizontal, .bottom])
     }
 }
