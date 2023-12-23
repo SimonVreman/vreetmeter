@@ -63,8 +63,11 @@ struct NutritionalTargetProgress: View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
                 zoneIcon
-                Text(label).font(.headline) +
-                Text("\(progress, specifier: specifier)\(unit.rawValue)").font(.headline)
+                VStack(alignment: .leading) {
+                    Text(label).font(.headline)
+                    Text("\(progress, specifier: specifier)\(unit.rawValue)")
+                        .font(.subheadline)
+                }
                 Spacer()
                 Text(rangeLabel).font(.caption)
                     .foregroundStyle(.secondary)
@@ -111,6 +114,7 @@ struct NutritionalTargetProgress: View {
                 
                 RuleMark(x: .value("progress", progress))
                     .foregroundStyle(.black)
+                    .lineStyle(StrokeStyle(lineWidth: 2))
             }.chartXAxis {
                 AxisMarks() { value in
                     AxisValueLabel {
