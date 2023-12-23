@@ -13,17 +13,27 @@ struct NutritionalTargetProgress: View {
         return maximum * 1.3
     }
     
-    var rangeLabel: String {
+    var specifier: String {
+        if domainEnd > 100 {
+            return "%.0f"
+        } else if domainEnd > 10 {
+            return "%.1f"
+        }
+        return "%.2f"
+    }
+    
+    var rangeLabel: LocalizedStringKey {
         let hasMax = (target.dangerMax ?? target.max) != nil
         let hasMin = (target.dangerMin ?? target.min) != nil
-        let maxLabel = "\(Int(target.max ?? target.dangerMax ?? 0))\(unit.rawValue)"
-        let minLabel = "\(Int(target.min ?? target.dangerMin ?? 0))\(unit.rawValue)"
+        let maxLabel = "\(Int(target.max ?? target.dangerMax ?? 0))"
+        let minLabel = "\(Int(target.min ?? target.dangerMin ?? 0))"
+        let unit = "\(unit.rawValue)" + (target.per1000kcal ? " / 1000kcal" : "")
         if hasMin && hasMax {
-            return "\(minLabel) - \(maxLabel)"
+            return "\(minLabel) - \(maxLabel)\(unit)"
         } else if hasMin {
-            return "> \(minLabel)"
+            return "> \(minLabel)\(unit)"
         } else if hasMax {
-            return "< \(maxLabel)"
+            return "< \(maxLabel)\(unit)"
         }
         return ""
     }
@@ -53,7 +63,8 @@ struct NutritionalTargetProgress: View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
                 zoneIcon
-                Text(label).font(.headline)
+                Text(label).font(.headline) +
+                Text("\(progress, specifier: specifier)\(unit.rawValue)").font(.headline)
                 Spacer()
                 Text(rangeLabel).font(.caption)
                     .foregroundStyle(.secondary)
@@ -100,23 +111,11 @@ struct NutritionalTargetProgress: View {
                 
                 RuleMark(x: .value("progress", progress))
                     .foregroundStyle(.black)
-                    .annotation(position: .trailing) {
-                        ZStack {
-                            let specifier = progress > 10 ? "%.0f" : "%.1f"
-                            Text("\(progress, specifier: specifier)\(unit.rawValue)")
-                                .font(.caption)
-                                .foregroundStyle(.white)
-                                .padding(1)
-                                .background {
-                                    RoundedRectangle(cornerRadius: 2).fill(.black)
-                                }
-                        }
-                    }
             }.chartXAxis {
                 AxisMarks() { value in
                     AxisValueLabel {
                         let number = value.as(Double.self) ?? 0
-                        Text("\(number, specifier: "%.0f")\(unit.rawValue)")
+                        Text("\(number, specifier: specifier)\(unit.rawValue)")
                     }
                     AxisGridLine()
                 }
