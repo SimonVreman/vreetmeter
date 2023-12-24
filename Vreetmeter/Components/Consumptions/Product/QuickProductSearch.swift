@@ -2,18 +2,83 @@
 import SwiftUI
 
 struct QuickProductSearch: View {
+    @Environment(TrackingNavigationState.self) var navigation
+    @State private var showSearchSheet = false
+    @State private var showGuessSheet = false
+    @State private var showScanSheet = false
+    @State private var selectedMeal: Meal = .snack
+    
+    private var meal: Binding<Meal> { Binding(
+        get: { self.selectedMeal },
+        set: { updateMeal(meal: $0) }
+    )}
+    
+    private let buttonSize: CGFloat = 40
+    
+    private func updateMeal(meal: Meal) {
+        self.navigation.meal = meal
+        self.selectedMeal = meal
+    }
+    
+    private func getAutomaticMeal() -> Meal {
+        let time = Date.now
+        let breakfast = Meal.breakfast.getTimeOfDay(day: time)
+        let lunch = Meal.breakfast.getTimeOfDay(day: time)
+        let dinner = Meal.breakfast.getTimeOfDay(day: time)
+        
+        if time > breakfast.start && time < breakfast.end {
+            return .breakfast
+        } else if time > lunch.start && time < lunch.end {
+            return .lunch
+        } else if time > dinner.start && time < dinner.end {
+            return .dinner
+        }
+        
+        return .snack
+    }
+    
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 8) {
+            HStack {
+                Menu {
+                    Picker("", selection: meal) {
+                        ForEach(Meal.allCases) {
+                            Label($0.getLabel(), systemImage: $0.getIcon()).tag($0)
+                        }
+                    }
+                } label: {
+                    Image(systemName: self.selectedMeal.getIcon()).foregroundStyle(self.selectedMeal.getColor())
+                }
+            }.frame(width: buttonSize)
+            
             HStack(spacing: 4) {
                 Image(systemName: "magnifyingglass")
                 Text("Search")
                 Spacer()
-            }.padding(8).background {
+            }.frame(height: buttonSize).padding([.horizontal], 8).background {
                 RoundedRectangle(cornerRadius: 8).fill(.gray.quinary)
-            }.foregroundStyle(.secondary)
-            Button {} label: { Image(systemName: "questionmark.square").scaleEffect(1.3) }
-            Button {} label: { Image(systemName: "barcode.viewfinder").scaleEffect(1.3) }
-        }
+            }.foregroundStyle(.secondary).onTapGesture {
+                showSearchSheet.toggle()
+            }
+            
+            Button { showGuessSheet.toggle() } label: { Image(systemName: "questionmark.square") }
+                .frame(width: buttonSize, height: buttonSize)
+                .background { RoundedRectangle(cornerRadius: 8).fill(.gray.quinary) }
+            
+            Button { showScanSheet.toggle() } label: { Image(systemName: "barcode.viewfinder") }
+                .frame(width: buttonSize, height: buttonSize)
+                .background { RoundedRectangle(cornerRadius: 8).fill(.gray.quinary) }
+        }.sheet(isPresented: $showSearchSheet) {
+            NavigationView {
+                SelectConsumptionView(search: ConsumptionSearch(meal: selectedMeal))
+            }
+        }.sheet(isPresented: $showGuessSheet) {
+            GuessSheet()
+        }.sheet(isPresented: $showScanSheet) {
+            BarcodeScannerSheet()
+        }.onAppear {
+            self.updateMeal(meal: self.getAutomaticMeal())
+        }.frame(height: buttonSize)
     }
 }
 
@@ -22,10 +87,6 @@ struct QuickProductSearch: View {
         NavigationView {
             VStack {
                 QuickProductSearch().padding(.horizontal)
-                List {
-                    Text("row")
-                    Text("row")
-                }.searchable(text: .constant(""))
             }
         }
     }
