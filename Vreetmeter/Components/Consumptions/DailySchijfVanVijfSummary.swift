@@ -24,15 +24,15 @@ struct DailySchijfVanVijfSummary: View {
         consumptions.percentageSchijfVanVijf
     }
 
-    private var warning: AnyView {
+    private var color: Color? {
         if percentage == nil {
-            return AnyView(EmptyView())
+            return nil
         } else if percentage! >= 85 {
-            return AnyView(Image(systemName: "checkmark.circle.fill").foregroundStyle(.white, .green))
+            return .green
         } else if percentage! >= 40 {
-            return AnyView(Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.black, .yellow))
+            return .yellow
         }
-        return AnyView(Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.white, .red))
+        return .red
     }
     
     private func columnProgress(_ column: SchijfVanVijfColumn) -> Double {
@@ -48,15 +48,15 @@ struct DailySchijfVanVijfSummary: View {
     var body: some View {
         HStack {
             SchijfVanVijfIcon(highlighted: consumptions.schijfVanVijfCategories, empty: consumptions.isEmpty)
-                .frame(width: 75)
+                .frame(width: 65)
             
             Spacer()
             
-            warning.font(.title)
-            
-            Text(percentage != nil ? "\(Int(percentage!.rounded()))" : "--")
-                .font(.system(.title, design: .rounded, weight: .semibold)) +
-            Text("%").font(.system(.title, design: .rounded, weight: .semibold)).foregroundStyle(.secondary)
+            if color == nil {
+                PercentageGauge(percentage: percentage)
+            } else {
+                PercentageGauge(percentage: percentage).tint(color!)
+            }
         }.onTapGesture { showSheet.toggle() }
             .sheet(isPresented: $showSheet) {
             NavigationView {
@@ -96,7 +96,11 @@ struct DailySchijfVanVijfSummary: View {
 
 #Preview {
     VStack {
-        DailySchijfVanVijfSummary(consumptions: [GuessConsumption(id: UUID(), energy: 500, carbohydrates: 10, protein: 40, fat: 30)])
+        let guess = GuessConsumption(id: UUID(), energy: 500, carbohydrates: 10, protein: 40, fat: 30)
+        let svv = GenericConsumption(consumption: Eetmeter.Consumption(id: UUID(), active: true, amount: 100, brandName: "", consumptionDate: Date.now, createdDate: Date.now, eiwit: 100, eiwitPlantaardig: 20, energie: 400, fosfor: 0, isCombinedProduct: false, isDaily: false, koolhydraten: 1, natrium: 0, period: 1, preparationMethodName: "", productName: "", productType: 0, productUnitId: UUID(), suikers: 0, svvCategory: "A", svvColumn: 1, unitName: "", updatedDate: Date.now, verzadigdVet: 0, vet: 0, vezels: 0, webAccountId: UUID(), zout: 0), grams: 100, date: Date.now)
         DailySchijfVanVijfSummary(consumptions: [])
+        DailySchijfVanVijfSummary(consumptions: [guess])
+        DailySchijfVanVijfSummary(consumptions: [guess, svv])
+        DailySchijfVanVijfSummary(consumptions: [svv])
     }
 }

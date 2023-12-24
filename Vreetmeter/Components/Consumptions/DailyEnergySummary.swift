@@ -2,7 +2,6 @@
 import SwiftUI
 
 struct DailyEnergySummary: View {
-    var bodyMass: Double
     var energyGoal: Int
     var consumptions: [Consumption]
 
@@ -11,13 +10,23 @@ struct DailyEnergySummary: View {
             let calories = consumptions.reduce(0) { $0 + $1.energy }
             let percentage = calories / Double(energyGoal) * 100
             
-            Text("\(Int(calories.rounded()))")
-                .font(.system(.title, design: .rounded, weight: .semibold)) +
-            Text("/\(energyGoal)kcal").font(.system(.body, weight: .semibold)).foregroundStyle(.secondary)
+            VStack(alignment: .leading, spacing: -2) {
+                Text("\(Int(calories.rounded()))")
+                    .font(.system(.body, design: .rounded, weight: .semibold))
+                Text("/\(energyGoal)").font(.system(.body, weight: .semibold)).foregroundStyle(.secondary)
+            }
             Spacer()
-            Text("\(Int(percentage.rounded()))")
-                .font(.system(.title, design: .rounded, weight: .semibold)) +
-            Text("%").font(.system(.title, design: .rounded, weight: .semibold)).foregroundStyle(.secondary)
+            PercentageGauge(percentage: percentage)
         }
+    }
+}
+
+
+#Preview {
+    VStack {
+        let guess = GuessConsumption(id: UUID(), energy: 500, carbohydrates: 10, protein: 40, fat: 30)
+        DailyEnergySummary(energyGoal: 2500, consumptions: [])
+        DailyEnergySummary(energyGoal: 2500, consumptions: [guess])
+        DailyEnergySummary(energyGoal: 2500, consumptions: [guess, guess])
     }
 }
