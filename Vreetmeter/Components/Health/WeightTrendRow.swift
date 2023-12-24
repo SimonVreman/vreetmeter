@@ -34,7 +34,7 @@ struct WeightTrendRow: View {
             }.fixedSize(horizontal: true, vertical: false)
                 .gridColumnAlignment(.trailing)
             
-            Spacer().gridCellUnsizedAxes(.vertical)
+            Spacer(minLength: 0).gridCellUnsizedAxes(.vertical)
         }.font(.title).fontWeight(.semibold)
     }
 }

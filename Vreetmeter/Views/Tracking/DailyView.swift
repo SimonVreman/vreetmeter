@@ -38,7 +38,7 @@ struct DailyView: View {
                     .font(.title2).fontWeight(.bold).foregroundStyle(.secondary)
                 
                 let consumptionList = consumptions.getAllForDay(navigation.date)
-                if (consumptions.didFetchForDay(navigation.date) || true) {
+                if (consumptions.didFetchForDay(navigation.date)) {
                     Grid {
                         GridRow {
                             GroupBox {

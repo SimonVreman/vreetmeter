@@ -33,19 +33,18 @@ struct ProgressTab: View {
     
     var body: some View {
         NavigationView {
-            HStack {
+            ScrollView { VStack(alignment: .leading, spacing: 8) {
+                Text("Last 28 days")
+                    .font(.title2).fontWeight(.bold).foregroundStyle(.secondary)
+                    .padding(.bottom, 8)
+                
                 if data == nil {
                     ProgressView().centered()
                 } else {
-                    VStack {
-                        WeightChartCard(domain: domain, data: data!)
-                        
-                        WeightTrendCard(data: data!)
-                        
-                        Spacer()
-                    }.padding()
+                    WeightChartCard(domain: domain, data: data!)
+                    WeightTrendCard(data: data!)
                 }
-            }.navigationTitle("Progress")
+            }.padding([.horizontal, .bottom]) }.navigationTitle("Progress")
         }.onAppear { Task { try? await self.load() } }
     }
 }

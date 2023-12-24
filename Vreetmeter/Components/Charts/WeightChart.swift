@@ -56,6 +56,7 @@ struct WeightChart: View {
                     x: .value("Day", $0.date),
                     y: .value("Weight", $0.value)
                 ).foregroundStyle(.red)
+                    .interpolationMethod(.cardinal)
                 PointMark(
                     x: .value("Day", $0.date),
                     y: .value("Weight", $0.value)
