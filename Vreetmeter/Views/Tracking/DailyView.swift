@@ -32,40 +32,44 @@ struct DailyView: View {
     }
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                Text(navigation.date.formatted(.dateTime.month(.wide).day(.defaultDigits)))
-                    .font(.title2).fontWeight(.bold)
-                
-                let consumptionList = consumptions.getAllForDay(navigation.date)
-                if (consumptions.didFetchForDay(navigation.date)) {
-                    Grid {
-                        GridRow {
-                            GroupBox {
-                                Spacer(minLength: 0)
-                                DailyEnergySummary(energyGoal: energyGoal, consumptions: consumptionList)
-                                Spacer(minLength: 0)
-                            }.cardBackgroundAndShadow()
-                            
-                            GroupBox {
-                                Spacer(minLength: 0)
-                                DailySchijfVanVijfSummary(consumptions: consumptionList)
-                                Spacer(minLength: 0)
-                            }.cardBackgroundAndShadow()
+        VStack(spacing: 0) {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    Text(navigation.date.formatted(.dateTime.month(.wide).day(.defaultDigits)))
+                        .font(.title2).fontWeight(.bold)
+                    
+                    let consumptionList = consumptions.getAllForDay(navigation.date)
+                    if (consumptions.didFetchForDay(navigation.date)) {
+                        Grid {
+                            GridRow {
+                                GroupBox {
+                                    Spacer(minLength: 0)
+                                    DailyEnergySummary(energyGoal: energyGoal, consumptions: consumptionList)
+                                    Spacer(minLength: 0)
+                                }.cardBackgroundAndShadow()
+                                
+                                GroupBox {
+                                    Spacer(minLength: 0)
+                                    DailySchijfVanVijfSummary(consumptions: consumptionList)
+                                    Spacer(minLength: 0)
+                                }.cardBackgroundAndShadow()
+                            }
                         }
+                        
+                        // TODO figure something out for missing bodymass
+                        GroupBox {
+                            DailyMacroSummary(bodyMass: bodyMass ?? 75, energyGoal: energyGoal, consumptions: consumptionList)
+                        }.cardBackgroundAndShadow()
+                        
+                        DailyConsumptionList(consumptions: consumptionList)
+                            .padding(.top)
+                    } else {
+                        ProgressView().centered()
                     }
-                    
-                    // TODO figure something out for missing bodymass
-                    GroupBox {
-                        DailyMacroSummary(bodyMass: bodyMass ?? 75, energyGoal: energyGoal, consumptions: consumptionList)
-                    }.cardBackgroundAndShadow()
-                    
-                    DailyConsumptionList(consumptions: consumptionList)
-                        .padding(.top)
-                } else {
-                    ProgressView().centered()
-                }
-            }.padding([.horizontal, .bottom], 16)
+                }.padding([.horizontal, .bottom], 16)
+            }
+            Divider()
+            QuickProductSearch().padding([.horizontal], 16).padding([.vertical], 8)
         }.toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: { changeDate(offset: -1) }) {
