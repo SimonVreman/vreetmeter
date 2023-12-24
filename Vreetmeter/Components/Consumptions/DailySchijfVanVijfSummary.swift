@@ -1,6 +1,20 @@
 
 import SwiftUI
 
+private struct ColumnProgress: View {
+    var column: SchijfVanVijfColumn
+    var progress: Double
+    
+    var body: some View {
+        NutritionalTargetProgress(
+            label: column.getLabel(),
+            target: column.getTarget(),
+            unit: NutritionUnit.gram,
+            progress: progress
+        )
+    }
+}
+
 struct DailySchijfVanVijfSummary: View {
     var consumptions: [Consumption]
     
@@ -48,18 +62,33 @@ struct DailySchijfVanVijfSummary: View {
             NavigationView {
                 ScrollView {
                     VStack {
-                        ForEach(SchijfVanVijfColumn.allCases, id: \.self) { column in
-                            GroupBox {
-                                NutritionalTargetProgress(
-                                    label: column.getLabel(),
-                                    target: column.getTarget(),
-                                    unit: NutritionUnit.gram,
-                                    progress: self.columnProgress(column)
-                                )
-                            }.cardBackgroundAndShadow()
-                        }
+                        GroupBox {
+                            ColumnProgress(column: .vegetables, progress: self.columnProgress(.vegetables))
+                            Divider()
+                            ColumnProgress(column: .fruits, progress: self.columnProgress(.fruits))
+                        }.cardBackgroundAndShadow()
+                        GroupBox {
+                            ColumnProgress(column: .fats, progress: self.columnProgress(.fats))
+                        }.cardBackgroundAndShadow()
+                        GroupBox {
+                            ColumnProgress(column: .fishAndMeat, progress: self.columnProgress(.fishAndMeat))
+                            Divider()
+                            ColumnProgress(column: .nuts, progress: self.columnProgress(.nuts))
+                            Divider()
+                            ColumnProgress(column: .dairy, progress: self.columnProgress(.dairy))
+                            Divider()
+                            ColumnProgress(column: .cheese, progress: self.columnProgress(.cheese))
+                        }.cardBackgroundAndShadow()
+                        GroupBox {
+                            ColumnProgress(column: .bread, progress: self.columnProgress(.bread))
+                            Divider()
+                            ColumnProgress(column: .grainAndPotatos, progress: self.columnProgress(.grainAndPotatos))
+                        }.cardBackgroundAndShadow()
+                        GroupBox {
+                            ColumnProgress(column: .drinks, progress: self.columnProgress(.drinks))
+                        }.cardBackgroundAndShadow()
                     }.padding()
-                }.navigationTitle("Overview")
+                }.navigationTitle("Schijf van Vijf")
             }.presentationBackground(.ultraThinMaterial)
         }
     }
