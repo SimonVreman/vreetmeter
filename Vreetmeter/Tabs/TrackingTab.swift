@@ -13,6 +13,8 @@ struct TrackingTab: View {
                     ProductView(product: product)
                 }.navigationDestination(for: ConsumptionSearch.self) { search in
                     SelectConsumptionView(search: search)
+                }.background {
+                    GradientBackground(colors: [.orange, .green, .blue]).ignoresSafeArea()
                 }
         }.environment(navigation)
     }

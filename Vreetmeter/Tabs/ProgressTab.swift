@@ -35,7 +35,7 @@ struct ProgressTab: View {
         NavigationView {
             ScrollView { VStack(alignment: .leading, spacing: 8) {
                 Text("Last 28 days")
-                    .font(.title2).fontWeight(.bold).foregroundStyle(.secondary)
+                    .font(.title2).fontWeight(.bold)
                     .padding(.bottom, 8)
                 
                 if data == nil {
@@ -44,7 +44,9 @@ struct ProgressTab: View {
                     WeightChartCard(domain: domain, data: data!)
                     WeightTrendCard(data: data!)
                 }
-            }.padding([.horizontal, .bottom]) }.navigationTitle("Progress")
+            }.padding([.horizontal, .bottom]) }.navigationTitle("Progress").background {
+                GradientBackground(colors: [.yellow, .red, .brown]).ignoresSafeArea()
+            }
         }.onAppear { Task { try? await self.load() } }
     }
 }

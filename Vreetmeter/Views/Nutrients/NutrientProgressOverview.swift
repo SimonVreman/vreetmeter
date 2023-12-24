@@ -60,7 +60,6 @@ struct NutrientProgressOverview: View {
                 Text("\(start) to \(end)")
                     .font(.title2)
                     .fontWeight(.bold)
-                    .foregroundStyle(.secondary)
                 
                 GroupBox { VStack {
                     ProgressItem(property: \.fiber, progress: self.calculateProgress(\.fiber))

@@ -35,7 +35,7 @@ struct DailyView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 Text(navigation.date.formatted(.dateTime.month(.wide).day(.defaultDigits)))
-                    .font(.title2).fontWeight(.bold).foregroundStyle(.secondary)
+                    .font(.title2).fontWeight(.bold)
                 
                 let consumptionList = consumptions.getAllForDay(navigation.date)
                 if (consumptions.didFetchForDay(navigation.date)) {

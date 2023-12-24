@@ -6,7 +6,9 @@ struct NutrientsTab: View {
         NavigationView {
             ScrollView {
                 NutrientProgressOverview()
-            }.navigationTitle("Nutrients")
+            }.navigationTitle("Nutrients").background {
+                GradientBackground(colors: [.pink, .mint, .indigo ]).ignoresSafeArea()
+            }
         }
     }
 }
