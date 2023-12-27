@@ -32,7 +32,7 @@ struct DailyView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
+        ZStack {
             ScrollView {
                 VStack(alignment: .leading) {
                     Text(navigation.date.formatted(.dateTime.month(.wide).day(.defaultDigits)))
@@ -68,8 +68,13 @@ struct DailyView: View {
                     }
                 }.padding([.horizontal, .bottom], 16)
             }
-            Divider()
-            QuickProductSearch().padding([.horizontal], 16).padding([.vertical], 8)
+            VStack(spacing: 0) {
+                Spacer()
+                Divider()
+                QuickProductSearch()
+                    .padding([.horizontal], 16).padding([.vertical], 8)
+                    .background(.regularMaterial)
+            }
         }.toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: { changeDate(offset: -1) }) {
