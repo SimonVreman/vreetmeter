@@ -119,7 +119,7 @@ struct NutrientProgressOverview: View {
             }
         }.onAppear {
             endDate = Calendar.current.date(byAdding: .second, value: -1, to: Date.now.startOfDay)!
-            startDate = Calendar.current.date(byAdding: .day, value: -self.days, to: endDate)!
+            startDate = Calendar.current.date(byAdding: .day, value: -(self.days - 1), to: endDate)!
             Task { try await self.fetchConsumptions() }
         }
             .padding([.horizontal, .bottom])
