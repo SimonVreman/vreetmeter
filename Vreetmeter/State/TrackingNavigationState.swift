@@ -6,6 +6,7 @@ import SwiftUI
 
     var date: Date = .now.startOfDay
     var meal: Meal?
+    var consumptionSubmit: Bool = false
     
     @MainActor func append(_ v: any Hashable) {
         self.selectionPath.append(v)

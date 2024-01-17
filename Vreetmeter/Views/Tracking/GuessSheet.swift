@@ -27,8 +27,9 @@ struct GuessSheet: View {
             ))
             try await consumptions.fetchForDay(date, tryCache: false)
             try await health.synchronizeConsumptions(day: date, consumptions: consumptions.getAllForDay(date))
-            
-            await navigation.removeLast()
+            DispatchQueue.main.async {
+                navigation.consumptionSubmit.toggle()
+            }
         } catch {
             busy = false
         } }

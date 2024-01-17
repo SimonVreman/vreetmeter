@@ -6,7 +6,9 @@ struct CombinedProductView: View {
     @Environment(ConsumptionState.self) var consumptions
     @Environment(TrackingNavigationState.self) var navigation
     @Environment(HealthState.self) var health
+    
     var product: CombinedProduct
+    
     @State var amount: Double?
     @State var loading: Bool = false
     
@@ -31,7 +33,7 @@ struct CombinedProductView: View {
             try? await health.synchronizeConsumptions(day: date, consumptions: consumptions.getAllForDay(date))
             
             DispatchQueue.main.async {
-                navigation.removeLast()
+                navigation.consumptionSubmit.toggle()
                 loading = false
             }
         }

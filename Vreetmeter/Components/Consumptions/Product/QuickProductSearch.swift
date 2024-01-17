@@ -81,6 +81,9 @@ struct QuickProductSearch: View {
             BarcodeScannerSheet()
         }.onAppear {
             self.updateMeal(meal: self.getAutomaticMeal())
+        }.onChange(of: navigation.consumptionSubmit) {
+            showGuessSheet = false
+            showScanSheet = false
         }.frame(height: buttonSize)
     }
 }

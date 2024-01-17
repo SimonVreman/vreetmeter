@@ -6,11 +6,13 @@ struct SingleProductView: View {
     @Environment(ConsumptionState.self) var consumptions
     @Environment(TrackingNavigationState.self) var navigation
     @Environment(HealthState.self) var health
+    
     var product: Eetmeter.GenericProduct
     var baseNutrition: EetmeterNutritional
     var products: [Eetmeter.Product]
     var productName: String
     var brandProductId: UUID?
+
     @State var preparationVariant: Eetmeter.PreparationVariant?
     @State var unit: Eetmeter.ProductUnit?
     @State var amount: Double?
@@ -40,7 +42,7 @@ struct SingleProductView: View {
             try? await health.synchronizeConsumptions(day: date, consumptions: consumptions.getAllForDay(date))
             
             DispatchQueue.main.async {
-                navigation.removeLast()
+                navigation.consumptionSubmit.toggle()
                 loading = false
             }
         }

@@ -9,12 +9,16 @@ struct ConsumptionSearch: Hashable {
 struct SelectConsumptionView: View {
     @Environment(EetmeterAPI.self) var eetmeterAPI
     @Environment(ProductState.self) var products
+    @Environment(TrackingNavigationState.self) var navigation
+    @Environment(\.dismiss) var dismiss
+
     @State private var query: String = ""
     @State private var searchOpen: Bool = true
     @State private var results: [Eetmeter.GenericProduct] = []
     @State private var searching: Bool = true
     @State var useBarcode: Bool = false
     @State var makeGuess: Bool = false
+    
     var search: ConsumptionSearch
     var hideQuickActions: Bool = false
     
@@ -119,6 +123,8 @@ struct SelectConsumptionView: View {
                     Spacer()
                 }.background(.regularMaterial)
             }
+        }.onChange(of: navigation.consumptionSubmit) {
+            dismiss()
         }
     }
 }

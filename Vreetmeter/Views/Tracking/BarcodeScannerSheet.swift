@@ -5,14 +5,13 @@ import AVFoundation
 
 struct BarcodeScannerSheet: View {
     @Environment(EetmeterAPI.self) var eetmeterAPI
-    @Environment(TrackingNavigationState.self) var navigation
-    @Environment(\.presentationMode) var presentationMode
     @State var loading: Bool = false
     @State var torch: Bool = false
+    @State var path: NavigationPath = .init()
     let generator = UINotificationFeedbackGenerator()
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             ZStack {
                 CodeScannerView(
                     codeTypes: [.ean8, .ean13],
@@ -32,9 +31,7 @@ struct BarcodeScannerSheet: View {
                             do {
                                 let scanned = try await eetmeterAPI.getByBarcode(barcode: result.string)
                                 generator.notificationOccurred(.success)
-                                navigation.append(Eetmeter.GenericProduct(id: scanned.id, type: .brand))
-                                presentationMode.wrappedValue.dismiss()
-                                loading = false
+                                path.append(Eetmeter.GenericProduct(id: scanned.id, type: .brand))
                             } catch {
                                 generator.notificationOccurred(.error)
                                 loading = false
@@ -52,6 +49,8 @@ struct BarcodeScannerSheet: View {
                 Button(action: { torch = !torch }) {
                     Image(systemName: torch ? "bolt" : "bolt.slash")
                 }
+            }.navigationDestination(for: Eetmeter.GenericProduct.self) { product in
+                ProductView(product: product)
             }
         }
     }
