@@ -16,6 +16,7 @@ struct SelectConsumptionView: View {
     @State var useBarcode: Bool = false
     @State var makeGuess: Bool = false
     var search: ConsumptionSearch
+    var hideQuickActions: Bool = false
     
     func filterLocally(items: [Eetmeter.GenericProduct], query: String) -> [Eetmeter.GenericProduct] {
         if (query.isEmpty) { return items }
@@ -99,28 +100,30 @@ struct SelectConsumptionView: View {
             }.navigationTitle(search.meal.getLabel())
                 .navigationBarTitleDisplayMode(.inline)
             
-            Divider()
-            
-            HStack(spacing: 0) {
-                Spacer()
+            if (!hideQuickActions) {
+                Divider()
                 
-                Button(action: { makeGuess = true }) {
-                    Label("Guess", systemImage: "questionmark.square")
-                }.padding(12)
-                
-                Spacer()
-                
-                Button(action: { useBarcode = true }) {
-                    Label("Scan", systemImage: "barcode.viewfinder")
-                }.padding(12)
-                
-                Spacer()
-            }.background(Color(UIColor.secondarySystemGroupedBackground))
+                HStack(spacing: 0) {
+                    Spacer()
+                    
+                    Button(action: { makeGuess = true }) {
+                        Label("Guess", systemImage: "questionmark.square")
+                    }.padding(12)
+                    
+                    Spacer()
+                    
+                    Button(action: { useBarcode = true }) {
+                        Label("Scan", systemImage: "barcode.viewfinder")
+                    }.padding(12)
+                    
+                    Spacer()
+                }.background(.regularMaterial)
+            }
         }
     }
 }
 
 #Preview {
-    SelectConsumptionView(search: ConsumptionSearch(meal: .breakfast))
+    SelectConsumptionView(search: ConsumptionSearch(meal: .breakfast), hideQuickActions: false)
         .environment(EetmeterAPI())
 }

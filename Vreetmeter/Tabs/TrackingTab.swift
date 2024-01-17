@@ -12,7 +12,7 @@ struct TrackingTab: View {
                 }.navigationDestination(for: Eetmeter.GenericProduct.self) { product in
                     ProductView(product: product)
                 }.navigationDestination(for: ConsumptionSearch.self) { search in
-                    SelectConsumptionView(search: search)
+                    SelectConsumptionView(search: search, hideQuickActions: false)
                 }.background {
                     GradientBackground(colors: [.orange, .green, .blue]).ignoresSafeArea()
                 }

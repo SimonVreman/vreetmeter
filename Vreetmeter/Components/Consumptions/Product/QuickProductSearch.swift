@@ -69,8 +69,11 @@ struct QuickProductSearch: View {
                 .frame(width: buttonSize, height: buttonSize)
                 .background { RoundedRectangle(cornerRadius: 8).fill(.gray.quinary) }
         }.sheet(isPresented: $showSearchSheet) {
-            NavigationView {
-                SelectConsumptionView(search: ConsumptionSearch(meal: selectedMeal))
+            NavigationStack {
+                SelectConsumptionView(search: ConsumptionSearch(meal: selectedMeal), hideQuickActions: true)
+                    .navigationDestination(for: Eetmeter.GenericProduct.self) { product in
+                    ProductView(product: product)
+                }
             }
         }.sheet(isPresented: $showGuessSheet) {
             GuessSheet()

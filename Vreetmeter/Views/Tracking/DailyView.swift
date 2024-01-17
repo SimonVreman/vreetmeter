@@ -66,7 +66,8 @@ struct DailyView: View {
                     } else {
                         ProgressView().centered()
                     }
-                }.padding([.horizontal, .bottom], 16)
+                }.padding([.horizontal], 16)
+                    .padding([.bottom], 72)
             }
             VStack(spacing: 0) {
                 Spacer()
