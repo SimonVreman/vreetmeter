@@ -23,14 +23,14 @@ struct QuickProductSearch: View {
     private func getAutomaticMeal() -> Meal {
         let time = Date.now
         let breakfast = Meal.breakfast.getTimeOfDay(day: time)
-        let lunch = Meal.breakfast.getTimeOfDay(day: time)
-        let dinner = Meal.breakfast.getTimeOfDay(day: time)
+        let lunch = Meal.lunch.getTimeOfDay(day: time)
+        let dinner = Meal.dinner.getTimeOfDay(day: time)
         
-        if time > breakfast.start && time < breakfast.end {
+        if time >= breakfast.start && time < breakfast.end {
             return .breakfast
-        } else if time > lunch.start && time < lunch.end {
+        } else if time >= lunch.start && time < lunch.end {
             return .lunch
-        } else if time > dinner.start && time < dinner.end {
+        } else if time >= dinner.start && time < dinner.end {
             return .dinner
         }
         
