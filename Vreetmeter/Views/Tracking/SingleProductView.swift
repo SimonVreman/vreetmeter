@@ -42,7 +42,7 @@ struct SingleProductView: View {
             try? await health.synchronizeConsumptions(day: date, consumptions: consumptions.getAllForDay(date))
             
             DispatchQueue.main.async {
-                navigation.consumptionSubmit.toggle()
+                navigation.productSaved()
                 loading = false
             }
         }
@@ -51,43 +51,35 @@ struct SingleProductView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                ScrollView {
-                    VStack(spacing: 8) {
-                        GroupBox {
-                            let isUnprepared = preparationVariant?.product.preparationMethod.isRaw ?? true
-                            let nutrition = isUnprepared ? baseNutrition : (preparationVariant?.product ?? baseNutrition)
-                            MacroSummary(
-                                amount: (amount ?? 0) * Double((unit?.gramsPerUnit ?? 0)),
-                                energie: nutrition.energie,
-                                eiwit: nutrition.eiwit,
-                                koolhydraten: nutrition.koolhydraten,
-                                vet: nutrition.vet
-                            )
-                        }.backgroundStyle(Color(UIColor.secondarySystemGroupedBackground))
-                            .padding([.leading, .trailing], 16)
-                        
-                        ProductAmountForm(
-                            products: products,
-                            product: product,
-                            preparationVariant: $preparationVariant,
-                            unit: $unit,
-                            amount: $amount
-                        ).frame(height: 211).padding(Edge.Set.top, -34)
-                    }
-                }
+                let isUnprepared = preparationVariant?.product.preparationMethod.isRaw ?? true
+                let nutrition = isUnprepared ? baseNutrition : (preparationVariant?.product ?? baseNutrition)
                 
-                Spacer()
+                MacroSummary(
+                    amount: (amount ?? 0) * Double((unit?.gramsPerUnit ?? 0)),
+                    energie: nutrition.energie,
+                    eiwit: nutrition.eiwit,
+                    koolhydraten: nutrition.koolhydraten,
+                    vet: nutrition.vet
+                ).padding(16)
+                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                Divider()
                 
+                ProductAmountForm(
+                    products: products,
+                    product: product,
+                    preparationVariant: $preparationVariant,
+                    unit: $unit,
+                    amount: $amount
+                )
+                
+                Divider()
                 Button(action: save, label: { Text("Enter") })
                     .buttonStyle(ActionButtonStyle(disabled: loading || !isValid()))
                     .disabled(loading || !isValid())
-                    .padding([.leading, .trailing], 16)
-                    .padding(.top, 8)
             }.toolbar { ToolbarItem(placement: .topBarTrailing) {
                 ToggleFavoriteButton(update: Eetmeter.FavoriteUpdate(amount: amount ?? 1, productUnitID: unit?.id, brandProductID: brandProductId))
             } }.navigationTitle(productName)
                 .navigationBarTitleDisplayMode(.inline)
-                .padding([.top, .bottom], 8)
             if (loading) {
                 ProgressView()
             }

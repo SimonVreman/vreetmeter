@@ -7,16 +7,12 @@ struct ProductUnitPicker: View {
     
     var body: some View {
         Picker("Unit", selection: $unit) {
-            if (units.count > 0 && unit != nil) {
-                ForEach(units) { u in
-                    Text(u.displayName)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                        .tag(u as Eetmeter.ProductUnit?)
-                }
-            } else {
-                Text("gram")
+            ForEach(units) { u in
+                Text(u.displayName)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .tag(u as Eetmeter.ProductUnit?)
             }
-        }.pickerStyle(.navigationLink)
+        }
     }
 }

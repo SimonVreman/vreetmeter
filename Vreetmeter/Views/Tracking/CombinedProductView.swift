@@ -33,7 +33,7 @@ struct CombinedProductView: View {
             try? await health.synchronizeConsumptions(day: date, consumptions: consumptions.getAllForDay(date))
             
             DispatchQueue.main.async {
-                navigation.consumptionSubmit.toggle()
+                navigation.productSaved()
                 loading = false
             }
         }
@@ -42,37 +42,30 @@ struct CombinedProductView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                ScrollView {
-                    VStack {
-                        GroupBox {
-                            let portionCorrection = 100 / Double(product.portions)
-                            MacroSummary(
-                                amount: amount,
-                                energie: product.energy * portionCorrection,
-                                eiwit: product.protein * portionCorrection,
-                                koolhydraten: product.carbohydrates * portionCorrection,
-                                vet: product.fat * portionCorrection
-                            )
-                        }.backgroundStyle(Color(UIColor.secondarySystemGroupedBackground))
-                            
-                        GroupBox {
-                            UnitAmountPicker(amount: $amount, isGrams: true)
-                        }.backgroundStyle(Color(UIColor.secondarySystemGroupedBackground))
-                    }.padding([.leading, .trailing], 16)
-                }
+                let portionCorrection = 100 / Double(product.portions)
                 
-                Spacer()
+                MacroSummary(
+                    amount: amount,
+                    energie: product.energy * portionCorrection,
+                    eiwit: product.protein * portionCorrection,
+                    koolhydraten: product.carbohydrates * portionCorrection,
+                    vet: product.fat * portionCorrection
+                ).padding(16)
+                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                Divider()
                 
+                List {
+                    UnitAmountPicker(amount: $amount, isGrams: true)
+                }.listStyle(.plain)
+                
+                Divider()
                 Button(action: save, label: { Text("Enter") })
                     .buttonStyle(ActionButtonStyle(disabled: loading || !isValid()))
                     .disabled(loading || !isValid())
-                    .padding([.leading, .trailing], 16)
-                    .padding(.top, 8)
             }.toolbar { ToolbarItem(placement: .topBarTrailing) {
                 ToggleFavoriteButton(update: Eetmeter.FavoriteUpdate(amount: amount ?? 1, combinedProductID: product.id))
             } }.navigationTitle(product.name)
                 .navigationBarTitleDisplayMode(.inline)
-                .padding([.top, .bottom], 8)
             if (loading) {
                 ProgressView()
             }

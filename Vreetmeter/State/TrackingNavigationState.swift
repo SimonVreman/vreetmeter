@@ -15,4 +15,12 @@ import SwiftUI
     @MainActor func removeLast() {
         self.selectionPath.removeLast()
     }
+    
+    @MainActor func productSaved() {
+        if (self.selectionPath.count <= 1) {
+            self.consumptionSubmit.toggle()
+        } else {
+            self.removeLast()
+        }
+    }
 }
