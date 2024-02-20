@@ -7,7 +7,6 @@ struct MealView: View {
     @Environment(TrackingNavigationState.self) var navigation
     @Environment(HealthState.self) var health
     @State private var loading: Bool = false
-    @State private var detailed: Bool = false
     var meal: Meal
     
     var consumptions: [Consumption] {
@@ -79,10 +78,10 @@ struct MealView: View {
                         let link = getResultForConsumption(consumption: c)
                         if (link != nil) {
                             NavigationLink(value: link) {
-                                MealEntry(consumption: c, detailed: detailed)
+                                MealEntry(consumption: c, detailed: true)
                             }
                         } else {
-                            MealEntry(consumption: c, detailed: detailed)
+                            MealEntry(consumption: c, detailed: true)
                         }
                     }.onDelete(perform: delete)
                 }.listStyle(.plain)
@@ -95,13 +94,5 @@ struct MealView: View {
             }
         }.navigationTitle(meal.getLabel())
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                HStack(spacing: 12) {
-                    Spacer()
-                    Toggle(isOn: $detailed.animation()) {
-                        Image(systemName: detailed ? "minus.magnifyingglass" : "text.magnifyingglass")
-                    }
-                }
-            }
     }
 }
