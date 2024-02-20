@@ -8,7 +8,7 @@ struct ProgressTab: View {
     private var domain: [Date] {
         let calendar = Calendar.current
         let end = calendar.date(byAdding: .day, value: 1, to: Date().startOfDay)!
-        let start = calendar.date(byAdding: .day, value: -28, to: end)!
+        let start = calendar.date(byAdding: .day, value: -52 * 7, to: end)!
         return [start, end]
     }
     
@@ -34,7 +34,7 @@ struct ProgressTab: View {
     var body: some View {
         NavigationView {
             ScrollView { VStack(alignment: .leading, spacing: 8) {
-                Text("Last 28 days")
+                Text("Last 52 weeks")
                     .font(.title2).fontWeight(.bold)
                     .padding(.bottom, 8)
                 

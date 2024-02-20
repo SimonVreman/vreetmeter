@@ -1,9 +1,13 @@
 
 import Foundation
 
-struct NumericalDatePoint {
+struct NumericalDatePoint: Comparable {
     let date: Date
     let value: Double
+    
+    static func < (lhs: NumericalDatePoint, rhs: NumericalDatePoint) -> Bool {
+        return lhs.value < rhs.value
+    }
 }
 
 extension [NumericalDatePoint] {
