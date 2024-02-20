@@ -2,40 +2,18 @@
 import SwiftUI
 
 struct QuickProductSearch: View {
-    @Environment(TrackingNavigationState.self) var navigation
+    @Environment(TrackingNavigationState.self) private var navigation
     @State private var showSearchSheet = false
     @State private var showGuessSheet = false
     @State private var showScanSheet = false
-    @State private var selectedMeal: Meal = .snack
     
     private var meal: Binding<Meal> { Binding(
-        get: { self.selectedMeal },
-        set: { updateMeal(meal: $0) }
+        get: { navigation.meal ?? .snack },
+        set: { navigation.meal = $0 }
     )}
     
     private let buttonSize: CGFloat = 40
     
-    private func updateMeal(meal: Meal) {
-        self.navigation.meal = meal
-        self.selectedMeal = meal
-    }
-    
-    private func getAutomaticMeal() -> Meal {
-        let time = Date.now
-        let breakfast = Meal.breakfast.getTimeOfDay(day: time)
-        let lunch = Meal.lunch.getTimeOfDay(day: time)
-        let dinner = Meal.dinner.getTimeOfDay(day: time)
-        
-        if time >= breakfast.start && time < breakfast.end {
-            return .breakfast
-        } else if time >= lunch.start && time < lunch.end {
-            return .lunch
-        } else if time >= dinner.start && time < dinner.end {
-            return .dinner
-        }
-        
-        return .snack
-    }
     
     var body: some View {
         HStack(spacing: 8) {
@@ -47,7 +25,8 @@ struct QuickProductSearch: View {
                         }
                     }
                 } label: {
-                    Image(systemName: self.selectedMeal.getIcon()).foregroundStyle(self.selectedMeal.getColor())
+                    let m = meal.wrappedValue
+                    Image(systemName: m.getIcon()).foregroundStyle(m.getColor())
                 }
             }.frame(width: buttonSize)
             
@@ -70,7 +49,7 @@ struct QuickProductSearch: View {
                 .background { RoundedRectangle(cornerRadius: 8).fill(.gray.quinary) }
         }.sheet(isPresented: $showSearchSheet) {
             NavigationStack {
-                SelectConsumptionView(search: ConsumptionSearch(meal: selectedMeal), hideQuickActions: true)
+                SelectConsumptionView(search: ConsumptionSearch(meal: meal.wrappedValue), hideQuickActions: true)
                     .navigationDestination(for: Eetmeter.GenericProduct.self) { product in
                     ProductView(product: product)
                 }
@@ -79,8 +58,6 @@ struct QuickProductSearch: View {
             GuessSheet()
         }.sheet(isPresented: $showScanSheet) {
             BarcodeScannerSheet()
-        }.onAppear {
-            self.updateMeal(meal: self.getAutomaticMeal())
         }.onChange(of: navigation.consumptionSubmit) {
             showGuessSheet = false
             showScanSheet = false

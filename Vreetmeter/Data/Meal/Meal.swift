@@ -48,4 +48,21 @@ enum Meal: Int, Identifiable, CaseIterable {
             case .snack: return (start: offset(0), end: offset(24))
         }
     }
+    
+    public static func getAutomaticMeal(time: Date = Date.now) -> Meal {
+        let time = Date.now
+        let breakfast = Meal.breakfast.getTimeOfDay(day: time)
+        let lunch = Meal.lunch.getTimeOfDay(day: time)
+        let dinner = Meal.dinner.getTimeOfDay(day: time)
+        
+        if time >= breakfast.start && time < breakfast.end {
+            return .breakfast
+        } else if time >= lunch.start && time < lunch.end {
+            return .lunch
+        } else if time >= dinner.start && time < dinner.end {
+            return .dinner
+        }
+        
+        return .snack
+    }
 }

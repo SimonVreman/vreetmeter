@@ -2,20 +2,35 @@
 import SwiftUI
 
 struct TrackingTab: View {
+    @Environment(\.scenePhase) private var scenePhase
     @State private var navigation = TrackingNavigationState()
     
     var body: some View {
-        NavigationStack(path: $navigation.selectionPath) {
-            DailyView()
-                .navigationDestination(for: Meal.self) { meal in
-                    MealView(meal: meal).onAppear { navigation.meal = meal }
-                }.navigationDestination(for: Eetmeter.GenericProduct.self) { product in
-                    ProductView(product: product)
-                }.navigationDestination(for: ConsumptionSearch.self) { search in
-                    SelectConsumptionView(search: search, hideQuickActions: false)
-                }.background {
-                    GradientBackground(colors: [.orange, .green, .blue]).ignoresSafeArea()
-                }
+        VStack(spacing: 0) {
+            NavigationStack(path: $navigation.selectionPath) {
+                DailyView()
+                    .navigationDestination(for: Meal.self) { meal in
+                        MealView(meal: meal).onAppear { navigation.meal = meal }
+                            .onDisappear { navigation.meal = Meal.getAutomaticMeal() }
+                    }.background {
+                        GradientBackground(colors: [.orange, .green, .blue]).ignoresSafeArea()
+                    }
+            }
+            
+            Spacer(minLength: 0)
+        
+            Divider()
+        
+            QuickProductSearch()
+                .padding([.horizontal], 16).padding([.vertical], 8)
+                .background(.regularMaterial)
+        }.onChange(of: scenePhase) { _, phase in
+            switch phase {
+             case .active:
+                 navigation.meal = Meal.getAutomaticMeal()
+             default:
+                 break
+            }
         }.environment(navigation)
     }
 }

@@ -101,9 +101,6 @@ struct MealView: View {
                     Toggle(isOn: $detailed.animation()) {
                         Image(systemName: detailed ? "minus.magnifyingglass" : "text.magnifyingglass")
                     }
-                    NavigationLink(value: ConsumptionSearch(meal: meal)) {
-                        Image(systemName: "plus")
-                    }
                 }
             }
     }
