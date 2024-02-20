@@ -3,7 +3,10 @@ import SwiftUI
 
 struct SettingsList: View {
     @Environment(SettingsState.self) var settings
+    @Environment(ProductState.self) var products
     @Environment(EetmeterAPI.self) var eetmeter
+    
+    @State private var refreshingUserData: Bool = false
     
     private var energyGoal: Binding<Int> { Binding(
         get: { settings.getValue(VMSettings.energyGoal.key) as? Int ?? 2000 },
@@ -59,6 +62,15 @@ struct SettingsList: View {
             }
             
             Section("Eetmeter") {
+                Button("Refresh user data") {
+                    Task {
+                        if (refreshingUserData) { return }
+                        refreshingUserData = true
+                        try await eetmeter.fetchFavorites()
+                        try await products.fetchCombinedProducts()
+                        refreshingUserData = false
+                    }
+                }.disabled(refreshingUserData)
                 Button("Logout") {
                     eetmeter.logout()
                 }.foregroundStyle(.red)
