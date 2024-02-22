@@ -43,10 +43,11 @@ struct TrackingTab: View {
             }
         }.onChange(of: scenePhase) { _, phase in
             switch phase {
-             case .active:
-                 navigation.meal = Meal.getAutomaticMeal()
-             default:
-                 break
+            case .active:
+                navigation.meal = Meal.getAutomaticMeal()
+                navigation.date = .now.startOfDay
+            default:
+                break
             }
         }.environment(navigation)
             .toolbarBackground(.visible, for: .tabBar)
