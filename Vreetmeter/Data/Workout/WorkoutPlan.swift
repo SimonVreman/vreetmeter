@@ -2,7 +2,8 @@
 import Foundation
 import SwiftData
 
-class WorkoutPlan {
+class WorkoutPlan: Identifiable, Hashable {
+    @Attribute(.unique) var id: UUID
     @Attribute(.unique) var name: String
     @Relationship var workouts: [Int:WorkoutTemplate]
     
