@@ -93,7 +93,7 @@ extension Eetmeter {
     
     struct ProductUnit: Codable, Hashable, Identifiable {
         let displayName: String
-        let gramsPerUnit: Int
+        let gramsPerUnit: Double
         let id: UUID
         let isObsolete: Bool
         let isTussendoortje: Bool

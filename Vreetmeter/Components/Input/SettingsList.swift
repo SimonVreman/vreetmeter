@@ -61,7 +61,23 @@ struct SettingsList: View {
                 Text("When automatic adjustment is on, your energy goal will be automatically updated based on your recent weight changes.")
             }
             
-            Section("Eetmeter") {
+            Section("Products") {
+                NavigationLink(value: SettingsDestination.favorites) {
+                    HStack {
+                        Image(systemName: "star.fill").foregroundColor(.yellow)
+                        Text("Favorites")
+                    }
+                }
+                
+                NavigationLink(value: SettingsDestination.combinedProducts) {
+                    HStack {
+                        Image(systemName: "stove.fill").foregroundColor(.blue)
+                        Text("Combined products")
+                    }
+                }
+            }
+            
+            Section("User data") {
                 Button("Refresh user data") {
                     Task {
                         if (refreshingUserData) { return }
@@ -71,6 +87,7 @@ struct SettingsList: View {
                         refreshingUserData = false
                     }
                 }.disabled(refreshingUserData)
+                
                 Button("Logout") {
                     eetmeter.logout()
                 }.foregroundStyle(.red)

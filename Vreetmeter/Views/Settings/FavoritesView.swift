@@ -1,7 +1,7 @@
 
 import SwiftUI
 
-struct FavoritesTab: View {
+struct FavoritesView: View {
     @Environment(EetmeterAPI.self) var eetmeter
     
     @State private var query: String = ""
@@ -23,13 +23,11 @@ struct FavoritesTab: View {
     }
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(results, id: \.id) { favorite in
-                    FavoriteConsumptionResult(label: favorite.productName, sublabel: favorite.brandName)
-                }.onDelete(perform: delete)
-            }.searchable(text: $query)
-                .navigationTitle("Favorites")
-        }
+        List {
+            ForEach(results, id: \.id) { favorite in
+                FavoriteConsumptionResult(label: favorite.productName, sublabel: favorite.brandName)
+            }.onDelete(perform: delete)
+        }.searchable(text: $query)
+            .navigationTitle("Favorites")
     }
 }
