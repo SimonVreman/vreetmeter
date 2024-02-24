@@ -28,6 +28,6 @@ struct WorkoutPlanView: View {
                     NavigationLink(day.template!.name, value: day.template!)
                 }
             }
-        }
+        }.navigationTitle(plan.name)
     }
 }
