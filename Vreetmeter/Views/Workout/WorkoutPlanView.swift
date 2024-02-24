@@ -1,5 +1,6 @@
 
 import SwiftUI
+import SwiftData
 
 private struct WorkoutDay: Identifiable {
     var id: UUID
@@ -9,12 +10,20 @@ private struct WorkoutDay: Identifiable {
 struct WorkoutPlanView: View {
     var plan: WorkoutPlan
     
+    @State private var showTemplateEditorSheet = false
+    
     private var days: [WorkoutDay] {
         var days: [WorkoutDay] = []
-        for i in 0...(plan.workouts.count + plan.restDays.count) {
-            if (plan.restDays.contains(i)) { days.append(WorkoutDay(id: UUID())) }
-            let workout = plan.workouts[plan.restDays.filter { $0 < i }.count]
-            days.append(WorkoutDay(id: workout.id, template: workout))
+        var restDaysAdded = 0
+        let orderedWorkouts = plan.workouts.sorted { a, b in a.sortOrder < b.sortOrder }
+        for i in 0..<(plan.workouts.count + plan.restDays.count) {
+            if (plan.restDays.contains(i)) {
+                days.append(WorkoutDay(id: UUID()))
+                restDaysAdded += 1
+            } else {
+                let workout = orderedWorkouts[i - restDaysAdded]
+                days.append(WorkoutDay(id: workout.id, template: workout))
+            }
         }
         return days
     }
@@ -33,12 +42,14 @@ struct WorkoutPlanView: View {
                         NavigationLink(day.template!.name, value: day.template!)
                     }
                 }
-            }.navigationTitle(plan.name)
+            }
             
             List {
-                Button("Add workout") { }
+                Button("Add workout") { showTemplateEditorSheet = true }
                 Button("Add rest day") { addRestDay() }
             }
-        }
+        }.sheet(isPresented: $showTemplateEditorSheet) {
+            WorkoutTemplateEditorSheet(plan: plan)
+        }.navigationTitle(plan.name)
     }
 }

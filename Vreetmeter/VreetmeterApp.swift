@@ -26,7 +26,7 @@ struct VreetmeterApp: App {
         WindowGroup {
             TabView {
                 TrackingTab().tabItem { Label("Tracking", systemImage: "pencil.and.list.clipboard") }
-                WorkoutsTab().tabItem { Label("Workouts", systemImage: "dumbell") }
+                WorkoutsTab().tabItem { Label("Workouts", systemImage: "dumbbell") }
                 ProgressTab().tabItem { Label("Progress", systemImage: "chart.xyaxis.line") }
                 NutrientsTab().tabItem { Label("Nutrients", systemImage: "gauge.with.needle") }
                 SettingsTab().tabItem { Label("Settings", systemImage: "gear") }
@@ -43,6 +43,16 @@ struct VreetmeterApp: App {
                 .environment(products)
                 .environment(health)
                 .environment(settings)
+                .modelContainer(for: [
+                    Workout.self,
+                    WorkoutPlan.self,
+                    WorkoutTemplate.self,
+                    Exercise.self,
+                    ExerciseExecution.self,
+                    ExerciseTemplate.self,
+                    IntensityTechnique.self,
+                    SupersetTemplate.self,
+                ], inMemory: true) // TODO: should be persited ;)
         }
     }
 }

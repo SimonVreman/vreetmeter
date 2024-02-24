@@ -5,26 +5,39 @@ import SwiftData
 @Model
 class ExerciseTemplate: Identifiable {
     @Attribute(.unique) let id: UUID
-    @Relationship var workout: WorkoutTemplate
+    var workout: WorkoutTemplate?
     @Relationship var exercise: Exercise
     @Relationship var substitutions: [Exercise]
-    var sets: [SetTemplate]
+    @Relationship var superset: SupersetTemplate?
+    @Relationship(deleteRule: .cascade) var sets: [SetTemplate]
+    var sortOrder: Int
     
-    init(exercise: Exercise, substitutions: [Exercise], sets: [SetTemplate]) {
+    init(workout: WorkoutTemplate, exercise: Exercise, sortOrder: Int) {
         self.id = UUID()
+        self.workout = workout
         self.exercise = exercise
-        self.substitutions = substitutions
-        self.sets = sets
+        self.substitutions = []
+        self.sets = []
+        self.sortOrder = sortOrder
+    }
+}
+
+@Model
+class SetTemplate {
+    let repetitions: Int
+    let rpe: RPE
+    let intensitiyTechnique: IntensityTechnique
+    var sortOrder: Int
+    
+    init(repetitions: Int, rpe: RPE, intensitiyTechnique: IntensityTechnique, sortOrder: Int) {
+        self.repetitions = repetitions
+        self.rpe = rpe
+        self.intensitiyTechnique = intensitiyTechnique
+        self.sortOrder = sortOrder
     }
     
-    struct SetTemplate {
-        let repetitions: Int
-        let rpe: RPE
-        let intensitiyTechnique: IntensityTechnique
-        
-        struct RPE {
-            let lowerLimit: Int
-            let upperLimit: Int
-        }
+    struct RPE: Codable {
+        let lowerLimit: Int
+        let upperLimit: Int
     }
 }

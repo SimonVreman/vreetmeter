@@ -2,6 +2,7 @@
 import Foundation
 import SwiftData
 
+@Model
 class ExerciseExecution {
     @Relationship var workout: Workout
     @Relationship var template: ExerciseTemplate
@@ -13,7 +14,7 @@ class ExerciseExecution {
         self.sets = sets
     }
     
-    struct SetExecution {
+    struct SetExecution: Codable {
         var repetitions: Int
         var load: Double
     }

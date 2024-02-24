@@ -6,13 +6,11 @@ import SwiftData
 class Exercise: Identifiable {
     @Attribute(.unique) let id: UUID
     @Attribute(.unique) var name: String
-    var video: String
+    var video: String?
     var instruction: String?
     
-    init(name: String, video: String, instruction: String?) {
+    init(name: String) {
         self.id = UUID()
         self.name = name
-        self.video = video
-        self.instruction = instruction
     }
 }
