@@ -10,7 +10,7 @@ private struct WorkoutDay: Identifiable {
 struct WorkoutPlanView: View {
     var plan: WorkoutPlan
     
-    @State private var showTemplateEditorSheet = false
+    @State private var showEditorSheet = false
     
     private var days: [WorkoutDay] {
         var days: [WorkoutDay] = []
@@ -34,22 +34,40 @@ struct WorkoutPlanView: View {
     
     var body: some View {
         VStack {
-            List {
-                ForEach(days) { day in
-                    if day.template == nil {
-                        Text("Rest day")
-                    } else {
-                        NavigationLink(day.template!.name, value: day.template!)
-                    }
-                }
+            if days.isEmpty {
+                emptyView
+            } else {
+                daysView
             }
-            
-            List {
-                Button("Add workout") { showTemplateEditorSheet = true }
-                Button("Add rest day") { addRestDay() }
-            }
-        }.sheet(isPresented: $showTemplateEditorSheet) {
+        }.sheet(isPresented: $showEditorSheet) {
             WorkoutTemplateEditorSheet(plan: plan)
         }.navigationTitle(plan.name)
+    }
+    
+    private var daysView: some View {
+        List {
+            ForEach(days) { day in
+                if day.template == nil {
+                    Text("Rest day")
+                } else {
+                    NavigationLink(day.template!.name, destination: WorkoutTemplateView(template: day.template!))
+                }
+            }
+        }
+    }
+    
+    private var emptyView: some View {
+        ContentUnavailableView {
+            Label("No workouts", systemImage: "gym.bag.fill")
+        } description: {
+            Text("You don't have any workouts, create one now!")
+        } actions: {
+            Button {
+                showEditorSheet = true
+            } label: {
+                Text("Add a workout")
+            }.buttonStyle(.borderedProminent)
+                .controlSize(.regular)
+        }
     }
 }
