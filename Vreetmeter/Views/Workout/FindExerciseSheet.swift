@@ -26,7 +26,7 @@ struct FindExerciseSheet: View {
             Button("Add") {
                 addExercices(exercises)
                 dismiss()
-            }
+            }.disabled(selection.isEmpty)
         }
     }
 }

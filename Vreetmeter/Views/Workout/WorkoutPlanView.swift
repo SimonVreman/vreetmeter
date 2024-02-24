@@ -19,15 +19,26 @@ struct WorkoutPlanView: View {
         return days
     }
     
+    private func addRestDay() {
+        plan.restDays.append(days.count)
+    }
+    
     var body: some View {
-        List {
-            ForEach(days) { day in
-                if day.template == nil {
-                    Text("Rest day")
-                } else {
-                    NavigationLink(day.template!.name, value: day.template!)
+        VStack {
+            List {
+                ForEach(days) { day in
+                    if day.template == nil {
+                        Text("Rest day")
+                    } else {
+                        NavigationLink(day.template!.name, value: day.template!)
+                    }
                 }
+            }.navigationTitle(plan.name)
+            
+            List {
+                Button("Add workout") { }
+                Button("Add rest day") { addRestDay() }
             }
-        }.navigationTitle(plan.name)
+        }
     }
 }
