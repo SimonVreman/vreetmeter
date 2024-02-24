@@ -11,6 +11,7 @@ class ExerciseTemplate: Identifiable, Hashable {
     var sets: [SetTemplate]
     
     init(exercise: Exercise, substitutions: [Exercise], sets: [SetTemplate]) {
+        self.id = UUID()
         self.exercise = exercise
         self.substitutions = substitutions
         self.sets = sets

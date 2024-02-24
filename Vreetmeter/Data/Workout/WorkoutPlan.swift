@@ -8,6 +8,7 @@ class WorkoutPlan: Identifiable, Hashable {
     @Relationship var workouts: [Int:WorkoutTemplate]
     
     init(name: String, workouts: [Int:WorkoutTemplate]) {
+        self.id = UUID()
         self.name = name
         self.workouts = workouts
     }
