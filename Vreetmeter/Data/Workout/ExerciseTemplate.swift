@@ -3,8 +3,8 @@ import Foundation
 import SwiftData
 
 @Model
-class ExerciseTemplate: Identifiable, Hashable {
-    @Attribute(.unique) var id: UUID
+class ExerciseTemplate: Identifiable {
+    @Attribute(.unique) let id: UUID
     @Relationship var workout: WorkoutTemplate
     @Relationship var exercise: Exercise
     @Relationship var substitutions: [Exercise]

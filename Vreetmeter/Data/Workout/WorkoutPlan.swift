@@ -2,14 +2,17 @@
 import Foundation
 import SwiftData
 
-class WorkoutPlan: Identifiable, Hashable {
-    @Attribute(.unique) var id: UUID
+@Model
+class WorkoutPlan: Identifiable {
+    @Attribute(.unique) let id: UUID
     @Attribute(.unique) var name: String
-    @Relationship var workouts: [Int:WorkoutTemplate]
+    @Relationship var workouts: [WorkoutTemplate]
+    var restDays: [Int]
     
-    init(name: String, workouts: [Int:WorkoutTemplate]) {
+    init(name: String, workouts: [WorkoutTemplate], restDays: [Int]) {
         self.id = UUID()
         self.name = name
         self.workouts = workouts
+        self.restDays = restDays
     }
 }

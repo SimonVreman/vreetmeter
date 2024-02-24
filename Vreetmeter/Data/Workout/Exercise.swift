@@ -3,8 +3,8 @@ import Foundation
 import SwiftData
 
 @Model
-class Exercise: Identifiable, Hashable {
-    @Attribute(.unique) var id: UUID
+class Exercise: Identifiable {
+    @Attribute(.unique) let id: UUID
     @Attribute(.unique) var name: String
     var video: String
     var instruction: String?
