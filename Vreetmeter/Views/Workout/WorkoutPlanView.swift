@@ -9,16 +9,8 @@ struct WorkoutPlanView: View {
     
     @State private var showEditorSheet = false
     
-    @Query var days: [WorkoutPlanDay]
-
-    init(plan: WorkoutPlan) {
-        self.plan = plan
-        
-        let planId = plan.id
-        let predicate = #Predicate<WorkoutPlanDay> { day in
-            day.plan?.id == planId
-        }
-        _days = Query(filter: predicate, sort: \.sortOrder)
+    private var days: [WorkoutPlanDay] {
+        plan.days.sorted { a, b in a.sortOrder < b.sortOrder }
     }
     
     private func addRestDay() {

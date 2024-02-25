@@ -3,8 +3,7 @@ import Foundation
 import SwiftData
 
 @Model
-class ExerciseTemplate: Identifiable {
-    @Attribute(.unique) let id: UUID
+class ExerciseTemplate {
     var workout: WorkoutTemplate?
     @Relationship var exercise: Exercise
     @Relationship var substitutions: [Exercise]
@@ -13,7 +12,6 @@ class ExerciseTemplate: Identifiable {
     var sortOrder: Int
     
     init(workout: WorkoutTemplate, exercise: Exercise) {
-        self.id = UUID()
         self.workout = workout
         self.exercise = exercise
         self.substitutions = []

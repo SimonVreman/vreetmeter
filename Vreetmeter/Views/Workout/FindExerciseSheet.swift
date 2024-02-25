@@ -9,12 +9,12 @@ struct FindExerciseSheet: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
     
-    @State private var selection = Set<UUID>()
+    @State private var selection = Set<PersistentIdentifier>()
     @State private var showEditorSheet = false
     
     @Query private var exercises: [Exercise]
     
-    private func addExercices(_ exerciseIds: Set<UUID>) {
+    private func addExercices(_ exerciseIds: Set<PersistentIdentifier>) {
         let exercises = self.exercises.filter { exerciseIds.contains($0.id) }
         if let workoutTemplate { exercises.forEach {
             let exercise = ExerciseTemplate(
