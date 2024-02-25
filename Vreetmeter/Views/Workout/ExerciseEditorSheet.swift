@@ -6,7 +6,18 @@ struct ExerciseEditorSheet: View {
     
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    
     @State private var name = ""
+    
+    private var isValid: Bool {
+        !name.isEmpty
+    }
+    
+    private func fillFromModel() {
+        if let exercise {
+            name = exercise.name
+        }
+    }
     
     private func save() {
         if let exercise {
@@ -18,24 +29,13 @@ struct ExerciseEditorSheet: View {
     }
     
     var body: some View {
-        NavigationView {
-            Form {
+        WorkoutEditorSheet(
+            title: exercise == nil ? "Add exercise" : "Edit exercise",
+            onSave: save,
+            isValid: isValid,
+            content: {
                 TextField("Name", text: $name)
-            }.onAppear {
-                if let exercise {
-                    name = exercise.name
-                }
-            }.toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
-                        withAnimation {
-                            save()
-                            dismiss()
-                        }
-                    }
-                }
-            }.navigationTitle(exercise == nil ? "Add exercise" : "Edit exercise")
-                .navigationBarTitleDisplayMode(.inline)
-        }
+            }
+        ).onAppear(perform: fillFromModel)
     }
 }

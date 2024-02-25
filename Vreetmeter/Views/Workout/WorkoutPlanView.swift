@@ -89,6 +89,8 @@ struct WorkoutPlanView: View {
                 }.padding(16)
                     .frame(minWidth: 0, maxWidth: .infinity)
             }
+        }.toolbar {
+            EditButton()
         }
     }
     

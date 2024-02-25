@@ -7,7 +7,18 @@ struct WorkoutTemplateEditorSheet: View {
     
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+
     @State private var name = ""
+    
+    private var isValid: Bool {
+        !name.isEmpty
+    }
+    
+    private func fillFromModel() {
+        if let template {
+            name = template.name
+        }
+    }
     
     private func save() {
         if let template {
@@ -22,24 +33,13 @@ struct WorkoutTemplateEditorSheet: View {
     }
     
     var body: some View {
-        NavigationView {
-            Form {
+        WorkoutEditorSheet(
+            title: template == nil ? "Add workout" : "Edit workout",
+            onSave: save,
+            isValid: isValid,
+            content: {
                 TextField("Name", text: $name)
-            }.onAppear {
-                if let template {
-                    name = template.name
-                }
-            }.toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
-                        withAnimation {
-                            save()
-                            dismiss()
-                        }
-                    }
-                }
-            }.navigationTitle(template == nil ? "Add workout" : "Edit workout")
-                .navigationBarTitleDisplayMode(.inline)
-        }
+            }
+        ).onAppear(perform: fillFromModel)
     }
 }
