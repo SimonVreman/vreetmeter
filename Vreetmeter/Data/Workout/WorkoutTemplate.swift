@@ -5,16 +5,14 @@ import SwiftData
 @Model
 class WorkoutTemplate: Identifiable {
     @Attribute(.unique) let id: UUID
-    var plan: WorkoutPlan?
+    var day: WorkoutPlanDay?
     @Attribute(.unique) var name: String
     @Relationship(deleteRule: .cascade, inverse: \ExerciseTemplate.workout) var exercises: [ExerciseTemplate]
-    var sortOrder: Int
     
-    init(plan: WorkoutPlan, name: String, exercises: [ExerciseTemplate], sortOrder: Int) {
+    init(day: WorkoutPlanDay, name: String, exercises: [ExerciseTemplate]) {
         self.id = UUID()
-        self.plan = plan
+        self.day = day
         self.name = name
         self.exercises = exercises
-        self.sortOrder = sortOrder
     }
 }

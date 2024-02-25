@@ -88,9 +88,9 @@ struct SettingsList: View {
                     }
                 }.disabled(refreshingUserData)
                 
-                Button("Logout") {
+                Button("Logout", role: .destructive) {
                     eetmeter.logout()
-                }.foregroundStyle(.red)
+                }
             }
         }.listStyle(.grouped)
     }

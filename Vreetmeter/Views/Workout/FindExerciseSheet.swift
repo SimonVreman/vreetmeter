@@ -19,8 +19,7 @@ struct FindExerciseSheet: View {
         if let workoutTemplate { exercises.forEach {
             let exercise = ExerciseTemplate(
                 workout: workoutTemplate,
-                exercise: $0,
-                sortOrder: workoutTemplate.exercises.count
+                exercise: $0
             )
             workoutTemplate.exercises.append(exercise)
         }}

@@ -13,8 +13,11 @@ struct WorkoutTemplateEditorSheet: View {
         if let template {
             template.name = name
         } else {
-            let template = WorkoutTemplate(plan: plan, name: name, exercises: [], sortOrder: plan.workouts.count)
-            plan.workouts.append(template)
+            let day = WorkoutPlanDay(plan: plan)
+            plan.days.append(day)
+
+            let template = WorkoutTemplate(day: day, name: name, exercises: [])
+            day.workout = template
         }
     }
     

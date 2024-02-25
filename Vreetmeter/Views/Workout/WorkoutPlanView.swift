@@ -2,7 +2,7 @@
 import SwiftUI
 import SwiftData
 
-private struct WorkoutDay: Identifiable {
+private struct WorkoutDay: Identifiable, Equatable {
     var id: UUID
     var template: WorkoutTemplate?
 }
@@ -10,26 +10,44 @@ private struct WorkoutDay: Identifiable {
 struct WorkoutPlanView: View {
     var plan: WorkoutPlan
     
+    @Environment(\.modelContext) private var modelContext
+    
     @State private var showEditorSheet = false
     
-    private var days: [WorkoutDay] {
-        var days: [WorkoutDay] = []
-        var restDaysAdded = 0
-        let orderedWorkouts = plan.workouts.sorted { a, b in a.sortOrder < b.sortOrder }
-        for i in 0..<(plan.workouts.count + plan.restDays.count) {
-            if (plan.restDays.contains(i)) {
-                days.append(WorkoutDay(id: UUID()))
-                restDaysAdded += 1
-            } else {
-                let workout = orderedWorkouts[i - restDaysAdded]
-                days.append(WorkoutDay(id: workout.id, template: workout))
-            }
+    @Query var days: [WorkoutPlanDay]
+
+    init(plan: WorkoutPlan) {
+        self.plan = plan
+        
+        let planId = plan.id
+        let predicate = #Predicate<WorkoutPlanDay> { day in
+            day.plan?.id == planId
         }
-        return days
+        _days = Query(filter: predicate, sort: \.sortOrder)
     }
     
     private func addRestDay() {
-        plan.restDays.append(days.count)
+        let restDay = WorkoutPlanDay(plan: plan)
+        plan.days.append(restDay)
+    }
+    
+    private func onDelete(at offsets: IndexSet) {
+        for index in offsets {
+            modelContext.delete(days[index])
+        }
+        updateSortOrder(basedOn: days)
+    }
+    
+    private func onMove(fromOffsets source: IndexSet, toOffset destination: Int) {
+        var copy = days
+        copy.move(fromOffsets: source, toOffset: destination)
+        updateSortOrder(basedOn: copy)
+    }
+    
+    private func updateSortOrder(basedOn order: [WorkoutPlanDay]) {
+        for (index, day) in order.enumerated() {
+            day.sortOrder = index
+        }
     }
     
     var body: some View {
@@ -45,13 +63,31 @@ struct WorkoutPlanView: View {
     }
     
     private var daysView: some View {
-        List {
-            ForEach(days) { day in
-                if day.template == nil {
-                    Text("Rest day")
-                } else {
-                    NavigationLink(day.template!.name, destination: WorkoutTemplateView(template: day.template!))
-                }
+        VStack(spacing: 0) {
+            List {
+                ForEach(days) { day in
+                    if let workout = day.workout {
+                        NavigationLink(workout.name, destination: WorkoutTemplateView(template: workout))
+                    } else {
+                        Text("Rest day")
+                    }
+                }.onDelete(perform: onDelete)
+                    .onMove(perform: onMove)
+            }.listStyle(.grouped)
+            
+            Spacer(minLength: 0)
+            Divider()
+            
+            HStack(spacing: 0) {
+                Button("Workout", systemImage: "plus") {
+                    showEditorSheet = true
+                }.padding(16)
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                
+                Button("Rest day", systemImage: "plus") {
+                    addRestDay()
+                }.padding(16)
+                    .frame(minWidth: 0, maxWidth: .infinity)
             }
         }
     }

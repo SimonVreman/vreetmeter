@@ -38,21 +38,21 @@ struct VreetmeterApp: App {
                 Task { try await products.fetchCombinedProducts() }
             }.sheet(isPresented: $showLoginSheet) {
                 LoginSheet()
-            }.environment(eetmeterAPI)
+            }.modelContainer(for: [
+                Workout.self,
+                WorkoutPlan.self,
+                WorkoutPlanDay.self,
+                WorkoutTemplate.self,
+                Exercise.self,
+                ExerciseExecution.self,
+                ExerciseTemplate.self,
+                IntensityTechnique.self,
+                SupersetTemplate.self,
+            ]).environment(eetmeterAPI)
                 .environment(consumptions)
                 .environment(products)
                 .environment(health)
                 .environment(settings)
-                .modelContainer(for: [
-                    Workout.self,
-                    WorkoutPlan.self,
-                    WorkoutTemplate.self,
-                    Exercise.self,
-                    ExerciseExecution.self,
-                    ExerciseTemplate.self,
-                    IntensityTechnique.self,
-                    SupersetTemplate.self,
-                ], inMemory: true) // TODO: should be persited ;)
         }
     }
 }
