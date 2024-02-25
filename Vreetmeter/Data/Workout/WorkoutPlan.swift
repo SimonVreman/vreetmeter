@@ -15,8 +15,8 @@ class WorkoutPlan {
 
 @Model
 class WorkoutPlanDay {
-    @Relationship(deleteRule: .cascade, inverse: \WorkoutTemplate.day) var workout: WorkoutTemplate?
     var plan: WorkoutPlan?
+    @Relationship(deleteRule: .cascade, inverse: \WorkoutTemplate.day) var workout: WorkoutTemplate?
     var sortOrder: Int
     
     init(plan: WorkoutPlan) {

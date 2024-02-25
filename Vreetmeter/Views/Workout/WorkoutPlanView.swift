@@ -9,8 +9,10 @@ struct WorkoutPlanView: View {
     
     @State private var showEditorSheet = false
     
+    @Query private var daysQuery: [WorkoutPlanDay]
+    
     private var days: [WorkoutPlanDay] {
-        plan.days.sorted { a, b in a.sortOrder < b.sortOrder }
+        daysQuery.filter { $0.plan == plan }.sorted { a, b in a.sortOrder < b.sortOrder }
     }
     
     private func addRestDay() {

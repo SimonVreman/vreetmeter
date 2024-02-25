@@ -7,8 +7,10 @@ struct ExerciseTemplateView: View {
     
     @Environment(\.modelContext) private var modelContext
     
+    @Query private var setsQuery: [SetTemplate]
+    
     private var sets: [SetTemplate] {
-        template.sets.sorted { a, b in a.sortOrder < b.sortOrder }
+        setsQuery.filter { $0.exercise == template } .sorted { a, b in a.sortOrder < b.sortOrder }
     }
     
     private func onDelete(at offsets: IndexSet) {
@@ -71,7 +73,7 @@ struct ExerciseTemplateView: View {
     
     private var emptyView: some View {
         ContentUnavailableView {
-            Label("No sets added", systemImage: "figure.strengthtraining.traditional")
+            Label("No sets added", systemImage: "tablecells")
         } description: {
             Text("This exercise has no sets yet, add one now!")
         } actions: {

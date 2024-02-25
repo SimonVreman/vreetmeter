@@ -9,8 +9,10 @@ struct WorkoutTemplateView: View {
     
     @State private var showEditorSheet = false
     
+    @Query private var exercisesQuery: [ExerciseTemplate]
+    
     private var exercises: [ExerciseTemplate] {
-        template.exercises.sorted { a, b in a.sortOrder < b.sortOrder }
+        exercisesQuery.filter { $0.workout == template } .sorted { a, b in a.sortOrder < b.sortOrder }
     }
     
     private func onDelete(at offsets: IndexSet) {
