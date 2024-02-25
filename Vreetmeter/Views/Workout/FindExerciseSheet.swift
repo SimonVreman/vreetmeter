@@ -8,11 +8,11 @@ struct FindExerciseSheet: View {
     
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
+    
     @State private var selection = Set<UUID>()
     @State private var showEditorSheet = false
     
-    @Query
-    private var exercises: [Exercise]
+    @Query private var exercises: [Exercise]
     
     private func addExercices(_ exerciseIds: Set<UUID>) {
         let exercises = self.exercises.filter { exerciseIds.contains($0.id) }
@@ -44,21 +44,27 @@ struct FindExerciseSheet: View {
     }
     
     private var exercisesView: some View {
-        List(exercises, selection: $selection) { exercise in
-            Text(exercise.name)
+        VStack(spacing: 0) {
+            List(exercises, selection: $selection) { exercise in
+                Text(exercise.name)
+            }.environment(\.editMode, .constant(EditMode.active))
+                .listStyle(.grouped)
+            
+            Spacer(minLength: 0)
+            Divider()
+            
+            Button("Add") {
+                addExercices(selection)
+                dismiss()
+            }.buttonStyle(ActionButtonStyle(disabled: selection.isEmpty))
+                .disabled(selection.isEmpty)
         }.toolbar {
-            ToolbarItem(placement: .secondaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 Button("New") {
                     showEditorSheet = true
                 }
             }
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Add") {
-                    addExercices(selection)
-                    dismiss()
-                }.disabled(selection.isEmpty)
-            }
-        }.environment(\.editMode, .constant(EditMode.active))
+        }
     }
     
     private var emptyView: some View {

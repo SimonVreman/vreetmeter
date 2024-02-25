@@ -3,7 +3,7 @@ import SwiftUI
 import SwiftData
 
 struct WorkoutPlanCollectionView: View {
-    @Query(sort: [SortDescriptor(\WorkoutPlan.name)])
+    @Query(sort: \WorkoutPlan.name)
     private var plans: [WorkoutPlan]
     
     @State private var showEditorSheet = false

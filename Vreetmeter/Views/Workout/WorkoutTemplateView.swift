@@ -1,14 +1,48 @@
 
 import SwiftUI
+import SwiftData
 
 struct WorkoutTemplateView: View {
     var template: WorkoutTemplate
     
+    @Environment(\.modelContext) private var modelContext
+    
     @State private var showEditorSheet = false
+    
+    @Query var exercises: [ExerciseTemplate]
+    
+    init(template: WorkoutTemplate) {
+        self.template = template
+        
+        let templateId = template.id
+        let predicate = #Predicate<ExerciseTemplate> { template in
+            template.workout?.id == templateId
+        }
+        _exercises = Query(filter: predicate, sort: \.sortOrder)
+    }
+    
+    private func onDelete(at offsets: IndexSet) {
+        for index in offsets {
+            modelContext.delete(exercises[index])
+        }
+        updateSortOrder(basedOn: exercises)
+    }
+    
+    private func onMove(fromOffsets source: IndexSet, toOffset destination: Int) {
+        var copy = exercises
+        copy.move(fromOffsets: source, toOffset: destination)
+        updateSortOrder(basedOn: copy)
+    }
+    
+    private func updateSortOrder(basedOn order: [ExerciseTemplate]) {
+        for (index, day) in order.enumerated() {
+            day.sortOrder = index
+        }
+    }
     
     var body: some View {
         VStack {
-            if template.exercises.isEmpty {
+            if exercises.isEmpty {
                 emptyView
             } else {
                 exercisesView
@@ -19,12 +53,25 @@ struct WorkoutTemplateView: View {
     }
     
     private var exercisesView: some View {
-        List(template.exercises.sorted { a, b in a.sortOrder < b.sortOrder }) { exercise in
-            NavigationLink(exercise.exercise.name, destination: ExerciseTemplateView(template: exercise))
-        }.toolbar {
-            Button("Add") {
-                showEditorSheet = true
+        VStack(spacing: 0) {
+            List {
+                ForEach(exercises) { exercise in
+                    NavigationLink(exercise.exercise.name, destination: ExerciseTemplateView(template: exercise))
+                }.onDelete(perform: onDelete)
+                    .onMove(perform: onMove)
+            }.listStyle(.grouped)
+            
+            Spacer(minLength: 0)
+            Divider()
+            
+            HStack(spacing: 0) {
+                Button("Add", systemImage: "plus") {
+                    showEditorSheet = true
+                }.padding(16)
+                    .frame(minWidth: 0, maxWidth: .infinity)
             }
+        }.toolbar {
+            EditButton()
         }
     }
     

@@ -2,11 +2,6 @@
 import SwiftUI
 import SwiftData
 
-private struct WorkoutDay: Identifiable, Equatable {
-    var id: UUID
-    var template: WorkoutTemplate?
-}
-
 struct WorkoutPlanView: View {
     var plan: WorkoutPlan
     
