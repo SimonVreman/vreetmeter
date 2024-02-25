@@ -57,7 +57,7 @@ struct WorkoutTemplateView: View {
             Divider()
             
             HStack(spacing: 0) {
-                Button("Add", systemImage: "plus") {
+                Button("Add exercise", systemImage: "plus") {
                     showEditorSheet = true
                 }.padding(16)
                     .frame(minWidth: 0, maxWidth: .infinity)
