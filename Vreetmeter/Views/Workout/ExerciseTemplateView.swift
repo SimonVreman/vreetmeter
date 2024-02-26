@@ -52,7 +52,7 @@ struct ExerciseTemplateView: View {
         VStack(spacing: 0) {
             List {
                 ForEach(sets) { set in
-                    Text("\(set.sortOrder + 1)")
+                    SetRowView(set: set)
                 }.onDelete(perform: onDelete)
                     .onMove(perform: onMove)
             }.listStyle(.grouped)
@@ -83,6 +83,43 @@ struct ExerciseTemplateView: View {
                 Text("Add first set")
             }.buttonStyle(.borderedProminent)
                 .controlSize(.regular)
+        }
+    }
+}
+
+private struct SetRowView: View {
+    var set: SetTemplate
+    
+    @Query private var intensityTechniques: [IntensityTechnique]
+    
+    var body: some View {
+        HStack {
+            Text("\(set.sortOrder + 1)").font(.footnote)
+                .frame(width: 24)
+            
+            VStack {
+                Text("Repetitions").font(.caption)
+                HStack {
+                    TextField("min", text: Binding(
+                        get: { if let min = set.repetitionRange.lowerLimit { String(min) } else { "" } },
+                        set: { set.repetitionRange.lowerLimit = Int($0) }
+                    )).textFieldStyle(.roundedBorder)
+                    
+                    TextField("max", text: Binding(
+                        get: { if let min = set.repetitionRange.upperLimit { String(min) } else { "" } },
+                        set: { set.repetitionRange.upperLimit = Int($0) }
+                    )).textFieldStyle(.roundedBorder)
+                }
+                
+                Picker("Intensity technique", selection: Binding(
+                    get: { set.intensitiyTechnique },
+                    set: { set.intensitiyTechnique = $0 }
+                )) {
+                    ForEach(intensityTechniques) { technique in
+                        Text(technique.name).tag(technique as IntensityTechnique)
+                    }
+                }
+            }
         }
     }
 }

@@ -23,13 +23,14 @@ class ExerciseTemplate {
 @Model
 class SetTemplate {
     var exercise: ExerciseTemplate?
-    let repetitionRange: RepetitionRange?
-    let rpe: RPE?
-    let intensitiyTechnique: IntensityTechnique?
+    var repetitionRange: RepetitionRange
+    var rpe: RPE?
+    var intensitiyTechnique: IntensityTechnique?
     var sortOrder: Int
     
     init(exercise: ExerciseTemplate) {
         self.exercise = exercise
+        self.repetitionRange = RepetitionRange()
         self.sortOrder = exercise.sets.count
     }
     
@@ -39,7 +40,7 @@ class SetTemplate {
     }
     
     struct RepetitionRange: Codable {
-        let lowerLimit: Int
-        let upperLimit: Int
+        var lowerLimit: Int?
+        var upperLimit: Int?
     }
 }
