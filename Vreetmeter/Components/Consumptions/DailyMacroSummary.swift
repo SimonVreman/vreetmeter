@@ -9,9 +9,13 @@ struct DailyMacroSummary: View {
     var body: some View {
         VStack(spacing: 0) {
             let energy: Double = Double(energyGoal)
-            let fatMinimum: Double = 2.2 * bodyMass * 0.3
-            let fatMaximum: Double = 2.2 * bodyMass * 0.5
-            let protein: Double = 2.2 * bodyMass
+            
+            // Protein 1.8g/kg
+            let protein: Double = 1.8 * bodyMass
+            
+            // Fat between 0.3g/lb and 0.5g/lb
+            let fatMinimum: Double = bodyMass * 0.3 * 2.2
+            let fatMaximum: Double = bodyMass * 0.5 * 2.2
             let carbsMinimum: Double = (energy - protein * 4 - fatMaximum * 9) / 4
             let carbsMaximum: Double = (energy - protein * 4 - fatMinimum * 9) / 4
             
