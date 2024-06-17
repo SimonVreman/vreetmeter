@@ -28,7 +28,7 @@ struct ProgressTab: View {
             return points + [NumericalDatePoint(date: date, value: bodyMass!)]
         }
         
-        DispatchQueue.main.sync { self.data = points }
+        await MainActor.run { self.data = points }
     }
     
     var body: some View {

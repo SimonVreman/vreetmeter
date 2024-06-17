@@ -44,8 +44,10 @@ struct TrackingTab: View {
         }.onChange(of: scenePhase) { _, phase in
             switch phase {
             case .active:
-                navigation.meal = Meal.getAutomaticMeal()
-                navigation.date = .now.startOfDay
+                if (navigation.onDailyView) {
+                    navigation.meal = Meal.getAutomaticMeal()
+                    navigation.date = .now.startOfDay
+                }
             default:
                 break
             }
