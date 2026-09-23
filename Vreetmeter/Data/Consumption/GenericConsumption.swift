@@ -75,10 +75,10 @@ class GenericConsumption: Consumption {
         self.protein = consumption.eiwit
         self.fat = consumption.vet
         self.productName = consumption.productName
-        self.unitName = consumption.unitName
+        self.unitName = consumption.unitName ?? ""
         self.productUnitId = consumption.productUnitId
         
-        let column = SchijfVanVijfColumn(rawValue: consumption.svvColumn)
+        let column = consumption.svvColumn.flatMap { SchijfVanVijfColumn(rawValue: $0) }
         self.schijfVanVijfColumn = column
         self.schijfVanVijfCategory = column != nil ? SchijfVanVijfCategory(column: column!) : nil
         self.isSchijfVanVijf = column != nil

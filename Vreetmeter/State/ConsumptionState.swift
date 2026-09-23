@@ -39,8 +39,16 @@ import SwiftUI
         
         // Fetch required data from the API
         // TODO: make it work in parallel
-        let dayConsumptions = try await self.api.fetchDayConsumptions(date: day, tryCache: tryCache)
-        let dayMeta = try await self.api.fetchDayMeta(date: day, tryCache: tryCache)
+        let dayConsumptions: Eetmeter.DayConsumptions
+        let dayMeta: Eetmeter.DayMeta
+        do {
+            dayConsumptions = try await self.api.fetchDayConsumptions(date: day, tryCache: tryCache)
+            dayMeta = try await self.api.fetchDayMeta(date: day, tryCache: tryCache)
+        } catch {
+            // Callers mostly ignore this error, so make sure it at least shows up in the console
+            print("Fetching day \(day) failed: \(error)")
+            throw error
+        }
         
         // Transform to proper types
         var filledConsumptions: [Consumption] = []
