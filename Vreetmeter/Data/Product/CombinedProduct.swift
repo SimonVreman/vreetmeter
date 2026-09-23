@@ -1,7 +1,7 @@
 
 import Foundation
 
-class CombinedProduct: Product {
+class CombinedProduct: @MainActor Product {
     var id: UUID
     var name: String
     var portions: Int
