@@ -163,15 +163,26 @@ import SwiftUI
         let cached = self.cache.getUnit(id: id)
         if (cached != nil) { return cached! }
         
-        // Brand units are only listed on the brand product, not on the generic product/unit endpoint
-        let variants = brandProductId != nil
-            ? try await self.getBrandProduct(id: brandProductId!).product.preparationVariants
-            : try await self.getProduct(id: id, isUnit: true).preparationVariants
-        
-        guard let unit = variants.flatMap({ v in v.product.units }).first(where: { $0.id == id }) else {
-            throw EetmeterError.unitNotFound(id)
+        func findUnit(in variants: [Eetmeter.PreparationVariant]) -> Eetmeter.ProductUnit? {
+            variants.flatMap { v in v.product.units }.first { $0.id == id }
         }
-        return unit
+        
+        // Try the unit endpoint first, then the brand product the unit belongs to
+        var product: Eetmeter.Product?
+        var productError: Error?
+        do { product = try await self.getProduct(id: id, isUnit: true) } catch { productError = error }
+        if let product, let unit = findUnit(in: product.preparationVariants) { return unit }
+        
+        var brandProduct: Eetmeter.BrandProduct?
+        if let brandProductId {
+            do { brandProduct = try await self.getBrandProduct(id: brandProductId) } catch { productError = error }
+            if let brandProduct, let unit = findUnit(in: brandProduct.product.preparationVariants) { return unit }
+        }
+        
+        let productUnits = product?.preparationVariants.flatMap { v in v.product.units.map { $0.id } }
+        let brandUnits = brandProduct?.product.preparationVariants.flatMap { v in v.product.units.map { $0.id } }
+        print("Unit \(id) not found. product/unit returned product \(String(describing: product?.id)) with units \(String(describing: productUnits)); brand product \(String(describing: brandProductId)) has units \(String(describing: brandUnits)); error: \(String(describing: productError))")
+        throw EetmeterError.unitNotFound(id)
     }
     
     func saveDayMeta(meta: Eetmeter.DayMeta, date: Date) async throws {
