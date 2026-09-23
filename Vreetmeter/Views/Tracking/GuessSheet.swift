@@ -8,9 +8,13 @@ struct GuessSheet: View {
     @Environment(HealthState.self) var health
     @State var busy: Bool = false
     @State var calories: Double = 500
-    @State var carbs: Double = 40
-    @State var protein: Double = 40
-    @State var fat: Double = 20
+    @State var fatScore: Double = 0.3
+    @State var proteinScore: Double = 0.25
+    
+    // Fat is a share of all calories, protein a share of the non-fat calories, carbs the remainder
+    var fatGrams: Double { calories * fatScore / 9 }
+    var proteinGrams: Double { calories * (1 - fatScore) * proteinScore / 4 }
+    var carbGrams: Double { calories * (1 - fatScore) * (1 - proteinScore) / 4 }
     
     func save() {
         busy = true
@@ -21,9 +25,9 @@ struct GuessSheet: View {
                 period: meal.id,
                 date: date,
                 energy: calories,
-                protein: protein / 100 * calories / 4,
-                fat: fat / 100 * calories / 9,
-                carbs: carbs / 100 * calories / 4
+                protein: proteinGrams,
+                fat: fatGrams,
+                carbs: carbGrams
             ))
             try await consumptions.fetchForDay(date, tryCache: false)
             try await health.synchronizeConsumptions(day: date, consumptions: consumptions.getAllForDay(date))
@@ -44,19 +48,18 @@ struct GuessSheet: View {
                     MacroSummary(
                         amount: 100,
                         energie: calories,
-                        eiwit: protein / 100 * calories / 4,
-                        koolhydraten: carbs / 100 * calories / 4,
-                        vet: fat / 100 * calories / 9
+                        eiwit: proteinGrams,
+                        koolhydraten: carbGrams,
+                        vet: fatGrams
                     )
                 }.backgroundStyle(Color(UIColor.secondarySystemGroupedBackground))
                     .padding([.leading, .trailing], 16)
                 
                 GuessForm(
                     calories: $calories,
-                    carbs: $carbs,
-                    protein: $protein,
-                    fat: $fat
-                ).frame(height: 211).padding(Edge.Set.top, -34)
+                    fatScore: $fatScore,
+                    proteinScore: $proteinScore
+                ).frame(height: 250).padding(Edge.Set.top, -34)
             }
             
             Spacer()
