@@ -83,7 +83,7 @@ struct DailyView: View {
 }
 
 #Preview {
-    NavigationView {
+    NavigationStack {
         DailyView()
             .environment(EetmeterAPI())
             .environment(TrackingNavigationState())

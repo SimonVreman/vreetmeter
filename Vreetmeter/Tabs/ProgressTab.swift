@@ -32,7 +32,7 @@ struct ProgressTab: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView { VStack(alignment: .leading, spacing: 8) {
                 Text("Last 52 weeks")
                     .font(.title2).fontWeight(.bold)

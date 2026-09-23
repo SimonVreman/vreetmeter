@@ -8,7 +8,7 @@ struct ProductSummary: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(name).font(.title).bold().lineLimit(2).truncationMode(.tail)
-            Text(brand).foregroundColor(.secondary).bold()
+            Text(brand).foregroundStyle(.secondary).bold()
         }
     }
 }

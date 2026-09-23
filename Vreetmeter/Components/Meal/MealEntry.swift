@@ -35,7 +35,7 @@ struct MealEntry: View {
                     Text(labels.productName)
                     Text(labels.brandName)
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                         .lineLimit(1)
                         .truncationMode(.tail)
                 }
@@ -48,7 +48,7 @@ struct MealEntry: View {
                     Text("\(labels.amount, specifier: specifier)")
                     Text(labels.unitName)
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                 }
             }
             

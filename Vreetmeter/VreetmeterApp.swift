@@ -1,6 +1,5 @@
 
 import SwiftUI
-import HealthKit
 
 @main
 struct VreetmeterApp: App {
@@ -25,10 +24,10 @@ struct VreetmeterApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                TrackingTab().tabItem { Label("Tracking", systemImage: "pencil.and.list.clipboard") }
-                ProgressTab().tabItem { Label("Progress", systemImage: "chart.xyaxis.line") }
-                NutrientsTab().tabItem { Label("Nutrients", systemImage: "gauge.with.needle") }
-                SettingsTab().tabItem { Label("Settings", systemImage: "gear") }
+                Tab("Tracking", systemImage: "pencil.and.list.clipboard") { TrackingTab() }
+                Tab("Progress", systemImage: "chart.xyaxis.line") { ProgressTab() }
+                Tab("Nutrients", systemImage: "gauge.with.needle") { NutrientsTab() }
+                Tab("Settings", systemImage: "gear") { SettingsTab() }
             }.onAppear {
                 if !initialLoad { return }
                 initialLoad = false

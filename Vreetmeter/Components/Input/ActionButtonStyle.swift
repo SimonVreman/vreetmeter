@@ -9,7 +9,7 @@ struct ActionButtonStyle: ButtonStyle {
             .padding(16)
             .frame(maxWidth: .infinity)
             .background(disabled ? Color(.systemGray6) : .blue)
-            .foregroundColor(disabled ? Color(.systemGray2) : .white)
+            .foregroundStyle(disabled ? Color(.systemGray2) : .white)
             .font(.system(.body, weight: .bold))
     }
 }

@@ -9,7 +9,7 @@ struct FavoriteConsumptionResult: View {
         ConsumptionResult(
             label: label,
             sublabel: sublabel,
-            icon: AnyView(Image(systemName: "star.fill").foregroundColor(.yellow))
+            icon: AnyView(Image(systemName: "star.fill").foregroundStyle(.yellow))
         )
     }
 }

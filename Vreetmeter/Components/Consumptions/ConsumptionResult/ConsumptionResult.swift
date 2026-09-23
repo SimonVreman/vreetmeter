@@ -13,7 +13,7 @@ struct ConsumptionResult: View {
             }
             VStack(alignment: .leading, spacing: -2, content: {
                 Text(label)
-                Text(sublabel).font(.caption).foregroundColor(.gray)
+                Text(sublabel).font(.caption).foregroundStyle(.gray)
             }).lineLimit(1)
                 .truncationMode(.tail)
         }

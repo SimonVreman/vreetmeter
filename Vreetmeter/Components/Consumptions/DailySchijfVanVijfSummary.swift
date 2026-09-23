@@ -59,7 +59,7 @@ struct DailySchijfVanVijfSummary: View {
             }
         }.onTapGesture { showSheet.toggle() }
             .sheet(isPresented: $showSheet) {
-            NavigationView {
+            NavigationStack {
                 ScrollView {
                     VStack {
                         GroupBox {

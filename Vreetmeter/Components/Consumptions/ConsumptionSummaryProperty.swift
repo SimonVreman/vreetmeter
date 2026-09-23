@@ -7,8 +7,8 @@ struct ConsumptionSummaryProperty: View {
     
     var body: some View {
         Text(value.formatNutritional())
-            .font(.system(.body, design: .rounded, weight: .semibold)).foregroundColor(.primary) +
-        Text(unit).font(.system(.body, weight: .semibold)).foregroundColor(.secondary)
+            .font(.system(.body, design: .rounded, weight: .semibold)).foregroundStyle(.primary) +
+        Text(unit).font(.system(.body, weight: .semibold)).foregroundStyle(.secondary)
     }
 }
 

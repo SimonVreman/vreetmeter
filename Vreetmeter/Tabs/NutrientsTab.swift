@@ -3,7 +3,7 @@ import SwiftUI
 
 struct NutrientsTab: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 NutrientProgressOverview()
             }.navigationTitle("Nutrients").background {

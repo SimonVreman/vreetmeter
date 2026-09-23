@@ -8,7 +8,7 @@ struct CombinedConsumptionResult: View {
         ConsumptionResult(
             label: label,
             sublabel: "Eigen gerecht",
-            icon: AnyView(Image(systemName: "stove.fill").foregroundColor(.blue))
+            icon: AnyView(Image(systemName: "stove.fill").foregroundStyle(.blue))
         )
     }
 }

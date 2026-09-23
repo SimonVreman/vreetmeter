@@ -8,6 +8,6 @@ struct TextInputStyle: TextFieldStyle {
             .padding([.top, .bottom], 10)
             .padding([.leading, .trailing], 16)
             .background(disabled ? .gray : Color(.systemGray6))
-            .cornerRadius(10)
+            .clipShape(.rect(cornerRadius: 10))
     }
 }

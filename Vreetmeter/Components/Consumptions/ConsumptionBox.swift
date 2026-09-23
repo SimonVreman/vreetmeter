@@ -11,7 +11,7 @@ struct ConsumptionBox: View {
     var body: some View {
         NavigationLink(value: destination) {
             GroupBox(label: HStack {
-                Label(label, systemImage: icon).foregroundColor(color)
+                Label(label, systemImage: icon).foregroundStyle(color)
                 
                 Spacer()
                 
@@ -25,7 +25,7 @@ struct ConsumptionBox: View {
                     Text("%").foregroundStyle(.secondary)
                 }
                 
-                Image(systemName: "chevron.right").foregroundColor(Color(.systemGray4)).imageScale(.small)
+                Image(systemName: "chevron.right").foregroundStyle(Color(.systemGray4)).imageScale(.small)
             }) {
                 ConsumptionSummary(consumptions: consumptions)
                     .fixedSize(horizontal: false, vertical: true)
@@ -38,7 +38,7 @@ struct ConsumptionBox: View {
 }
 
 #Preview {
-    NavigationView {
+    NavigationStack {
         let meal = Meal.breakfast
         ConsumptionBox(label: meal.getLabel(), icon: meal.getIcon(), color: meal.getColor(), consumptions: [], destination: meal)
     }
