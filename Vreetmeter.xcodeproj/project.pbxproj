@@ -85,7 +85,6 @@
 		CC56671E2B2A355800E5DE92 /* NutritionalTargetProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC56671D2B2A355800E5DE92 /* NutritionalTargetProgress.swift */; };
 		CC56FCD02B175E5C00B97D63 /* Cache in Frameworks */ = {isa = PBXBuildFile; productRef = CC56FCCF2B175E5C00B97D63 /* Cache */; };
 		CC56FCD22B17611400B97D63 /* EetmeterCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC56FCD12B17611400B97D63 /* EetmeterCache.swift */; };
-		CC56FCD62B19085200B97D63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC56FCD52B19085200B97D63 /* LaunchScreen.storyboard */; };
 		CC7243962B1B7BD600E887F7 /* TrackingTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7243952B1B7BD600E887F7 /* TrackingTab.swift */; };
 		CC7243982B1B7CE700E887F7 /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7243972B1B7CE700E887F7 /* SettingsTab.swift */; };
 		CC72439A2B1B7D0100E887F7 /* NutrientsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7243992B1B7D0100E887F7 /* NutrientsTab.swift */; };
@@ -228,7 +227,6 @@
 		CC56671B2B2A308200E5DE92 /* NutritionalTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionalTarget.swift; sourceTree = "<group>"; };
 		CC56671D2B2A355800E5DE92 /* NutritionalTargetProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionalTargetProgress.swift; sourceTree = "<group>"; };
 		CC56FCD12B17611400B97D63 /* EetmeterCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EetmeterCache.swift; sourceTree = "<group>"; };
-		CC56FCD52B19085200B97D63 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC7243952B1B7BD600E887F7 /* TrackingTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTab.swift; sourceTree = "<group>"; };
 		CC7243972B1B7CE700E887F7 /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		CC7243992B1B7D0100E887F7 /* NutrientsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutrientsTab.swift; sourceTree = "<group>"; };
@@ -497,7 +495,6 @@
 				CC59FD422B323AA10050375A /* Nutrients */,
 				CC59FD412B323A8B0050375A /* Tracking */,
 				60D01E892A63D70200212B88 /* LoginSheet.swift */,
-				CC56FCD52B19085200B97D63 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -769,12 +766,9 @@
 			);
 			mainGroup = 6023207A2A6163CB003BB103;
 			packageReferences = (
-				60588E172A67038000EB3519 /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */,
 				60588E312A68748900EB3519 /* XCRemoteSwiftPackageReference "DebouncedOnChange" */,
-				60588E362A687E2300EB3519 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */,
 				60588E412A69A4EF00EB3519 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 				CC56FCCE2B175E5C00B97D63 /* XCRemoteSwiftPackageReference "Cache" */,
-				CC56671F2B2B659900E5DE92 /* XCRemoteSwiftPackageReference "Stripes" */,
 			);
 			productRefGroup = 602320842A6163CB003BB103 /* Products */;
 			projectDirPath = "";
@@ -792,7 +786,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC56FCD62B19085200B97D63 /* LaunchScreen.storyboard in Resources */,
 				6023208E2A6163CE003BB103 /* Preview Assets.xcassets in Resources */,
 				6023208B2A6163CE003BB103 /* Assets.xcassets in Resources */,
 			);
@@ -1086,14 +1079,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is needed to scan barcodes";
-				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Synchronizing nutrient values and targets";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Synchronizing nutrient values and targets";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Synchronizing nutrient values and targets";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1125,14 +1117,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is needed to scan barcodes";
-				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Synchronizing nutrient values and targets";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Synchronizing nutrient values and targets";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Synchronizing nutrient values and targets";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1266,14 +1257,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		60588E172A67038000EB3519 /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/davdroman/swiftui-navigation-transitions";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.10.1;
-			};
-		};
 		60588E312A68748900EB3519 /* XCRemoteSwiftPackageReference "DebouncedOnChange" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Tunous/DebouncedOnChange.git";
@@ -1282,28 +1265,12 @@
 				minimumVersion = 1.1.0;
 			};
 		};
-		60588E362A687E2300EB3519 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.3;
-			};
-		};
 		60588E412A69A4EF00EB3519 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/twostraws/CodeScanner";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.3.3;
-			};
-		};
-		CC56671F2B2B659900E5DE92 /* XCRemoteSwiftPackageReference "Stripes" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/eneko/Stripes";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.0;
 			};
 		};
 		CC56FCCE2B175E5C00B97D63 /* XCRemoteSwiftPackageReference "Cache" */ = {

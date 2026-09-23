@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1500"
+   LastUpgradeVersion = "2600"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "60FEC3FB2A8E8C40000E7C95"
-               BuildableName = "VreetmeterWatch Watch App.app"
-               BlueprintName = "VreetmeterWatch Watch App"
+               BlueprintIdentifier = "602320822A6163CB003BB103"
+               BuildableName = "Vreetmeter.app"
+               BlueprintName = "Vreetmeter"
                ReferencedContainer = "container:Vreetmeter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,6 +28,30 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
+      <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "602320922A6163CE003BB103"
+               BuildableName = "VreetmeterTests.xctest"
+               BlueprintName = "VreetmeterTests"
+               ReferencedContainer = "container:Vreetmeter.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6023209C2A6163CE003BB103"
+               BuildableName = "VreetmeterUITests.xctest"
+               BlueprintName = "VreetmeterUITests"
+               ReferencedContainer = "container:Vreetmeter.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -43,9 +67,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "60FEC3FB2A8E8C40000E7C95"
-            BuildableName = "VreetmeterWatch Watch App.app"
-            BlueprintName = "VreetmeterWatch Watch App"
+            BlueprintIdentifier = "602320822A6163CB003BB103"
+            BuildableName = "Vreetmeter.app"
+            BlueprintName = "Vreetmeter"
             ReferencedContainer = "container:Vreetmeter.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -60,9 +84,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "60FEC3FB2A8E8C40000E7C95"
-            BuildableName = "VreetmeterWatch Watch App.app"
-            BlueprintName = "VreetmeterWatch Watch App"
+            BlueprintIdentifier = "602320822A6163CB003BB103"
+            BuildableName = "Vreetmeter.app"
+            BlueprintName = "Vreetmeter"
             ReferencedContainer = "container:Vreetmeter.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
