@@ -8,9 +8,9 @@ struct ActionButtonStyle: ButtonStyle {
         configuration.label
             .padding(16)
             .frame(maxWidth: .infinity)
-            .background(disabled ? Color(.systemGray6) : .blue)
             .foregroundStyle(disabled ? Color(.systemGray2) : .white)
             .font(.system(.body, weight: .bold))
+            .glassEffect(disabled ? .regular : .regular.tint(.blue).interactive(), in: .capsule)
     }
 }
 

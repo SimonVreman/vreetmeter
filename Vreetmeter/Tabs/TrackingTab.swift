@@ -19,26 +19,22 @@ struct TrackingTab: View {
                                     navigation.meal = meal
                                 }
                             }.safeAreaInset(edge: .bottom) {
-                                Color.clear.frame(height: 48)
+                                Color.clear.frame(height: 60)
                             }
                     }.navigationDestination(for: Eetmeter.GenericProduct.self) { product in
                         ProductView(product: product)
                     }.background {
                         GradientBackground(colors: [.orange, .green, .blue]).ignoresSafeArea()
                     }.safeAreaInset(edge: .bottom) {
-                        Color.clear.frame(height: 48)
+                        Color.clear.frame(height: 60)
                     }
             }
             
             if (navigation.selectionPath.count <= 1) {
                 VStack(spacing: 0) {
                     Spacer()
-                
-                    Divider()
-                
                     QuickProductSearch()
                         .padding([.horizontal], 16).padding([.vertical], 8)
-                        .background(.ultraThinMaterial)
                 }
             }
         }.onChange(of: scenePhase) { _, phase in
@@ -50,7 +46,5 @@ struct TrackingTab: View {
                 break
             }
         }.environment(navigation)
-            .toolbarBackground(.visible, for: .tabBar)
-            .toolbarBackground(.ultraThinMaterial, for: .tabBar)
     }
 }

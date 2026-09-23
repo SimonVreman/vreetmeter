@@ -89,7 +89,7 @@ struct DailySchijfVanVijfSummary: View {
                         }.cardBackgroundAndShadow()
                     }.padding()
                 }.navigationTitle("Schijf van Vijf")
-            }.presentationBackground(.ultraThinMaterial)
+            }
         }
     }
 }
