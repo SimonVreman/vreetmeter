@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		602320872A6163CB003BB103 /* VreetmeterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602320862A6163CB003BB103 /* VreetmeterApp.swift */; };
 		6023208B2A6163CE003BB103 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6023208A2A6163CE003BB103 /* Assets.xcassets */; };
+		CC0000000000000000000A02 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CC0000000000000000000A01 /* PrivacyInfo.xcprivacy */; };
 		6023208E2A6163CE003BB103 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6023208D2A6163CE003BB103 /* Preview Assets.xcassets */; };
 		602320982A6163CE003BB103 /* VreetmeterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602320972A6163CE003BB103 /* VreetmeterTests.swift */; };
 		602320A22A6163CE003BB103 /* VreetmeterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602320A12A6163CE003BB103 /* VreetmeterUITests.swift */; };
@@ -190,6 +191,7 @@
 		60B308772A7D9534008473B9 /* DayNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNote.swift; sourceTree = "<group>"; };
 		60C109FF2A8EBA8F003915AF /* DoubleFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleFormat.swift; sourceTree = "<group>"; };
 		60C10A0A2A8FA4AA003915AF /* Vreetmeter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vreetmeter.entitlements; sourceTree = "<group>"; };
+		CC0000000000000000000A01 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		60C10A0D2A911359003915AF /* GenericProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericProduct.swift; sourceTree = "<group>"; };
 		60C10A0F2A93E816003915AF /* MealEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealEntry.swift; sourceTree = "<group>"; };
 		60C10A112A93FAE8003915AF /* MacroLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroLine.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				CC7243942B1B7BBB00E887F7 /* Tabs */,
 				CCBE089F2AD6D35E00B4C1FE /* Data */,
 				60C10A0A2A8FA4AA003915AF /* Vreetmeter.entitlements */,
+				CC0000000000000000000A01 /* PrivacyInfo.xcprivacy */,
 				60588E442A69B67800EB3519 /* State */,
 				60D01E942A64539000212B88 /* Views */,
 				60D01E8D2A6435C200212B88 /* Extensions */,
@@ -788,6 +791,7 @@
 			files = (
 				6023208E2A6163CE003BB103 /* Preview Assets.xcassets in Resources */,
 				6023208B2A6163CE003BB103 /* Assets.xcassets in Resources */,
+				CC0000000000000000000A02 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
