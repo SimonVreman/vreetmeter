@@ -64,9 +64,9 @@ struct GuessSheet: View {
             Button(action: save, label: { Text("Enter") })
                 .buttonStyle(ActionButtonStyle(disabled:  !isValid()))
                 .disabled(!isValid())
-                .padding([.leading, .trailing], 16)
                 .padding(.top, 8)
-        }.padding([.top, .bottom], 16)
+                .ignoresSafeArea()
+        }.padding(.top, 16)
             .background(Color(UIColor.systemGroupedBackground))
     }
 }

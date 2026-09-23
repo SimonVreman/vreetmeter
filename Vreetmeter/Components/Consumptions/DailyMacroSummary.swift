@@ -10,8 +10,8 @@ struct DailyMacroSummary: View {
         VStack(spacing: 0) {
             let energy: Double = Double(energyGoal)
             
-            // Protein 1.8g/kg
-            let protein: Double = 1.8 * bodyMass
+            // Protein 1g/lb
+            let protein: Double = 2.2 * bodyMass
             
             // Fat between 0.3g/lb and 0.5g/lb
             let fatMinimum: Double = bodyMass * 0.3 * 2.2

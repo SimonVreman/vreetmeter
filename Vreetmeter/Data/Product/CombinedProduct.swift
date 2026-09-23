@@ -20,7 +20,7 @@ class CombinedProduct: Product {
     var fatPolyunsaturated: Double? { self.optionalSummation({ $0.fatPolyunsaturated }) }
     var fatSaturated: Double? { self.optionalSummation({ $0.fatSaturated }) }
     var cholesterol: Double? { self.optionalSummation({ $0.cholesterol }) }
-
+    
     // Vitamins
     var vitaminA: Double? { self.optionalSummation({ $0.vitaminA }) }
     var thiamin: Double? { self.optionalSummation({ $0.thiamin }) }
@@ -45,7 +45,7 @@ class CombinedProduct: Product {
     var potassium: Double? { self.optionalSummation({ $0.potassium }) }
     var sodium: Double? { self.optionalSummation({ $0.sodium }) }
     var zinc: Double? { self.optionalSummation({ $0.zinc }) }
-
+    
     // Ultratrace Minerals
     var chromium: Double? { self.optionalSummation({ $0.chromium }) }
     var copper: Double? { self.optionalSummation({ $0.copper }) }

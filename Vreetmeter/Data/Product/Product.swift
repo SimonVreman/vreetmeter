@@ -1,6 +1,6 @@
 
 import Foundation
 
-protocol Product: AnyObject, NutritionalImmutable {
+protocol Product: AnyObject, Hashable, NutritionalImmutable {
     var id: UUID { get }
 }

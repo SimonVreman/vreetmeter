@@ -19,29 +19,32 @@ struct TrackingTab: View {
                                     navigation.meal = meal
                                 }
                             }.safeAreaInset(edge: .bottom) {
-                                Color.clear.frame(height: 60)
+                                Color.clear.frame(height: 64)
                             }
                     }.navigationDestination(for: Eetmeter.GenericProduct.self) { product in
                         ProductView(product: product)
                     }.background {
                         GradientBackground(colors: [.orange, .green, .blue]).ignoresSafeArea()
                     }.safeAreaInset(edge: .bottom) {
-                        Color.clear.frame(height: 60)
+                        Color.clear.frame(height: 64)
                     }
             }
             
             if (navigation.selectionPath.count <= 1) {
                 VStack(spacing: 0) {
                     Spacer()
+                
                     QuickProductSearch()
-                        .padding([.horizontal], 16).padding([.vertical], 8)
+                        .padding([.horizontal], 20).padding([.vertical], 8)
                 }
             }
         }.onChange(of: scenePhase) { _, phase in
             switch phase {
             case .active:
-                navigation.meal = Meal.getAutomaticMeal()
-                navigation.date = .now.startOfDay
+                if (navigation.onDailyView) {
+                    navigation.meal = Meal.getAutomaticMeal()
+                    navigation.date = .now.startOfDay
+                }
             default:
                 break
             }

@@ -27,6 +27,7 @@ struct VreetmeterApp: App {
                 Tab("Tracking", systemImage: "pencil.and.list.clipboard") { TrackingTab() }
                 Tab("Progress", systemImage: "chart.xyaxis.line") { ProgressTab() }
                 Tab("Nutrients", systemImage: "gauge.with.needle") { NutrientsTab() }
+                Tab("Recipes", systemImage: "stove.fill") { CombinedProductsTab() }
                 Tab("Settings", systemImage: "gear") { SettingsTab() }
             }.onAppear {
                 if !initialLoad { return }

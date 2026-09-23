@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "ios_diet_app_icon__3d_red_clay_apple_on_white_background__without_shadow__minimalistic__orthographic_view_3869748515.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -12,6 +13,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "ios_diet_app_icon__3d_red_clay_apple_on_white_background__without_shadow__minimalistic__orthographic_view_3869748515 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -23,6 +25,7 @@
           "value" : "tinted"
         }
       ],
+      "filename" : "ios_diet_app_icon__3d_red_clay_apple_on_white_background__without_shadow__minimalistic__orthographic_view_3869748515 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
