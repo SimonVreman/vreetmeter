@@ -88,7 +88,7 @@ struct SelectConsumptionView: View {
                 }.listStyle(.grouped)
                     .searchable(text: $query, isPresented: $searchOpen)
                     .onAppear(perform: { scheduleSearch(query: query) })
-                    .onChange(of: query, debounceTime: .seconds(0.25)) { newQuery in
+                    .onChange(of: query, debounceTime: .seconds(0.25)) { _, newQuery in
                         if (searching) { return }
                         scheduleSearch(query: newQuery)
                     }
