@@ -62,7 +62,7 @@ class GenericConsumption: Consumption {
     var molybdenum: Double?
     var selenium: Double?
     
-    init(consumption: Eetmeter.Consumption, grams: Double?, date: Date?) {
+    init(consumption: Eetmeter.Consumption, grams: Double, date: Date?) {
         let meal = Meal(rawValue: consumption.period)
         
         self.id = consumption.id
@@ -75,10 +75,10 @@ class GenericConsumption: Consumption {
         self.protein = consumption.eiwit
         self.fat = consumption.vet
         self.productName = consumption.productName
-        self.unitName = consumption.unitName
+        self.unitName = consumption.unitName ?? ""
         self.productUnitId = consumption.productUnitId
         
-        let column = SchijfVanVijfColumn(rawValue: consumption.svvColumn)
+        let column = consumption.svvColumn.flatMap { SchijfVanVijfColumn(rawValue: $0) }
         self.schijfVanVijfColumn = column
         self.schijfVanVijfCategory = column != nil ? SchijfVanVijfCategory(column: column!) : nil
         self.isSchijfVanVijf = column != nil

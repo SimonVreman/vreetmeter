@@ -39,7 +39,8 @@ class EetmeterClient {
         var url = URL(string: self.api + url)!
         if (!query.isEmpty) { url.append(queryItems: query) }
         
-        var request = URLRequest(url: url)
+        // EetmeterCache does the caching, the URL cache would only serve stale days
+        var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData)
         
         if (self.token != nil) {
             request.setValue("Basic " + self.token!, forHTTPHeaderField: "authorization")

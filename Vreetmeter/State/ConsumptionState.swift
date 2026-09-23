@@ -39,13 +39,22 @@ import SwiftUI
         
         // Fetch required data from the API
         // TODO: make it work in parallel
-        let dayConsumptions = try await self.api.fetchDayConsumptions(date: day, tryCache: tryCache)
-        let dayMeta = try await self.api.fetchDayMeta(date: day, tryCache: tryCache)
+        let dayConsumptions: Eetmeter.DayConsumptions
+        let dayMeta: Eetmeter.DayMeta
+        do {
+            dayConsumptions = try await self.api.fetchDayConsumptions(date: day, tryCache: tryCache)
+            dayMeta = try await self.api.fetchDayMeta(date: day, tryCache: tryCache)
+        } catch {
+            // Callers mostly ignore this error, so make sure it at least shows up in the console
+            print("Fetching day \(day) failed: \(error)")
+            throw error
+        }
         
         // Transform to proper types
         var filledConsumptions: [Consumption] = []
         for c in dayConsumptions.items {
-            filledConsumptions.append(await self.createConsumptionObject(c, day: day))
+            let consumption = try? await self.createConsumptionObject(c, day: day)
+            if consumption != nil { filledConsumptions.append(consumption!) }
         }
         
         let regularConsumptions = filledConsumptions
@@ -66,63 +75,44 @@ import SwiftUI
         }
     }
     
-    /// Builds a consumption from the API item. The item already carries energy, macros and names, so product
-    /// lookups (for grams and micronutrients) are best-effort and never cause a logged item to be dropped.
-    private func createConsumptionObject(_ c: Eetmeter.Consumption, day: Date) async -> Consumption {
-        var grams: Double?
-        do {
-            let unit = try await self.api.getUnit(id: c.productUnitId, brandProductId: c.brandProductId)
-            grams = c.amount * Double(unit.gramsPerUnit)
-        } catch {
-            print("Unit lookup failed for \(c.productName) (unit \(c.productUnitId), brand product \(String(describing: c.brandProductId))): \(error)")
-        }
+    private func createConsumptionObject(_ c: Eetmeter.Consumption, day: Date) async throws -> Consumption? {
+        let isBrand = c.brandProductId != nil
+        let unit = try await self.api.getUnit(id: c.productUnitId, brandProductId: c.brandProductId)
+        let consumed = c.amount * Double(unit.gramsPerUnit)
         
-        if let brandProductId = c.brandProductId {
-            var consumption = BrandConsumption(consumption: c, grams: grams, date: day)
-            guard let grams else { return consumption }
-            do {
-                try await self.fillBrandNutritionalValues(&consumption, brandProductId: brandProductId, unitId: c.productUnitId, consumed: grams)
-            } catch {
-                print("Nutritional lookup failed for \(c.productName) (brand product \(brandProductId)): \(error)")
+        if (isBrand) {
+            var consumption = BrandConsumption(consumption: c, grams: consumed, date: day)
+            let product = try await self.api.getBrandProduct(id: c.brandProductId!)
+            let variant = product.product.preparationVariants.first { v in v.product.units.contains { u in u.id == c.productUnitId } }
+            
+            // For brand consumptions, we have three different data sources
+            //   1. The brand nutritional values, if product is raw
+            //   2. A fallback to generic nutritional values, if the product is raw
+            //   3. The preparation variant values, if product is not raw and we have such a variant
+            
+            if variant != nil && !variant!.product.preparationMethod.isRaw {
+                consumption.fillOptionalNutrionalValues(p: variant!.product, consumed: consumed) // Source 3.
+                return consumption
             }
+            
+            let genericNutritional: EetmeterNutritional?
+            if variant != nil {
+                genericNutritional = variant!.product
+            } else {
+                let baseProductId = product.product.baseProductId
+                let baseProduct = baseProductId != nil ? try? await self.api.getBaseProduct(id: baseProductId!) : nil
+                genericNutritional = baseProduct?.products.first
+            }
+            
+            if genericNutritional != nil { consumption.fillOptionalNutrionalValues(p: genericNutritional!, consumed: consumed) } // Source 2.
+            consumption.fillOptionalNutrionalValues(p: product, consumed: consumed) // Source 1.
+            
             return consumption
         }
         
-        var consumption = GenericConsumption(consumption: c, grams: grams, date: day)
-        guard let grams else { return consumption }
-        do {
-            let nutritional = try await self.api.getVariant(unitId: c.productUnitId).variant
-            consumption.fillOptionalNutrionalValues(p: nutritional, consumed: grams)
-        } catch {
-            print("Nutritional lookup failed for \(c.productName) (unit \(c.productUnitId)): \(error)")
-        }
+        var consumption = GenericConsumption(consumption: c, grams: consumed, date: day)
+        let nutritional = try await self.api.getVariant(unitId: c.productUnitId).variant
+        consumption.fillOptionalNutrionalValues(p: nutritional, consumed: consumed)
         return consumption
-    }
-    
-    private func fillBrandNutritionalValues(_ consumption: inout BrandConsumption, brandProductId: UUID, unitId: UUID, consumed: Double) async throws {
-        let product = try await self.api.getBrandProduct(id: brandProductId)
-        let variant = product.product.preparationVariants.first { v in v.product.units.contains { u in u.id == unitId } }
-        
-        // For brand consumptions, we have three different data sources
-        //   1. The brand nutritional values, if product is raw
-        //   2. A fallback to generic nutritional values, if the product is raw
-        //   3. The preparation variant values, if product is not raw and we have such a variant
-        
-        if variant != nil && !variant!.product.preparationMethod.isRaw {
-            consumption.fillOptionalNutrionalValues(p: variant!.product, consumed: consumed) // Source 3.
-            return
-        }
-        
-        let genericNutritional: EetmeterNutritional?
-        if variant != nil {
-            genericNutritional = variant!.product
-        } else {
-            let baseProductId = product.product.baseProductId
-            let baseProduct = baseProductId != nil ? try? await self.api.getBaseProduct(id: baseProductId!) : nil
-            genericNutritional = baseProduct?.products.first
-        }
-        
-        if genericNutritional != nil { consumption.fillOptionalNutrionalValues(p: genericNutritional!, consumed: consumed) } // Source 2.
-        consumption.fillOptionalNutrionalValues(p: product, consumed: consumed) // Source 1.
     }
 }

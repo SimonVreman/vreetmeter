@@ -37,13 +37,7 @@ struct SingleProductView: View {
         )
         
         Task {
-            do {
-                try await eetmeterAPI.saveProduct(update: update)
-            } catch {
-                print("Saving \(productName) failed: \(error)")
-                loading = false
-                return
-            }
+            try? await eetmeterAPI.saveProduct(update: update)
             try? await consumptions.fetchForDay(date, tryCache: false)
             try? await health.synchronizeConsumptions(day: date, consumptions: consumptions.getAllForDay(date))
             

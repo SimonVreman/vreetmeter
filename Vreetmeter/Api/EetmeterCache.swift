@@ -21,8 +21,11 @@ class EetmeterCache {
     private let separator = "."
     private let versionKey = "eetmeter.cache.version"
     
+    // Days can change from other devices or the Eetmeter app, so only cache them briefly
+    private let dayExpiry = Expiry.seconds(60 * 5)
+    
     // Bump when cached models change shape to invalidate existing entries
-    private static let version = 3
+    private static let version = 4
     
     init() {
         self.cache = try? Storage(
@@ -126,12 +129,12 @@ class EetmeterCache {
     
     func setDayConsumptions(consumptions: Eetmeter.DayConsumptions) {
         guard let data = try? self.encoder.encode(consumptions) else { return }
-        try? self.cache?.setObject(data, forKey: self.getKey(prefix: .dayConsumptions, id: self.getDateKey(date: consumptions.startDate)))
+        try? self.cache?.setObject(data, forKey: self.getKey(prefix: .dayConsumptions, id: self.getDateKey(date: consumptions.startDate)), expiry: self.dayExpiry)
     }
     
     func setDayMeta(meta: Eetmeter.DayMeta, date: Date) {
         guard let data = try? self.encoder.encode(meta) else { return }
-        try? self.cache?.setObject(data, forKey: self.getKey(prefix: .dayMeta, id: self.getDateKey(date: date)))
+        try? self.cache?.setObject(data, forKey: self.getKey(prefix: .dayMeta, id: self.getDateKey(date: date)), expiry: self.dayExpiry)
     }
     
     func setProduct(product: Eetmeter.BrandProduct) {
