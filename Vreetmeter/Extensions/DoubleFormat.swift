@@ -12,6 +12,6 @@ extension Double {
             format = "%.0f"
         }
         
-        return String(format: format, self > 1000 ? self / 1000 : self)
+        return String(format: format, self >= 1000 ? self / 1000 : self)
     }
 }
