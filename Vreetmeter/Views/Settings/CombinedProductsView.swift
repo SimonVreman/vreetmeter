@@ -19,6 +19,6 @@ struct CombinedProductsView: View {
                 CombinedConsumptionResult(label: product.name)
             }
         }.searchable(text: $query)
-            .navigationTitle("Combined products")
+            .navigationTitle("Recipes")
     }
 }

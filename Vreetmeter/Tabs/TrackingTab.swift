@@ -34,11 +34,8 @@ struct TrackingTab: View {
                 VStack(spacing: 0) {
                     Spacer()
                 
-                    Divider()
-                
                     QuickProductSearch()
-                        .padding([.horizontal], 16).padding([.vertical], 8)
-                        .background(.ultraThinMaterial)
+                        .padding([.horizontal], 20).padding([.vertical], 8)
                 }
             }
         }.onChange(of: scenePhase) { _, phase in

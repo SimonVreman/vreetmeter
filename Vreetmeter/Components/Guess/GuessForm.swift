@@ -1,6 +1,9 @@
 
 import SwiftUI
 
+var MINIMUM_FRACTION: Double = 0.1
+var MAXIMUM_FRACTION: Double = 100 - 2 * MINIMUM_FRACTION
+
 struct GuessForm: View {
     enum FocusedField { case calories }
     
@@ -14,32 +17,29 @@ struct GuessForm: View {
     var body: some View {
         Form {
             Section {
-                Slider(value: $carbs, in: 0.1...99.8, step: 0.1).tint(.blue)
-                    .task(id: carbs) {
-                        let difference = carbs + protein + fat - 100
-                        let proteinDifference = difference * (protein / (protein + fat))
-                        let fatDifference = difference * (fat / (protein + fat))
+                Slider(value: $carbs, in: MINIMUM_FRACTION...MAXIMUM_FRACTION, step: MINIMUM_FRACTION).tint(.blue)
+                    .onChange(of: carbs) {
+                        let difference = 100 - (carbs + protein + fat)
+                        let proteinDifference = max(difference, MINIMUM_FRACTION - protein)
                         
-                        protein -= proteinDifference
-                        fat -= fatDifference
+                        protein += proteinDifference
+                        fat += difference - proteinDifference
                     }
-                Slider(value: $protein, in: 0.1...99.8, step: 0.1).tint(.green)
-                    .task(id: protein) {
-                        let difference = carbs + protein + fat - 100
-                        let carbsDifference = difference * (carbs / (carbs + fat))
-                        let fatDifference = difference * (fat / (carbs + fat))
+                Slider(value: $protein, in: MINIMUM_FRACTION...MAXIMUM_FRACTION, step: MINIMUM_FRACTION).tint(.green)
+                    .onChange(of: protein) {
+                        let difference = 100 - (carbs + protein + fat)
+                        let fatDifference = max(difference, MINIMUM_FRACTION - fat)
                         
-                        carbs -= carbsDifference
-                        fat -= fatDifference
+                        fat += fatDifference
+                        carbs += difference - fatDifference
                     }
-                Slider(value: $fat, in: 0.1...99.8, step: 0.1).tint(.orange)
-                    .task(id: fat) {
-                        let difference = carbs + protein + fat - 100
-                        let carbsDifference = difference * (carbs / (carbs + protein))
-                        let proteinDifference = difference * (protein / (carbs + protein))
+                Slider(value: $fat, in: MINIMUM_FRACTION...MAXIMUM_FRACTION, step: MINIMUM_FRACTION).tint(.orange)
+                    .onChange(of: fat) {
+                        let difference = 100 - (carbs + protein + fat)
+                        let proteinDifference = max(difference, MINIMUM_FRACTION - protein)
                         
-                        carbs -= carbsDifference
-                        protein -= proteinDifference
+                        protein += proteinDifference
+                        carbs += difference - proteinDifference
                     }
                 LabeledContent {
                     TextField("0", value: $calories, formatter: NumberFormatter()).keyboardType(.decimalPad)

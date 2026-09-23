@@ -70,6 +70,8 @@
 		CC2DF09E2B1119F6001E9089 /* ProductState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2DF09D2B1119F6001E9089 /* ProductState.swift */; };
 		CC2DF0A02B164BF4001E9089 /* HealthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2DF09F2B164BF4001E9089 /* HealthState.swift */; };
 		CC2EBA5A2B8A0709003E5A03 /* CombinedProductsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2EBA592B8A0709003E5A03 /* CombinedProductsView.swift */; };
+		CC2F81E22CE39767002348BC /* CombinedProductsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2F81E12CE39767002348BC /* CombinedProductsTab.swift */; };
+		CC2F81E52CE397D9002348BC /* CombinedProductEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2F81E42CE397D9002348BC /* CombinedProductEditView.swift */; };
 		CC5667032B25BB4100E5DE92 /* SchijfVanVijf.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5667022B25BB4100E5DE92 /* SchijfVanVijf.swift */; };
 		CC5667052B25C1E300E5DE92 /* DailySchijfVanVijfSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5667042B25C1E300E5DE92 /* DailySchijfVanVijfSummary.swift */; };
 		CC5667072B25CD5F00E5DE92 /* DailyEnergySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5667062B25CD5F00E5DE92 /* DailyEnergySummary.swift */; };
@@ -115,6 +117,7 @@
 		CCBE08A22AD6D37700B4C1FE /* Consumption.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBE08A12AD6D37700B4C1FE /* Consumption.swift */; };
 		CCBE08A62AD6D5DE00B4C1FE /* Eetmeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBE08A52AD6D5DE00B4C1FE /* Eetmeter.swift */; };
 		CCBE08A82AD6D63300B4C1FE /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBE08A72AD6D63300B4C1FE /* Account.swift */; };
+		CCCC110E2CECE2F900B79CE3 /* Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCC110D2CECE2F500B79CE3 /* Hashable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,6 +217,8 @@
 		CC2DF09D2B1119F6001E9089 /* ProductState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductState.swift; sourceTree = "<group>"; };
 		CC2DF09F2B164BF4001E9089 /* HealthState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthState.swift; sourceTree = "<group>"; };
 		CC2EBA592B8A0709003E5A03 /* CombinedProductsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedProductsView.swift; sourceTree = "<group>"; };
+		CC2F81E12CE39767002348BC /* CombinedProductsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedProductsTab.swift; sourceTree = "<group>"; };
+		CC2F81E42CE397D9002348BC /* CombinedProductEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedProductEditView.swift; sourceTree = "<group>"; };
 		CC5667022B25BB4100E5DE92 /* SchijfVanVijf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchijfVanVijf.swift; sourceTree = "<group>"; };
 		CC5667042B25C1E300E5DE92 /* DailySchijfVanVijfSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySchijfVanVijfSummary.swift; sourceTree = "<group>"; };
 		CC5667062B25CD5F00E5DE92 /* DailyEnergySummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyEnergySummary.swift; sourceTree = "<group>"; };
@@ -261,6 +266,7 @@
 		CCBE08A12AD6D37700B4C1FE /* Consumption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consumption.swift; sourceTree = "<group>"; };
 		CCBE08A52AD6D5DE00B4C1FE /* Eetmeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Eetmeter.swift; sourceTree = "<group>"; };
 		CCBE08A72AD6D63300B4C1FE /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		CCCC110D2CECE2F500B79CE3 /* Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hashable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -451,6 +457,7 @@
 		60D01E8D2A6435C200212B88 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				CCCC110D2CECE2F500B79CE3 /* Hashable.swift */,
 				60D01E772A62CA0700212B88 /* CustomJSONHandling.swift */,
 				60D01E8E2A6435D100212B88 /* InverseBindingBool.swift */,
 				60B3085A2A6D8263008473B9 /* ConditionalView.swift */,
@@ -493,6 +500,7 @@
 		60D01E942A64539000212B88 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CC2F81E32CE397CE002348BC /* CombinedProducts */,
 				CC2EBA582B8A04C2003E5A03 /* Settings */,
 				CC59FD422B323AA10050375A /* Nutrients */,
 				CC59FD412B323A8B0050375A /* Tracking */,
@@ -541,6 +549,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		CC2F81E32CE397CE002348BC /* CombinedProducts */ = {
+			isa = PBXGroup;
+			children = (
+				CC2F81E42CE397D9002348BC /* CombinedProductEditView.swift */,
+			);
+			path = CombinedProducts;
+			sourceTree = "<group>";
+		};
 		CC5327752AF690BC005D796D /* Meal */ = {
 			isa = PBXGroup;
 			children = (
@@ -576,6 +592,7 @@
 			isa = PBXGroup;
 			children = (
 				CC7243952B1B7BD600E887F7 /* TrackingTab.swift */,
+				CC2F81E12CE39767002348BC /* CombinedProductsTab.swift */,
 				CC7243972B1B7CE700E887F7 /* SettingsTab.swift */,
 				CC7243992B1B7D0100E887F7 /* NutrientsTab.swift */,
 				CC72439B2B1B7F7D00E887F7 /* ProgressTab.swift */,
@@ -820,6 +837,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60588E482A6C3B9B00EB3519 /* ProductView.swift in Sources */,
+				CCCC110E2CECE2F900B79CE3 /* Hashable.swift in Sources */,
 				60D01E712A62BACC00212B88 /* EetmeterAPI.swift in Sources */,
 				60B308552A6D1A93008473B9 /* MacroSummary.swift in Sources */,
 				CCBE089E2AD6D25C00B4C1FE /* ConsumptionState.swift in Sources */,
@@ -872,6 +890,7 @@
 				60D01E782A62CA0700212B88 /* CustomJSONHandling.swift in Sources */,
 				60B3085D2A6D877A008473B9 /* PreparationVariantPicker.swift in Sources */,
 				60588E4E2A6C415400EB3519 /* BrandProducts.swift in Sources */,
+				CC2F81E52CE397D9002348BC /* CombinedProductEditView.swift in Sources */,
 				CC56671E2B2A355800E5DE92 /* NutritionalTargetProgress.swift in Sources */,
 				60588E232A671A0100EB3519 /* ConsumptionSearchResult.swift in Sources */,
 				60D01E632A6188DF00212B88 /* DaySelector.swift in Sources */,
@@ -917,6 +936,7 @@
 				60D01E652A61913200212B88 /* ConsumptionBox.swift in Sources */,
 				60C10A122A93FAE8003915AF /* MacroLine.swift in Sources */,
 				60588E0C2A65B53C00EB3519 /* ActionButtonStyle.swift in Sources */,
+				CC2F81E22CE39767002348BC /* CombinedProductsTab.swift in Sources */,
 				60588E522A6C41AC00EB3519 /* Products.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1005,7 +1025,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1060,7 +1080,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1094,12 +1114,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = simonvreman.Vreetmeter;
+				PRODUCT_BUNDLE_IDENTIFIER = simonvreman.Vreetmeter.main;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1133,12 +1154,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = simonvreman.Vreetmeter;
+				PRODUCT_BUNDLE_IDENTIFIER = simonvreman.Vreetmeter.main;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
