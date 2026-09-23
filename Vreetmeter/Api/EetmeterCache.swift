@@ -27,6 +27,7 @@ class EetmeterCache {
                 maxSize: 1000 * 500
             ),
             memoryConfig: MemoryConfig(expiry: Expiry.seconds(60 * 60)),
+            fileManager: .default,
             transformer: TransformerFactory.forData()
         )
     }
