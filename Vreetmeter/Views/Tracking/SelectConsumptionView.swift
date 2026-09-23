@@ -88,7 +88,7 @@ struct SelectConsumptionView: View {
                 }.listStyle(.grouped)
                     .searchable(text: $query, isPresented: $searchOpen)
                     .onAppear(perform: { scheduleSearch(query: query) })
-                    .onChange(of: query, debounceTime: .seconds(0.25)) { newQuery in
+                    .onChange(of: query, debounceTime: .seconds(0.25)) { _, newQuery in
                         if (searching) { return }
                         scheduleSearch(query: newQuery)
                     }
@@ -106,23 +106,15 @@ struct SelectConsumptionView: View {
                 .navigationBarTitleDisplayMode(.inline)
             
             if (!hideQuickActions) {
-                Divider()
-                
-                HStack(spacing: 0) {
-                    Spacer()
-                    
+                GlassEffectContainer { HStack(spacing: 12) {
                     Button(action: { makeGuess = true }) {
-                        Label("Guess", systemImage: "questionmark.square")
-                    }.padding(12)
-                    
-                    Spacer()
+                        Label("Guess", systemImage: "questionmark.square").frame(maxWidth: .infinity)
+                    }
                     
                     Button(action: { useBarcode = true }) {
-                        Label("Scan", systemImage: "barcode.viewfinder")
-                    }.padding(12)
-                    
-                    Spacer()
-                }.background(.regularMaterial)
+                        Label("Scan", systemImage: "barcode.viewfinder").frame(maxWidth: .infinity)
+                    }
+                } }.buttonStyle(.glass).controlSize(.large).padding([.horizontal, .bottom], 16)
             }
         }.onChange(of: navigation.consumptionSubmit) {
             dismiss()

@@ -1,30 +1,75 @@
-
-import XCTest
+import Foundation
+import Testing
 @testable import Vreetmeter
 
-final class VreetmeterTests: XCTestCase {
+@MainActor
+struct DoubleFormatTests {
+    @Test(arguments: [
+        (1.23, "1.2"),
+        (99.9, "99.9"),
+        (123.4, "123"),
+        (1000, "1.0k"),
+        (1234, "1.2k"),
+        (12345, "12k"),
+    ])
+    func formatNutritional(value: Double, expected: String) {
+        #expect(value.formatNutritional() == expected)
+    }
+}
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+@MainActor
+struct DateManipulationTests {
+    @Test func startOfDayDropsTime() {
+        let date = Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 15, hour: 13, minute: 37))!
+        let start = date.startOfDay
+        #expect(Calendar.current.dateComponents([.hour, .minute, .second], from: start) == DateComponents(hour: 0, minute: 0, second: 0))
+        #expect(Calendar.current.isDate(start, inSameDayAs: date))
+    }
+}
+
+@MainActor
+struct NumericalDatePointTests {
+    @Test func averageOfEmptyIsNil() {
+        #expect([NumericalDatePoint]().average() == nil)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    @Test func average() {
+        let points = [70.0, 72.0, 74.0].map { NumericalDatePoint(date: .now, value: $0) }
+        #expect(points.average() == 72.0)
+    }
+}
+
+@MainActor
+struct JSONHandlingTests {
+    struct Sample: Codable, Equatable {
+        var productName: String
+        var amount: Double
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    @Test func decodesUpperCamelCaseKeys() throws {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .lowerCaseFirstCharacter
+        let json = Data(#"{"ProductName": "Appel", "Amount": 150}"#.utf8)
+        #expect(try decoder.decode(Sample.self, from: json) == Sample(productName: "Appel", amount: 150))
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    @Test func encodesUpperCamelCaseKeys() throws {
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .upperCaseFirstCharacter
+        let object = try JSONSerialization.jsonObject(with: encoder.encode(Sample(productName: "Appel", amount: 150))) as? [String: Any]
+        #expect(object?.keys.sorted() == ["Amount", "ProductName"])
     }
 
+    @Test func metaRoundTrip() throws {
+        let sample = Sample(productName: "Appel", amount: 150)
+        let encoded = "Name" + (try encodeVreetmeterMeta(input: sample))
+        let decoded: Sample? = try decodeVreetmeterMeta(input: encoded)
+        #expect(decoded == sample)
+        #expect(encoded.replacing(META_PATTERN, with: "") == "Name")
+    }
+
+    @Test func missingMetaDecodesToNil() throws {
+        let decoded: Sample? = try decodeVreetmeterMeta(input: "Plain name")
+        #expect(decoded == nil)
+    }
 }

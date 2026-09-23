@@ -69,7 +69,7 @@ import SwiftUI
     
     private func createConsumptionObject(_ c: Eetmeter.Consumption, day: Date) async throws -> Consumption? {
         let isBrand = c.brandProductId != nil
-        let unit = try await self.api.getUnit(id: c.productUnitId)
+        let unit = try await self.api.getUnit(id: c.productUnitId, brandProductId: c.brandProductId)
         let consumed = c.amount * Double(unit.gramsPerUnit)
         
         if (isBrand) {
@@ -103,8 +103,7 @@ import SwiftUI
         }
         
         var consumption = GenericConsumption(consumption: c, grams: consumed, date: day)
-        let product = try await self.api.getProduct(id: c.productUnitId, isUnit: true)
-        let nutritional = product.preparationVariants.first { v in v.product.units.contains { u in u.id == c.productUnitId } }!.product
+        let nutritional = try await self.api.getVariant(unitId: c.productUnitId).variant
         consumption.fillOptionalNutrionalValues(p: nutritional, consumed: consumed)
         return consumption
     }

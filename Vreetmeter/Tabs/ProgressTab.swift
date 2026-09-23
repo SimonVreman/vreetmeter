@@ -28,11 +28,11 @@ struct ProgressTab: View {
             return points + [NumericalDatePoint(date: date, value: bodyMass!)]
         }
         
-        await MainActor.run { self.data = points }
+        self.data = points
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView { VStack(alignment: .leading, spacing: 8) {
                 Text("Last 52 weeks")
                     .font(.title2).fontWeight(.bold)

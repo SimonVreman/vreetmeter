@@ -77,7 +77,7 @@ struct QuickProductSearch: View {
 
 #Preview {
     VStack {
-        NavigationView {
+        NavigationStack {
             VStack {
                 QuickProductSearch().padding(.horizontal)
             }

@@ -19,14 +19,14 @@ struct TrackingTab: View {
                                     navigation.meal = meal
                                 }
                             }.safeAreaInset(edge: .bottom) {
-                                Color.clear.frame(height: 48)
+                                Color.clear.frame(height: 64)
                             }
                     }.navigationDestination(for: Eetmeter.GenericProduct.self) { product in
                         ProductView(product: product)
                     }.background {
                         GradientBackground(colors: [.orange, .green, .blue]).ignoresSafeArea()
                     }.safeAreaInset(edge: .bottom) {
-                        Color.clear.frame(height: 48)
+                        Color.clear.frame(height: 64)
                     }
             }
             
@@ -49,7 +49,5 @@ struct TrackingTab: View {
                 break
             }
         }.environment(navigation)
-            .toolbarBackground(.visible, for: .tabBar)
-            .toolbarBackground(.ultraThinMaterial, for: .tabBar)
     }
 }

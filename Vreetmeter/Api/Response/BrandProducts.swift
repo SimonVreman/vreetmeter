@@ -2,7 +2,7 @@
 import Foundation
 
 extension Eetmeter {
-    struct BrandProduct: Identifiable, Hashable, Codable, EetmeterNutritional {
+    nonisolated struct BrandProduct: Identifiable, Hashable, Codable, EetmeterNutritional {
         let id: UUID
         let product: Product
         let alcohol: Double?

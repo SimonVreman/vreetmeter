@@ -159,13 +159,35 @@ import SwiftUI
         return result
     }
     
-    func getUnit(id: UUID) async throws -> Eetmeter.ProductUnit {
+    func getUnit(id: UUID, brandProductId: UUID? = nil) async throws -> Eetmeter.ProductUnit {
         let cached = self.cache.getUnit(id: id)
         if (cached != nil) { return cached! }
         
-        let product = try await self.getProduct(id: id, isUnit: true)
-        let units = product.preparationVariants.flatMap { v in v.product.units }
-        return units.first { $0.id == id }!
+        if let brandProductId, let brandProduct = try? await self.getBrandProduct(id: brandProductId) {
+            let unit = brandProduct.product.preparationVariants.flatMap { v in v.product.units }.first { $0.id == id }
+            if let unit { return unit }
+        }
+        
+        return try await self.getVariant(unitId: id).unit
+    }
+    
+    /// Finds the preparation variant offering a (generic) unit. The product/unit endpoint can return a sibling
+    /// product of the same base product, so fall back to searching all products of the base product.
+    func getVariant(unitId: UUID) async throws -> (unit: Eetmeter.ProductUnit, variant: Eetmeter.PreparationVariantProduct) {
+        func find(in products: [Eetmeter.Product]) -> (unit: Eetmeter.ProductUnit, variant: Eetmeter.PreparationVariantProduct)? {
+            for v in products.flatMap({ $0.preparationVariants }) {
+                if let unit = v.product.units.first(where: { $0.id == unitId }) { return (unit, v.product) }
+            }
+            return nil
+        }
+        
+        let product = try await self.getProduct(id: unitId, isUnit: true)
+        if let found = find(in: [product]) { return found }
+        
+        let baseProduct = try await self.getBaseProduct(id: unitId, isUnit: true)
+        if let found = find(in: baseProduct.products) { return found }
+        
+        throw EetmeterError.unitNotFound(unitId)
     }
     
     func saveDayMeta(meta: Eetmeter.DayMeta, date: Date) async throws {

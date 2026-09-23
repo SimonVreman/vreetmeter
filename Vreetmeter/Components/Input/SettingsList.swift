@@ -64,14 +64,14 @@ struct SettingsList: View {
             Section("Products") {
                 NavigationLink(value: SettingsDestination.favorites) {
                     HStack {
-                        Image(systemName: "star.fill").foregroundColor(.yellow)
+                        Image(systemName: "star.fill").foregroundStyle(.yellow)
                         Text("Favorites")
                     }
                 }
                 
                 NavigationLink(value: SettingsDestination.combinedProducts) {
                     HStack {
-                        Image(systemName: "stove.fill").foregroundColor(.blue)
+                        Image(systemName: "stove.fill").foregroundStyle(.blue)
                         Text("Combined products")
                     }
                 }

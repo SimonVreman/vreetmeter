@@ -59,7 +59,7 @@ struct DailySchijfVanVijfSummary: View {
             }
         }.onTapGesture { showSheet.toggle() }
             .sheet(isPresented: $showSheet) {
-            NavigationView {
+            NavigationStack {
                 ScrollView {
                     VStack {
                         GroupBox {
@@ -89,7 +89,7 @@ struct DailySchijfVanVijfSummary: View {
                         }.cardBackgroundAndShadow()
                     }.padding()
                 }.navigationTitle("Schijf van Vijf")
-            }.presentationBackground(.ultraThinMaterial)
+            }
         }
     }
 }

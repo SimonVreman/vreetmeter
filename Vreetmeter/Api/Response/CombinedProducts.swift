@@ -2,18 +2,18 @@
 import Foundation
 
 extension Eetmeter {
-    struct CombinedProducts: Decodable {
+    nonisolated struct CombinedProducts: Decodable {
         var items: [CombinedProduct]
     }
     
-    struct CombinedProduct: Codable, Identifiable, Hashable {
+    nonisolated struct CombinedProduct: Codable, Identifiable, Hashable {
         var id: UUID
         var name: String
         var numberOfPortions: Int
         var items: [CombinedProductIngredient]
         var meta: Meta?
         
-        struct CombinedProductIngredient: Identifiable, Codable, Hashable {
+        nonisolated struct CombinedProductIngredient: Identifiable, Codable, Hashable {
             var id: UUID
             var brandName: String?
             var brandProductId: UUID?
@@ -23,7 +23,7 @@ extension Eetmeter {
             var amount: Double
         }
         
-        struct Meta: Codable, Hashable {
+        nonisolated struct Meta: Codable, Hashable {
             var portionSizeInGrams: Double
             var caloriesPer100g: Double
             var carbohydratesPer100g: Double
@@ -31,7 +31,7 @@ extension Eetmeter {
             var fatPer100g: Double
         }
         
-        enum CodingKeys: String, CodingKey {
+        nonisolated enum CodingKeys: String, CodingKey {
             case id
             case name
             case numberOfPortions

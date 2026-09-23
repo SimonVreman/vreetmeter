@@ -32,10 +32,8 @@ struct CombinedProductEditView: View {
             try? await consumptions.fetchForDay(date, tryCache: false)
             try? await health.synchronizeConsumptions(day: date, consumptions: consumptions.getAllForDay(date))
             
-            DispatchQueue.main.async {
-                navigation.productSaved()
-                loading = false
-            }
+            navigation.productSaved()
+            loading = false
         }
     }
     

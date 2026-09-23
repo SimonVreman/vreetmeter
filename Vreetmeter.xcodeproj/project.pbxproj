@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		602320872A6163CB003BB103 /* VreetmeterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602320862A6163CB003BB103 /* VreetmeterApp.swift */; };
 		6023208B2A6163CE003BB103 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6023208A2A6163CE003BB103 /* Assets.xcassets */; };
+		CC0000000000000000000A02 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CC0000000000000000000A01 /* PrivacyInfo.xcprivacy */; };
 		6023208E2A6163CE003BB103 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6023208D2A6163CE003BB103 /* Preview Assets.xcassets */; };
 		602320982A6163CE003BB103 /* VreetmeterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602320972A6163CE003BB103 /* VreetmeterTests.swift */; };
 		602320A22A6163CE003BB103 /* VreetmeterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602320A12A6163CE003BB103 /* VreetmeterUITests.swift */; };
@@ -87,7 +88,6 @@
 		CC56671E2B2A355800E5DE92 /* NutritionalTargetProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC56671D2B2A355800E5DE92 /* NutritionalTargetProgress.swift */; };
 		CC56FCD02B175E5C00B97D63 /* Cache in Frameworks */ = {isa = PBXBuildFile; productRef = CC56FCCF2B175E5C00B97D63 /* Cache */; };
 		CC56FCD22B17611400B97D63 /* EetmeterCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC56FCD12B17611400B97D63 /* EetmeterCache.swift */; };
-		CC56FCD62B19085200B97D63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC56FCD52B19085200B97D63 /* LaunchScreen.storyboard */; };
 		CC7243962B1B7BD600E887F7 /* TrackingTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7243952B1B7BD600E887F7 /* TrackingTab.swift */; };
 		CC7243982B1B7CE700E887F7 /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7243972B1B7CE700E887F7 /* SettingsTab.swift */; };
 		CC72439A2B1B7D0100E887F7 /* NutrientsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7243992B1B7D0100E887F7 /* NutrientsTab.swift */; };
@@ -194,6 +194,7 @@
 		60B308772A7D9534008473B9 /* DayNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNote.swift; sourceTree = "<group>"; };
 		60C109FF2A8EBA8F003915AF /* DoubleFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleFormat.swift; sourceTree = "<group>"; };
 		60C10A0A2A8FA4AA003915AF /* Vreetmeter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vreetmeter.entitlements; sourceTree = "<group>"; };
+		CC0000000000000000000A01 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		60C10A0D2A911359003915AF /* GenericProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericProduct.swift; sourceTree = "<group>"; };
 		60C10A0F2A93E816003915AF /* MealEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealEntry.swift; sourceTree = "<group>"; };
 		60C10A112A93FAE8003915AF /* MacroLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroLine.swift; sourceTree = "<group>"; };
@@ -233,7 +234,6 @@
 		CC56671B2B2A308200E5DE92 /* NutritionalTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionalTarget.swift; sourceTree = "<group>"; };
 		CC56671D2B2A355800E5DE92 /* NutritionalTargetProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionalTargetProgress.swift; sourceTree = "<group>"; };
 		CC56FCD12B17611400B97D63 /* EetmeterCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EetmeterCache.swift; sourceTree = "<group>"; };
-		CC56FCD52B19085200B97D63 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC7243952B1B7BD600E887F7 /* TrackingTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTab.swift; sourceTree = "<group>"; };
 		CC7243972B1B7CE700E887F7 /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		CC7243992B1B7D0100E887F7 /* NutrientsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutrientsTab.swift; sourceTree = "<group>"; };
@@ -327,6 +327,7 @@
 				CC7243942B1B7BBB00E887F7 /* Tabs */,
 				CCBE089F2AD6D35E00B4C1FE /* Data */,
 				60C10A0A2A8FA4AA003915AF /* Vreetmeter.entitlements */,
+				CC0000000000000000000A01 /* PrivacyInfo.xcprivacy */,
 				60588E442A69B67800EB3519 /* State */,
 				60D01E942A64539000212B88 /* Views */,
 				60D01E8D2A6435C200212B88 /* Extensions */,
@@ -505,7 +506,6 @@
 				CC59FD422B323AA10050375A /* Nutrients */,
 				CC59FD412B323A8B0050375A /* Tracking */,
 				60D01E892A63D70200212B88 /* LoginSheet.swift */,
-				CC56FCD52B19085200B97D63 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -760,8 +760,8 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					602320822A6163CB003BB103 = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -786,12 +786,9 @@
 			);
 			mainGroup = 6023207A2A6163CB003BB103;
 			packageReferences = (
-				60588E172A67038000EB3519 /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */,
 				60588E312A68748900EB3519 /* XCRemoteSwiftPackageReference "DebouncedOnChange" */,
-				60588E362A687E2300EB3519 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */,
 				60588E412A69A4EF00EB3519 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 				CC56FCCE2B175E5C00B97D63 /* XCRemoteSwiftPackageReference "Cache" */,
-				CC56671F2B2B659900E5DE92 /* XCRemoteSwiftPackageReference "Stripes" */,
 			);
 			productRefGroup = 602320842A6163CB003BB103 /* Products */;
 			projectDirPath = "";
@@ -809,9 +806,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC56FCD62B19085200B97D63 /* LaunchScreen.storyboard in Resources */,
 				6023208E2A6163CE003BB103 /* Preview Assets.xcassets in Resources */,
 				6023208B2A6163CE003BB103 /* Assets.xcassets in Resources */,
+				CC0000000000000000000A02 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1011,6 +1008,9 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1025,7 +1025,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1072,6 +1072,9 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1080,7 +1083,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1106,14 +1109,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is needed to scan barcodes";
-				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Synchronizing nutrient values and targets";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Synchronizing nutrient values and targets";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Synchronizing nutrient values and targets";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1124,8 +1126,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = minimal;
-				SWIFT_VERSION = 5.0;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1146,14 +1149,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is needed to scan barcodes";
-				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Synchronizing nutrient values and targets";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Synchronizing nutrient values and targets";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Synchronizing nutrient values and targets";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1164,8 +1166,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = minimal;
-				SWIFT_VERSION = 5.0;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1179,12 +1182,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M6LL3J6ZFC;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = simonvreman.VreetmeterTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vreetmeter.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Vreetmeter";
 			};
@@ -1199,12 +1202,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M6LL3J6ZFC;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = simonvreman.VreetmeterTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vreetmeter.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Vreetmeter";
 			};
@@ -1222,7 +1225,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = simonvreman.VreetmeterUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = Vreetmeter;
 			};
@@ -1240,7 +1244,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = simonvreman.VreetmeterUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = Vreetmeter;
 			};
@@ -1288,28 +1293,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		60588E172A67038000EB3519 /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/davdroman/swiftui-navigation-transitions";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.10.1;
-			};
-		};
 		60588E312A68748900EB3519 /* XCRemoteSwiftPackageReference "DebouncedOnChange" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Tunous/DebouncedOnChange.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
-			};
-		};
-		60588E362A687E2300EB3519 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.3;
+				minimumVersion = 2.1.0;
 			};
 		};
 		60588E412A69A4EF00EB3519 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
@@ -1317,15 +1306,7 @@
 			repositoryURL = "https://github.com/twostraws/CodeScanner";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.3;
-			};
-		};
-		CC56671F2B2B659900E5DE92 /* XCRemoteSwiftPackageReference "Stripes" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/eneko/Stripes";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.0;
+				minimumVersion = 2.5.2;
 			};
 		};
 		CC56FCCE2B175E5C00B97D63 /* XCRemoteSwiftPackageReference "Cache" */ = {
@@ -1333,7 +1314,7 @@
 			repositoryURL = "https://github.com/hyperoslo/Cache";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
+				minimumVersion = 7.4.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

@@ -28,9 +28,9 @@ struct ProductView: View {
         
         if (product.type == .combined) {
             combinedProduct = products.combinedProducts.first(where: { c in c.id == product.id })
-        } else if (product.type == .brand) { Task { @MainActor in
+        } else if (product.type == .brand) { Task {
             brandProduct = try await eetmeterAPI.getBrandProduct(id: product.id)
-        }} else { Task { @MainActor in
+        }} else { Task {
             baseProduct = try await eetmeterAPI.getBaseProduct(id: product.id, isUnit: product.type == .unit)
         }}
     }

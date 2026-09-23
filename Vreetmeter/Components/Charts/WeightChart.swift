@@ -110,7 +110,7 @@ struct WeightChart: View {
             .onAppear {
                 updateDataWithTrend()
                 scrollPosition = Date.now - zoneWidth * zonesInView
-            }.onChange(of: scrollPosition, debounceTime: .seconds(0.1)) { _ in
+            }.onChange(of: scrollPosition, debounceTime: .seconds(0.1)) {
                 updateVerticalDomain()
             }.animation(.easeOut, value: verticalDomain)
     }

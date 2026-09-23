@@ -1,7 +1,7 @@
 
 import Foundation
 
-struct AnyKey: CodingKey {
+nonisolated struct AnyKey: CodingKey {
     static let empty = AnyKey(string: "")
     var stringValue: String
     var intValue: Int?
