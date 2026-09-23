@@ -5,6 +5,7 @@ import Security
 enum EetmeterError: Error {
     case invalidResponse
     case authenticationError
+    case unitNotFound(UUID)
 }
 
 class EetmeterClient {

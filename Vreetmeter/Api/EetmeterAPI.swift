@@ -159,13 +159,19 @@ import SwiftUI
         return result
     }
     
-    func getUnit(id: UUID) async throws -> Eetmeter.ProductUnit {
+    func getUnit(id: UUID, brandProductId: UUID? = nil) async throws -> Eetmeter.ProductUnit {
         let cached = self.cache.getUnit(id: id)
         if (cached != nil) { return cached! }
         
-        let product = try await self.getProduct(id: id, isUnit: true)
-        let units = product.preparationVariants.flatMap { v in v.product.units }
-        return units.first { $0.id == id }!
+        // Brand units are only listed on the brand product, not on the generic product/unit endpoint
+        let variants = brandProductId != nil
+            ? try await self.getBrandProduct(id: brandProductId!).product.preparationVariants
+            : try await self.getProduct(id: id, isUnit: true).preparationVariants
+        
+        guard let unit = variants.flatMap({ v in v.product.units }).first(where: { $0.id == id }) else {
+            throw EetmeterError.unitNotFound(id)
+        }
+        return unit
     }
     
     func saveDayMeta(meta: Eetmeter.DayMeta, date: Date) async throws {

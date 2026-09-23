@@ -69,7 +69,7 @@ import SwiftUI
     
     private func createConsumptionObject(_ c: Eetmeter.Consumption, day: Date) async throws -> Consumption? {
         let isBrand = c.brandProductId != nil
-        let unit = try await self.api.getUnit(id: c.productUnitId)
+        let unit = try await self.api.getUnit(id: c.productUnitId, brandProductId: c.brandProductId)
         let consumed = c.amount * Double(unit.gramsPerUnit)
         
         if (isBrand) {

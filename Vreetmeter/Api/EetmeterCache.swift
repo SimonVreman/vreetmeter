@@ -10,6 +10,7 @@ class EetmeterCache {
         case unit = "productUnit"
         case barcodeMapping = "barcode"
         case unitProductMapping = "unitProduct"
+        case unitRegularProductMapping = "unitRegularProduct"
         case dayConsumptions = "dayConsumptions"
         case dayMeta = "dayMeta"
     }
@@ -21,7 +22,7 @@ class EetmeterCache {
     private let versionKey = "eetmeter.cache.version"
     
     // Bump when cached models change shape to invalidate existing entries
-    private static let version = 2
+    private static let version = 3
     
     init() {
         self.cache = try? Storage(
@@ -64,8 +65,12 @@ class EetmeterCache {
     }
     
     func getProductByUnit(id: UUID) -> Eetmeter.Product? {
-        guard let unit = self.getUnit(id: id) else { return nil }
-        return self.getProduct(id: unit.productId)
+        guard let productId = self.getUUID(key: self.getKey(prefix: .unitRegularProductMapping, id: id.uuidString)),
+              let product: Eetmeter.Product = self.getProduct(id: productId) else { return nil }
+        
+        // Only a hit if the product actually offers this unit
+        let hasUnit = product.preparationVariants.contains { v in v.product.units.contains { $0.id == id } }
+        return hasUnit ? product : nil
     }
     
     func getProductByUnit(id: UUID) -> Eetmeter.BaseProduct? {
@@ -94,9 +99,13 @@ class EetmeterCache {
         guard let data = try? self.encoder.encode(product) else { return }
         try? self.cache?.setObject(data, forKey: self.getKey(prefix: .regular, id: product.id.uuidString))
         
-        // Cache units
+        // Cache units, and map each unit back to this product
         let units = product.preparationVariants.flatMap { v in v.product.units }
-        for unit in units { self.setUnit(unit: unit) }
+        let productUUID = Data(product.id.uuidString.utf8)
+        for unit in units {
+            self.setUnit(unit: unit)
+            try? self.cache?.setObject(productUUID, forKey: self.getKey(prefix: .unitRegularProductMapping, id: unit.id.uuidString))
+        }
     }
 
     func setProduct(product: Eetmeter.BaseProduct) {
