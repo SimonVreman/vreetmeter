@@ -7,6 +7,7 @@ struct MealView: View {
     @Environment(TrackingNavigationState.self) var navigation
     @Environment(HealthState.self) var health
     @State private var loading: Bool = false
+    @State private var editingGuess: GuessConsumption?
     var meal: Meal
     
     var consumptions: [Consumption] {
@@ -80,6 +81,10 @@ struct MealView: View {
                             NavigationLink(value: link) {
                                 MealEntry(consumption: c, detailed: true)
                             }
+                        } else if let guess = c as? GuessConsumption {
+                            Button { editingGuess = guess } label: {
+                                MealEntry(consumption: c, detailed: true)
+                            }.buttonStyle(.plain)
                         } else {
                             MealEntry(consumption: c, detailed: true)
                         }
@@ -92,6 +97,8 @@ struct MealView: View {
             } else if (consumptions.isEmpty) {
                 Text("Don't forget to eat!").foregroundStyle(.secondary)
             }
+        }.sheet(item: $editingGuess) { guess in
+            GuessSheet(guess: guess)
         }.navigationTitle(meal.getLabel())
             .navigationBarTitleDisplayMode(.inline)
     }

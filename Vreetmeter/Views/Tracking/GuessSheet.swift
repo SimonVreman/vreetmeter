@@ -6,10 +6,29 @@ struct GuessSheet: View {
     @Environment(ConsumptionState.self) var consumptions
     @Environment(TrackingNavigationState.self) var navigation
     @Environment(HealthState.self) var health
+    @Environment(\.dismiss) var dismiss
     @State var busy: Bool = false
-    @State var calories: Double = 500
-    @State var fatScore: Double = 0.3
-    @State var proteinScore: Double = 0.25
+    @State var calories: Double
+    @State var fatScore: Double
+    @State var proteinScore: Double
+    
+    /// The guess being edited, or nil when making a new guess
+    var guess: GuessConsumption?
+    
+    init(guess: GuessConsumption? = nil) {
+        self.guess = guess
+        
+        // Derive the scores back from the stored grams
+        let calories = guess?.energy ?? 500
+        let fatCalories = (guess?.fat ?? 0) * 9
+        let restCalories = calories - fatCalories
+        let fatScore = guess != nil && calories > 0 ? fatCalories / calories : 0.3
+        let proteinScore = guess != nil && restCalories > 0 ? guess!.protein * 4 / restCalories : 0.25
+        
+        self._calories = State(initialValue: calories)
+        self._fatScore = State(initialValue: fatScore.clamped(to: FAT_SCORE_RANGE))
+        self._proteinScore = State(initialValue: proteinScore.clamped(to: PROTEIN_SCORE_RANGE))
+    }
     
     // Fat is a share of all calories, protein a share of the non-fat calories, carbs the remainder
     var fatGrams: Double { calories * fatScore / 9 }
@@ -19,9 +38,10 @@ struct GuessSheet: View {
     func save() {
         busy = true
         Task { do {
-            let meal = navigation.meal!
-            let date = navigation.date.startOfDay
+            let meal = guess?.meal ?? navigation.meal!
+            let date = (guess?.date ?? navigation.date).startOfDay
             try await eetmeterAPI.saveGuess(update: Eetmeter.GuessUpdate(
+                id: guess?.id,
                 period: meal.id,
                 date: date,
                 energy: calories,
@@ -31,7 +51,8 @@ struct GuessSheet: View {
             ))
             try await consumptions.fetchForDay(date, tryCache: false)
             try await health.synchronizeConsumptions(day: date, consumptions: consumptions.getAllForDay(date))
-            navigation.consumptionSubmit.toggle()
+            // New guesses close the whole add flow, edits only close this sheet
+            if guess == nil { navigation.consumptionSubmit.toggle() } else { dismiss() }
         } catch {
             busy = false
         } }
@@ -59,12 +80,10 @@ struct GuessSheet: View {
                     calories: $calories,
                     fatScore: $fatScore,
                     proteinScore: $proteinScore
-                ).frame(height: 250).padding(Edge.Set.top, -34)
+                )
             }
             
-            Spacer()
-            
-            Button(action: save, label: { Text("Enter") })
+            Button(action: save, label: { Text(guess == nil ? "Enter" : "Save") })
                 .buttonStyle(ActionButtonStyle(disabled:  !isValid()))
                 .disabled(!isValid())
                 .padding(.top, 8)

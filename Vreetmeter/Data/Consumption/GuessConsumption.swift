@@ -1,7 +1,7 @@
 
 import Foundation
 
-class GuessConsumption: Consumption {
+class GuessConsumption: Consumption, Identifiable {
     var id: UUID
     var date: Date?
     var meal: Meal?

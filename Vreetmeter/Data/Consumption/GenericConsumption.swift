@@ -62,7 +62,7 @@ class GenericConsumption: Consumption {
     var molybdenum: Double?
     var selenium: Double?
     
-    init(consumption: Eetmeter.Consumption, grams: Double, date: Date?) {
+    init(consumption: Eetmeter.Consumption, grams: Double?, date: Date?) {
         let meal = Meal(rawValue: consumption.period)
         
         self.id = consumption.id

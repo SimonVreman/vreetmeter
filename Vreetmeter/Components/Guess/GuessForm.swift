@@ -5,6 +5,12 @@ let FAT_SCORE_RANGE: ClosedRange<Double> = 0...0.7
 let PROTEIN_SCORE_RANGE: ClosedRange<Double> = 0...0.8
 let SCORE_STEP: Double = 0.05
 
+extension Double {
+    func clamped(to range: ClosedRange<Double>) -> Double {
+        return Swift.min(Swift.max(self, range.lowerBound), range.upperBound)
+    }
+}
+
 struct GuessForm: View {
     enum FocusedField { case calories }
 
@@ -78,7 +84,8 @@ struct GuessForm: View {
                 )
             }
         }.scrollContentBackground(.hidden)
-            .scrollDisabled(true)
+            .contentMargins(.top, 0, for: .scrollContent)
+            .scrollBounceBehavior(.basedOnSize)
     }
 }
 
