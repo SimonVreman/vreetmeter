@@ -1,5 +1,6 @@
 
 import SwiftUI
+import SwiftData
 
 @main
 struct VreetmeterApp: App {
@@ -25,9 +26,9 @@ struct VreetmeterApp: App {
         WindowGroup {
             TabView {
                 Tab("Tracking", systemImage: "pencil.and.list.clipboard") { TrackingTab() }
+                Tab("Workouts", systemImage: "dumbbell") { WorkoutsTab() }
                 Tab("Progress", systemImage: "chart.xyaxis.line") { ProgressTab() }
                 Tab("Nutrients", systemImage: "gauge.with.needle") { NutrientsTab() }
-                Tab("Recipes", systemImage: "stove.fill") { CombinedProductsTab() }
                 Tab("Settings", systemImage: "gear") { SettingsTab() }
             }.onAppear {
                 if !initialLoad { return }
@@ -37,7 +38,8 @@ struct VreetmeterApp: App {
                 Task { try await products.fetchCombinedProducts() }
             }.sheet(isPresented: $showLoginSheet) {
                 LoginSheet()
-            }.environment(eetmeterAPI)
+            }.modelContainer(for: [WorkoutProgram.self, WorkoutSession.self, Exercise.self])
+                .environment(eetmeterAPI)
                 .environment(consumptions)
                 .environment(products)
                 .environment(health)

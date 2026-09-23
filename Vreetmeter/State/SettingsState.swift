@@ -8,6 +8,7 @@ enum VMSettings: String, CaseIterable {
     case weightGoal = "weightGoal"
     case adjustEnergyGoal = "adjustEnergyGoal"
     case energyAdjustmentSize = "energyAdjustmentSize"
+    case saveWorkoutsToHealth = "saveWorkoutsToHealth"
     
     var key: String { VMSettingsPrefix + self.rawValue }
 }
