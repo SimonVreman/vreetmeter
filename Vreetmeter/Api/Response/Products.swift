@@ -2,7 +2,7 @@
 import Foundation
 
 extension Eetmeter {
-    struct Product: Codable, Hashable, Identifiable, EetmeterNutritional {
+    nonisolated struct Product: Codable, Hashable, Identifiable, EetmeterNutritional {
         let id: UUID
         let baseProductId: UUID?
         let baseProductName: String?
@@ -40,14 +40,14 @@ extension Eetmeter {
         var zout: Double?
     }
     
-    struct PreparationVariant: Codable, Hashable {
+    nonisolated struct PreparationVariant: Codable, Hashable {
         let id: UUID
         let name: String
         let sortOrder: Int
         let product: PreparationVariantProduct
     }
     
-    struct PreparationVariantProduct: Codable, Hashable, EetmeterNutritional {
+    nonisolated struct PreparationVariantProduct: Codable, Hashable, EetmeterNutritional {
         let baseProductId: UUID?
         let baseProductName: String?
         let preparationMethod: PreparationMethod
@@ -85,13 +85,13 @@ extension Eetmeter {
         var zout: Double?
     }
     
-    struct PreparationMethod: Codable, Hashable {
+    nonisolated struct PreparationMethod: Codable, Hashable {
         let id: UUID
         let name: String
         let isRaw: Bool
     }
     
-    struct ProductUnit: Codable, Hashable, Identifiable {
+    nonisolated struct ProductUnit: Codable, Hashable, Identifiable {
         let displayName: String
         let gramsPerUnit: Double
         let id: UUID
@@ -104,7 +104,7 @@ extension Eetmeter {
     }
 }
 
-protocol EetmeterNutritional {
+nonisolated protocol EetmeterNutritional {
     var alcohol: Double? { get }
     var calcium: Double? { get }
     var eiwit: Double? { get }

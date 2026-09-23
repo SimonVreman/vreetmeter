@@ -2,7 +2,7 @@
 import Foundation
 
 extension Eetmeter {
-    struct GenericProduct: Identifiable, Hashable {
+    nonisolated struct GenericProduct: Identifiable, Hashable {
         var id: UUID
         var type: ProductType
         var storedAs: UUID?
@@ -11,7 +11,7 @@ extension Eetmeter {
         var unitId: UUID?
         var amount: Double?
         
-        enum ProductType {
+        nonisolated enum ProductType {
             case favorite
             case combined
             case general

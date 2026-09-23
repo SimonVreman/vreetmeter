@@ -2,7 +2,7 @@
 import Foundation
 
 extension Eetmeter {
-    struct Account: Decodable {
+    nonisolated struct Account: Decodable {
         let token: String
     }
 }

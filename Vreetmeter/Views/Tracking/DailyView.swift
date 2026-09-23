@@ -13,8 +13,7 @@ struct DailyView: View {
     
     func fetchData(refresh: Bool) async {
         Task {
-            let mass = try await health.queryRecentBodyMass(date: navigation.date)
-            DispatchQueue.main.async { bodyMass = mass }
+            bodyMass = try await health.queryRecentBodyMass(date: navigation.date)
         }
         if refresh {
             try? await consumptions.fetchForDay(navigation.date, tryCache: false)

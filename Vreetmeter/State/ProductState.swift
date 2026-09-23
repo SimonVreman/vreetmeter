@@ -40,7 +40,6 @@ import SwiftUI
             filledProducts.append(CombinedProduct(product: p, items: ingredients))
         }
         
-        let combinedProducts = filledProducts
-        DispatchQueue.main.async { self.combinedProducts = combinedProducts }
+        self.combinedProducts = filledProducts
     }
 }

@@ -2,11 +2,11 @@
 import Foundation
 
 extension Eetmeter {
-    struct Favorites: Decodable {
+    nonisolated struct Favorites: Decodable {
         var items: [Favorite]
     }
     
-    struct Favorite: Identifiable, Decodable, Hashable {
+    nonisolated struct Favorite: Identifiable, Decodable, Hashable {
         var id: UUID
         var brandName: String
         var combinedProductId: UUID?

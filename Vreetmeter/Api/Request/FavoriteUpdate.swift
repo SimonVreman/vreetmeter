@@ -2,7 +2,7 @@
 import Foundation
 
 extension Eetmeter {
-    struct FavoriteUpdate: Encodable {
+    nonisolated struct FavoriteUpdate: Encodable {
         var amount: Double
         var productUnitID: UUID?
         var brandProductID: UUID?

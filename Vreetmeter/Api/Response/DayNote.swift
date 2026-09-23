@@ -2,18 +2,18 @@
 import Foundation
 
 extension Eetmeter {
-    struct DayNote: Identifiable, Codable {
+    nonisolated struct DayNote: Identifiable, Codable {
         let id: UUID
         var consumptionDate: Date
         var note: String
     }
 
-    struct DayMeta: Identifiable, Codable {
+    nonisolated struct DayMeta: Identifiable, Codable {
         let id: UUID
         var guesses: [Eetmeter.Guess]
     }
     
-    struct Guess: Identifiable, Codable {
+    nonisolated struct Guess: Identifiable, Codable {
         let id: UUID
         var period: Int
         var energy: Double
@@ -22,7 +22,7 @@ extension Eetmeter {
         var carbs: Double
     }
 
-    struct GuessUpdate {
+    nonisolated struct GuessUpdate {
         var id: UUID?
         var period: Int
         var date: Date
