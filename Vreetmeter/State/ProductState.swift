@@ -39,11 +39,7 @@ import SwiftUI
                 let variant = product.product.preparationVariants.first { v in v.product.units.contains { u in u.id == i.productUnitId } }
                 nutritional = variant == nil || variant!.product.preparationMethod.isRaw ? product : variant!.product
             } else {
-                let product = try await self.api.getProduct(id: i.productUnitId, isUnit: true)
-                guard let variant = product.preparationVariants.first(where: { v in v.product.units.contains { u in u.id == i.productUnitId } }) else {
-                    throw EetmeterError.unitNotFound(i.productUnitId)
-                }
-                nutritional = variant.product
+                nutritional = try await self.api.getVariant(unitId: i.productUnitId).variant
             }
             
             var ingredient = CombinedProductIngredient(id: i.id, nutritional: nutritional, amount: amount)

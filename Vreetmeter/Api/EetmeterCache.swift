@@ -112,6 +112,9 @@ class EetmeterCache {
         guard let data = try? self.encoder.encode(product) else { return }
         try? self.cache?.setObject(data, forKey: self.getKey(prefix: .base, id: product.id.uuidString))
         
+        // Cache the individual products, so unit lookups can find sibling products
+        for p in product.products { self.setProduct(product: p) }
+        
         // Cache units
         let units = product.products.flatMap { p in p.preparationVariants.flatMap { v in v.product.units } }
         let baseUUID = Data(product.id.uuidString.utf8)

@@ -163,26 +163,31 @@ import SwiftUI
         let cached = self.cache.getUnit(id: id)
         if (cached != nil) { return cached! }
         
-        func findUnit(in variants: [Eetmeter.PreparationVariant]) -> Eetmeter.ProductUnit? {
-            variants.flatMap { v in v.product.units }.first { $0.id == id }
+        if let brandProductId, let brandProduct = try? await self.getBrandProduct(id: brandProductId) {
+            let unit = brandProduct.product.preparationVariants.flatMap { v in v.product.units }.first { $0.id == id }
+            if let unit { return unit }
         }
         
-        // Try the unit endpoint first, then the brand product the unit belongs to
-        var product: Eetmeter.Product?
-        var productError: Error?
-        do { product = try await self.getProduct(id: id, isUnit: true) } catch { productError = error }
-        if let product, let unit = findUnit(in: product.preparationVariants) { return unit }
-        
-        var brandProduct: Eetmeter.BrandProduct?
-        if let brandProductId {
-            do { brandProduct = try await self.getBrandProduct(id: brandProductId) } catch { productError = error }
-            if let brandProduct, let unit = findUnit(in: brandProduct.product.preparationVariants) { return unit }
+        return try await self.getVariant(unitId: id).unit
+    }
+    
+    /// Finds the preparation variant offering a (generic) unit. The product/unit endpoint can return a sibling
+    /// product of the same base product, so fall back to searching all products of the base product.
+    func getVariant(unitId: UUID) async throws -> (unit: Eetmeter.ProductUnit, variant: Eetmeter.PreparationVariantProduct) {
+        func find(in products: [Eetmeter.Product]) -> (unit: Eetmeter.ProductUnit, variant: Eetmeter.PreparationVariantProduct)? {
+            for v in products.flatMap({ $0.preparationVariants }) {
+                if let unit = v.product.units.first(where: { $0.id == unitId }) { return (unit, v.product) }
+            }
+            return nil
         }
         
-        let productUnits = product?.preparationVariants.flatMap { v in v.product.units.map { $0.id } }
-        let brandUnits = brandProduct?.product.preparationVariants.flatMap { v in v.product.units.map { $0.id } }
-        print("Unit \(id) not found. product/unit returned product \(String(describing: product?.id)) with units \(String(describing: productUnits)); brand product \(String(describing: brandProductId)) has units \(String(describing: brandUnits)); error: \(String(describing: productError))")
-        throw EetmeterError.unitNotFound(id)
+        let product = try await self.getProduct(id: unitId, isUnit: true)
+        if let found = find(in: [product]) { return found }
+        
+        let baseProduct = try await self.getBaseProduct(id: unitId, isUnit: true)
+        if let found = find(in: baseProduct.products) { return found }
+        
+        throw EetmeterError.unitNotFound(unitId)
     }
     
     func saveDayMeta(meta: Eetmeter.DayMeta, date: Date) async throws {
