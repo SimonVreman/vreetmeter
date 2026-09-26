@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "name": "DB Full Body 4x",
-  "notes": "Four full body workouts per week, four exercises each, using only dumbbells and an adjustable bench. Built on the principles of The Hypertrophy Handbook and the structure of the Pure Bodybuilding program: a 5-week Build block (ending in a semi-deload) followed by a 5-week Novelty block with new exercises. Each day pairs one lower-body lift with a push, a pull and one isolation lift, so every major muscle is trained about twice a week with ~6-9 hard sets. Move on to the next workout when you are recovered; keep at least two rest days per week.\n\nProgression: double progression. Stay at a weight until you hit the top of the rep range on all sets, then add weight and go back to the bottom of the range. Use a 2-4 second negative, prioritise the stretch at the bottom, and keep form consistent from week to week.\n\nEarly sets stop ~1 rep short of failure, the last set goes to failure (RPE 10) except on RDLs, split squats and lunges. Intensity techniques are done on the last set only.",
+  "notes": "Four full body workouts per week (four exercises each, plus calves on day 1 and abs on day 3), using only dumbbells and an adjustable bench. Built on the principles of The Hypertrophy Handbook and the structure of the Pure Bodybuilding program: a 5-week Build block (ending in a semi-deload) followed by a 5-week Novelty block with new exercises. Each day pairs one lower-body lift with a push, a pull and one isolation lift, so every major muscle is trained about twice a week with ~6-9 hard sets. Move on to the next workout when you are recovered; keep at least two rest days per week.\n\nProgression: double progression. Stay at a weight until you hit the top of the rep range on all sets, then add weight and go back to the bottom of the range. Use a 2-4 second negative, prioritise the stretch at the bottom, and keep form consistent from week to week.\n\nEarly sets stop ~1 rep short of failure, the last set goes to failure (RPE 10) except on RDLs, split squats and lunges. Intensity techniques are done on the last set only.",
   "exercises": [
     {
       "name": "DB Bulgarian Split Squat",
@@ -104,6 +104,26 @@
       "instructions": "Hold one dumbbell under the head with both palms and perform overhead extensions. Feel a deep stretch on your triceps at the bottom. Avoid pausing at the top."
     },
     {
+      "name": "Standing DB Calf Raise",
+      "instructions": "Hold a dumbbell in one hand and stand on one leg on a step or plate, holding on for balance with the other hand. Pause 1-2 seconds in the stretch at the bottom of every rep, then press all the way up onto your toes. Don't bounce."
+    },
+    {
+      "name": "DB Calf Jumps",
+      "instructions": "Hold a dumbbell and perform a jumping motion without actually leaving the floor, using a slight knee bend but mostly relying on your calves and ankles to drive the \"jump\"."
+    },
+    {
+      "name": "DB Weighted Crunch",
+      "instructions": "Lie on a flat or decline bench and hold a dumbbell to your chest. Let your lower back round as you crunch hard, then lower under control. Don't yank with your neck."
+    },
+    {
+      "name": "Corpse Crunch",
+      "instructions": "Lie flat with arms and legs extended. Clear your upper back off the floor when you crunch, hold for 1-2 seconds and go back down."
+    },
+    {
+      "name": "Reverse Crunch",
+      "instructions": "Lie on a flat bench and hold onto it behind your head. Curl your hips up off the bench, bringing your knees towards your chest and letting the lower back round. Lower slowly and don't swing your legs."
+    },
+    {
       "name": "DB Skull Crusher",
       "instructions": "Lie on a flat bench, lower the dumbbells beside your head with the elbows pointing slightly back to stretch the long head, then extend."
     }
@@ -180,6 +200,22 @@
                 "min": 60,
                 "max": 90
               }
+            },
+            {
+              "exercise": "Standing DB Calf Raise",
+              "substitutions": [
+                "DB Calf Jumps"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 60,
+                "max": 90
+              },
+              "notes": "Reps per leg."
             }
           ]
         },
@@ -316,6 +352,21 @@
               "rest": {
                 "min": 60,
                 "max": 120
+              }
+            },
+            {
+              "exercise": "DB Weighted Crunch",
+              "substitutions": [
+                "Corpse Crunch",
+                "Reverse Crunch"
+              ],
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 60,
+                "max": 90
               }
             }
           ]
@@ -470,6 +521,23 @@
                 "max": 90
               },
               "technique": "Myo-reps"
+            },
+            {
+              "exercise": "Standing DB Calf Raise",
+              "substitutions": [
+                "DB Calf Jumps"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 90
+              },
+              "technique": "Calf static stretch (30 sec)",
+              "notes": "Reps per leg."
             }
           ]
         },
@@ -612,6 +680,22 @@
                 "max": 120
               },
               "technique": "Dropset"
+            },
+            {
+              "exercise": "DB Weighted Crunch",
+              "substitutions": [
+                "Corpse Crunch",
+                "Reverse Crunch"
+              ],
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 90
+              },
+              "technique": "Myo-reps"
             }
           ]
         },
@@ -764,6 +848,22 @@
                 "min": 60,
                 "max": 90
               }
+            },
+            {
+              "exercise": "Standing DB Calf Raise",
+              "substitutions": [
+                "DB Calf Jumps"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~7-8",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 60,
+                "max": 90
+              },
+              "notes": "Reps per leg."
             }
           ]
         },
@@ -900,6 +1000,21 @@
               "rest": {
                 "min": 60,
                 "max": 120
+              }
+            },
+            {
+              "exercise": "DB Weighted Crunch",
+              "substitutions": [
+                "Corpse Crunch",
+                "Reverse Crunch"
+              ],
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~7-8",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 60,
+                "max": 90
               }
             }
           ]
@@ -1055,6 +1170,22 @@
                 "max": 60
               },
               "technique": "Myo-reps"
+            },
+            {
+              "exercise": "DB Calf Jumps",
+              "substitutions": [
+                "Standing DB Calf Raise"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 90
+              },
+              "technique": "Calf static stretch (30 sec)"
             }
           ]
         },
@@ -1196,6 +1327,21 @@
                 "max": 120
               },
               "technique": "Dropset"
+            },
+            {
+              "exercise": "Reverse Crunch",
+              "substitutions": [
+                "DB Weighted Crunch",
+                "Corpse Crunch"
+              ],
+              "sets": 3,
+              "reps": "10-20",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 90
+              }
             }
           ]
         },
