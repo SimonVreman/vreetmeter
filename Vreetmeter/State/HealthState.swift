@@ -53,6 +53,7 @@ import HealthKit
     ]
     
     private let bodyObjectTypes = [HKQuantityType(.bodyMass)]
+    private let workoutObjectTypes: [HKSampleType] = [HKObjectType.workoutType()]
     private let correlationEnergyKey = "vreetmeter.energy"
     
     private let store: HKHealthStore?
@@ -71,8 +72,8 @@ import HealthKit
     
     func requestPermission() async throws {
         try await self.store?.requestAuthorization(
-            toShare: Set(self.foodObjectTypes),
-            read: Set(self.foodObjectTypes + self.bodyObjectTypes)
+            toShare: Set(self.foodObjectTypes.map { $0 as HKSampleType } + self.workoutObjectTypes),
+            read: Set((self.foodObjectTypes + self.bodyObjectTypes).map { $0 as HKObjectType } + self.workoutObjectTypes.map { $0 as HKObjectType })
         )
     }
     
@@ -223,5 +224,32 @@ import HealthKit
         insertSample(.dietarySelenium, c.selenium)
         
         return set
+    }
+    
+    /// Saves a finished session as a strength training workout, returning the UUID of the saved workout.
+    public func saveWorkout(session: WorkoutSession) async throws -> UUID? {
+        guard self.isAvailable, let end = session.endedAt else { return nil }
+        
+        let configuration = HKWorkoutConfiguration()
+        configuration.activityType = .traditionalStrengthTraining
+        configuration.locationType = .indoor
+        
+        let builder = HKWorkoutBuilder(healthStore: self.store!, configuration: configuration, device: .local())
+        try await builder.beginCollection(at: session.startedAt)
+        try await builder.endCollection(at: end)
+        try await builder.addMetadata([HKMetadataKeyExternalUUID: session.uuid.uuidString])
+        
+        let workout = try await builder.finishWorkout()
+        return workout?.uuid
+    }
+    
+    public func deleteWorkout(id: UUID) async throws {
+        if !self.isAvailable { return }
+        
+        let predicate = HKSamplePredicate.workout(HKQuery.predicateForObject(with: id))
+        let descriptor = HKSampleQueryDescriptor(predicates: [predicate], sortDescriptors: [])
+        let workouts = try await descriptor.result(for: self.store!)
+        
+        if !workouts.isEmpty { try await self.store!.delete(workouts) }
     }
 }

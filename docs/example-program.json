@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "name": "Example Full Body",
+  "notes": "A simple three day full body program to show the template format.",
+  "exercises": [
+    {
+      "name": "Back Squat",
+      "instructions": "Brace, sit between your heels and keep your chest up."
+    }
+  ],
+  "weeks": [
+    {
+      "name": "Week {n}",
+      "block": "Block 1: Base",
+      "repeat": 3,
+      "days": [
+        {
+          "name": "Full Body A",
+          "exercises": [
+            {
+              "exercise": "Back Squat",
+              "substitutions": ["Hack Squat", "Leg Press"],
+              "warmupSets": "2-3",
+              "sets": 3,
+              "reps": "6-8",
+              "earlyRPE": "~8",
+              "lastRPE": "~9",
+              "rest": { "min": 180, "max": 240 },
+              "notes": "Add weight once you hit 8 reps on all sets."
+            },
+            {
+              "exercise": "Bench Press",
+              "substitutions": ["DB Bench Press"],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "8-10",
+              "lastRPE": "~9",
+              "rest": { "min": 120, "max": 180 }
+            },
+            {
+              "exercise": "Chest-Supported Row",
+              "superset": "A",
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "lastRPE": "10",
+              "rest": { "min": 60, "max": 90 },
+              "technique": "Long-length partials on the last set"
+            },
+            {
+              "exercise": "Lateral Raise",
+              "superset": "A",
+              "sets": 3,
+              "reps": "12-15",
+              "lastRPE": "10",
+              "rest": { "min": 60, "max": 90 }
+            }
+          ]
+        },
+        { "name": "Rest", "kind": "optionalRest" },
+        {
+          "name": "Full Body B",
+          "exercises": [
+            {
+              "exercise": "Romanian Deadlift",
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "8",
+              "earlyRPE": "~7",
+              "lastRPE": "~8",
+              "rest": { "min": 180 }
+            },
+            {
+              "exercise": "Overhead Press",
+              "warmupSets": "1-2",
+              "sets": 3,
+              "reps": "4, 6, 8",
+              "lastRPE": "~9",
+              "rest": { "min": 120, "max": 180 },
+              "notes": "Reverse pyramid: heaviest set first."
+            },
+            {
+              "exercise": "Lat Pulldown",
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "lastRPE": "10",
+              "rest": { "min": 90, "max": 120 }
+            }
+          ]
+        },
+        { "name": "Rest", "kind": "rest" }
+      ]
+    },
+    {
+      "name": "Week 4",
+      "block": "Block 1: Base",
+      "note": "Deload: stop every set 2-3 reps short of failure.",
+      "days": [
+        {
+          "name": "Full Body A",
+          "exercises": [
+            { "exercise": "Back Squat", "sets": 2, "reps": "6-8", "lastRPE": "~7" },
+            { "exercise": "Bench Press", "sets": 2, "reps": "8-10", "lastRPE": "~7" }
+          ]
+        },
+        {
+          "name": "Full Body B",
+          "exercises": [
+            { "exercise": "Romanian Deadlift", "sets": 2, "reps": "8", "lastRPE": "~6" },
+            { "exercise": "Lat Pulldown", "sets": 2, "reps": "10-12", "lastRPE": "~7" }
+          ]
+        }
+      ]
+    }
+  ]
+}

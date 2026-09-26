@@ -36,6 +36,11 @@ struct SettingsList: View {
         set: { settings.setValue(VMSettings.energyAdjustmentSize.key, value: $0.rawValue) }
     ) }
     
+    private var saveWorkoutsToHealth: Binding<Bool> { Binding(
+        get: { settings.getValue(VMSettings.saveWorkoutsToHealth.key) as? Bool ?? true },
+        set: { settings.setValue(VMSettings.saveWorkoutsToHealth.key, value: $0) }
+    ) }
+    
     var body: some View {
         List {
             Section {
@@ -59,6 +64,12 @@ struct SettingsList: View {
                 }
             } header: { Text("Nutrition") } footer: {
                 Text("When automatic adjustment is on, your energy goal will be automatically updated based on your recent weight changes.")
+            }
+            
+            Section {
+                Toggle("Save to Apple Health", isOn: saveWorkoutsToHealth)
+            } header: { Text("Workouts") } footer: {
+                Text("Finished workouts are saved to Apple Health as strength training.")
             }
             
             Section("Products") {

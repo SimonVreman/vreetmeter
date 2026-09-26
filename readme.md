@@ -13,6 +13,7 @@ An experimental project, my first ever app and first ever Swift project. But I e
 - Synchronizes nutritional data with HealthKit
 - Reads body mass from HealthKit to automatically determine goals
 - Adds easy previews before add a consumption to help choose the right food
+- Tracks strength training: follow a program, log load × reps per set, see progress per exercise and save workouts to HealthKit. Programs can be imported from a [JSON template](docs/workout-template.md)
 
 ## License 📄
 [MIT](license)
