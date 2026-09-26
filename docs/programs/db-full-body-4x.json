@@ -1,0 +1,1282 @@
+{
+  "schemaVersion": 1,
+  "name": "DB Full Body 4x",
+  "notes": "Four full body workouts per week, four exercises each, using only dumbbells and an adjustable bench. Built on the principles of The Hypertrophy Handbook and the structure of the Pure Bodybuilding program: a 5-week Build block (ending in a semi-deload) followed by a 5-week Novelty block with new exercises. Each day pairs one lower-body lift with a push, a pull and one isolation lift, so every major muscle is trained about twice a week with ~6-9 hard sets. Move on to the next workout when you are recovered; keep at least two rest days per week.\n\nProgression: double progression. Stay at a weight until you hit the top of the rep range on all sets, then add weight and go back to the bottom of the range. Use a 2-4 second negative, prioritise the stretch at the bottom, and keep form consistent from week to week.\n\nEarly sets stop ~1 rep short of failure, the last set goes to failure (RPE 10) except on RDLs, split squats and lunges. Intensity techniques are done on the last set only.",
+  "exercises": [
+    {
+      "name": "DB Bulgarian Split Squat",
+      "instructions": "Rear foot on the bench, torso slightly forward. Sink until the front knee is well bent and the glute and quad are stretched, then drive up through the front foot. Do all reps on your weaker leg first."
+    },
+    {
+      "name": "Pause DB Bulgarian Split Squat",
+      "instructions": "Same as the DB Bulgarian Split Squat, with a 1-2 second pause in the deepest position of every rep."
+    },
+    {
+      "name": "Goblet Squat",
+      "instructions": "Hold one dumbbell vertically against your chest. Sit down between your heels as deep as you can while keeping your chest up. Elevating the heels on small plates helps you stay upright and get deeper."
+    },
+    {
+      "name": "DB Reverse Lunge",
+      "instructions": "Step one leg back on the negative, then drive up with the front leg. Try to minimise help from the back leg."
+    },
+    {
+      "name": "Paused DB RDL",
+      "instructions": "Hips back, neutral lower back, dumbbells close to the legs. Pause 1 second at the bottom of every rep. The RPE is intentionally low because RDLs cause a lot of muscle damage; don't be tempted to go too heavy."
+    },
+    {
+      "name": "DB RDL",
+      "instructions": "Set your hips back and let the dumbbells slide down your thighs. Emphasise the stretch in your hamstrings and don't let your lower back round."
+    },
+    {
+      "name": "Single-Leg DB Hip Thrust",
+      "instructions": "Upper back on the bench, dumbbell on the working hip. Drive through the heel and squeeze the glute hard at the top without over-arching your lower back."
+    },
+    {
+      "name": "Low Incline DB Press",
+      "instructions": "Set the bench at a ~15° incline. Tuck your elbows slightly on the negative, then flare as you press. Get a deep stretch at the bottom."
+    },
+    {
+      "name": "Incline DB Press",
+      "instructions": "Set the bench at ~30-45°. Lower the dumbbells until you feel a deep stretch in your upper chest, then press up and slightly in."
+    },
+    {
+      "name": "DB Bench Press",
+      "instructions": "Flat bench, shoulder blades retracted and depressed, slight arch in the upper back. Lower under control to a deep stretch, then explode up."
+    },
+    {
+      "name": "DB Flye",
+      "instructions": "Slight bend in the elbows, lower the dumbbells out wide until you feel a big stretch in the pecs, then squeeze them back up. Stop the top a little short of the dumbbells touching to keep tension."
+    },
+    {
+      "name": "Flat-To-Incline DB Flye",
+      "instructions": "Start the set with the bench flat. Once you are close to failure, set the bench to a low incline and keep going with the same weight until you reach failure again."
+    },
+    {
+      "name": "Seated DB Shoulder Press",
+      "instructions": "Bench upright or slightly reclined. Bring the dumbbells all the way down, slightly rotate them in on the negative and flare the elbows as you press. Keep your torso upright."
+    },
+    {
+      "name": "Standing DB Arnold Press",
+      "instructions": "Start with your elbows in front of you and palms facing in. Rotate the dumbbells so that your palms face forward as you press."
+    },
+    {
+      "name": "Incline Chest-Supported DB Row",
+      "instructions": "Chest on an incline bench (~30-45°). Flare the elbows to ~45° and squeeze your shoulder blades together at the top. Let the shoulder blades stretch apart at the bottom."
+    },
+    {
+      "name": "Elbows-In 1-Arm DB Row",
+      "instructions": "Hand and knee on the bench. Row the dumbbell towards your hip with the elbow tucked to bias the lats. Let the arm stretch fully forward at the bottom."
+    },
+    {
+      "name": "Arm-Out Single-Arm DB Row",
+      "instructions": "Hand and knee on the bench. Flare the elbow out to ~45° and row towards the lower chest to bias the upper back and rear delts."
+    },
+    {
+      "name": "DB Lat Pullover",
+      "instructions": "Lie across or along a flat bench, arms nearly straight. Lower the dumbbell behind your head until the lats are fully stretched, then pull it back to above your forehead."
+    },
+    {
+      "name": "Bottom-Half DB Lat Pullover",
+      "instructions": "Do DB lat pullovers, but cut out the top half of the range of motion and stay entirely in the stretched part of the lift."
+    },
+    {
+      "name": "DB Lateral Raise",
+      "instructions": "Lean slightly into an incline bench or keep a small forward lean. Raise the dumbbells out, not forward, leading with the elbows. Don't rest the arms against your sides at the bottom."
+    },
+    {
+      "name": "Super-ROM DB Lateral Raise",
+      "instructions": "Perform lateral raises as normal, but keep going until your hands are overhead. If going all the way up hurts your shoulders, stop just above parallel."
+    },
+    {
+      "name": "Bent-Over Reverse DB Flye",
+      "instructions": "Chest on an incline bench or hinged over. Sweep the dumbbells out and back with slightly bent arms, thinking about moving the weight out, not up. Use a smooth positive."
+    },
+    {
+      "name": "DB Incline Curl",
+      "instructions": "Lie back on a ~45° incline bench with the arms hanging straight down behind the torso. Curl without letting the elbows drift forward; get a full stretch at the bottom."
+    },
+    {
+      "name": "Inverse DB Zottman Curl",
+      "instructions": "Do a hammer curl on the positive, then turn your palms facing up at the top and use a palms-up grip on the negative."
+    },
+    {
+      "name": "Seated DB French Press",
+      "instructions": "Hold one dumbbell under the head with both palms and perform overhead extensions. Feel a deep stretch on your triceps at the bottom. Avoid pausing at the top."
+    },
+    {
+      "name": "DB Skull Crusher",
+      "instructions": "Lie on a flat bench, lower the dumbbells beside your head with the elbows pointing slightly back to stretch the long head, then extend."
+    }
+  ],
+  "weeks": [
+    {
+      "name": "Week {n}",
+      "block": "Block 1: 5-Week Build Phase",
+      "note": "Ramp-in: full body training hits muscles on consecutive days, so stay away from failure these first two weeks while you adjust to the frequency.",
+      "repeat": 2,
+      "days": [
+        {
+          "name": "Full Body #1",
+          "exercises": [
+            {
+              "exercise": "DB Bulgarian Split Squat",
+              "substitutions": [
+                "Goblet Squat",
+                "DB Reverse Lunge"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "8-10",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 120,
+                "max": 180
+              },
+              "notes": "Reps per leg. Lower-body compound with a big recovery cost, so no RPE 10."
+            },
+            {
+              "exercise": "Low Incline DB Press",
+              "substitutions": [
+                "DB Bench Press",
+                "Incline DB Press"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "8-10",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 120,
+                "max": 180
+              }
+            },
+            {
+              "exercise": "Incline Chest-Supported DB Row",
+              "substitutions": [
+                "Arm-Out Single-Arm DB Row"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 90,
+                "max": 150
+              }
+            },
+            {
+              "exercise": "DB Lateral Raise",
+              "substitutions": [
+                "Super-ROM DB Lateral Raise"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 60,
+                "max": 90
+              }
+            }
+          ]
+        },
+        {
+          "name": "Full Body #2",
+          "exercises": [
+            {
+              "exercise": "Paused DB RDL",
+              "substitutions": [
+                "DB RDL"
+              ],
+              "warmupSets": "2-3",
+              "sets": 3,
+              "reps": "8",
+              "earlyRPE": "~6-7",
+              "lastRPE": "~7-8",
+              "rest": {
+                "min": 180,
+                "max": 240
+              },
+              "notes": "Fixed rep count: keep the reps at 8 and add weight when you can without breaking form."
+            },
+            {
+              "exercise": "Seated DB Shoulder Press",
+              "substitutions": [
+                "Standing DB Arnold Press"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 90,
+                "max": 150
+              }
+            },
+            {
+              "exercise": "Elbows-In 1-Arm DB Row",
+              "substitutions": [
+                "DB Lat Pullover"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 90,
+                "max": 150
+              },
+              "notes": "Reps per arm."
+            },
+            {
+              "exercise": "DB Incline Curl",
+              "substitutions": [
+                "Inverse DB Zottman Curl"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 60,
+                "max": 90
+              }
+            }
+          ]
+        },
+        {
+          "name": "Rest",
+          "kind": "rest"
+        },
+        {
+          "name": "Full Body #3",
+          "exercises": [
+            {
+              "exercise": "Goblet Squat",
+              "substitutions": [
+                "DB Bulgarian Split Squat",
+                "DB Reverse Lunge"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 120,
+                "max": 180
+              }
+            },
+            {
+              "exercise": "DB Bench Press",
+              "substitutions": [
+                "Low Incline DB Press"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "8-10",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 120,
+                "max": 180
+              }
+            },
+            {
+              "exercise": "DB Lat Pullover",
+              "substitutions": [
+                "Elbows-In 1-Arm DB Row"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 60,
+                "max": 120
+              }
+            },
+            {
+              "exercise": "Seated DB French Press",
+              "substitutions": [
+                "DB Skull Crusher"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 60,
+                "max": 120
+              }
+            }
+          ]
+        },
+        {
+          "name": "Full Body #4",
+          "exercises": [
+            {
+              "exercise": "DB RDL",
+              "substitutions": [
+                "Paused DB RDL",
+                "Single-Leg DB Hip Thrust"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~7-8",
+              "lastRPE": "~8-9",
+              "rest": {
+                "min": 120,
+                "max": 180
+              }
+            },
+            {
+              "exercise": "DB Flye",
+              "substitutions": [
+                "Low Incline DB Press"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 60,
+                "max": 120
+              },
+              "notes": "Alternate one full-range rep with one half rep in the stretched position until you hit the target reps."
+            },
+            {
+              "exercise": "Bent-Over Reverse DB Flye",
+              "substitutions": [
+                "Arm-Out Single-Arm DB Row"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 60,
+                "max": 90
+              }
+            },
+            {
+              "exercise": "Inverse DB Zottman Curl",
+              "substitutions": [
+                "DB Incline Curl"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 60,
+                "max": 90
+              }
+            }
+          ]
+        },
+        {
+          "name": "Rest",
+          "kind": "rest"
+        },
+        {
+          "name": "Rest",
+          "kind": "rest"
+        }
+      ]
+    },
+    {
+      "name": "Week {n}",
+      "block": "Block 1: 5-Week Build Phase",
+      "repeat": 2,
+      "days": [
+        {
+          "name": "Full Body #1",
+          "exercises": [
+            {
+              "exercise": "DB Bulgarian Split Squat",
+              "substitutions": [
+                "Goblet Squat",
+                "DB Reverse Lunge"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "8-10",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 120,
+                "max": 180
+              },
+              "notes": "Reps per leg. Lower-body compound with a big recovery cost, so no RPE 10."
+            },
+            {
+              "exercise": "Low Incline DB Press",
+              "substitutions": [
+                "DB Bench Press",
+                "Incline DB Press"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "8-10",
+              "earlyRPE": "~9",
+              "lastRPE": "10",
+              "rest": {
+                "min": 120,
+                "max": 180
+              },
+              "technique": "Pec static stretch (30 sec hold)"
+            },
+            {
+              "exercise": "Incline Chest-Supported DB Row",
+              "substitutions": [
+                "Arm-Out Single-Arm DB Row"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~9",
+              "lastRPE": "10",
+              "rest": {
+                "min": 90,
+                "max": 150
+              },
+              "technique": "Long-length partials (on all reps of the last set)"
+            },
+            {
+              "exercise": "DB Lateral Raise",
+              "substitutions": [
+                "Super-ROM DB Lateral Raise"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 90
+              },
+              "technique": "Myo-reps"
+            }
+          ]
+        },
+        {
+          "name": "Full Body #2",
+          "exercises": [
+            {
+              "exercise": "Paused DB RDL",
+              "substitutions": [
+                "DB RDL"
+              ],
+              "warmupSets": "2-3",
+              "sets": 3,
+              "reps": "8",
+              "earlyRPE": "~6-7",
+              "lastRPE": "~7-8",
+              "rest": {
+                "min": 180,
+                "max": 240
+              },
+              "notes": "Fixed rep count: keep the reps at 8 and add weight when you can without breaking form."
+            },
+            {
+              "exercise": "Seated DB Shoulder Press",
+              "substitutions": [
+                "Standing DB Arnold Press"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~9",
+              "lastRPE": "10",
+              "rest": {
+                "min": 90,
+                "max": 150
+              },
+              "technique": "Dropset"
+            },
+            {
+              "exercise": "Elbows-In 1-Arm DB Row",
+              "substitutions": [
+                "DB Lat Pullover"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~9",
+              "lastRPE": "10",
+              "rest": {
+                "min": 90,
+                "max": 150
+              },
+              "technique": "Long-length partials (on all reps of the last set)",
+              "notes": "Reps per arm."
+            },
+            {
+              "exercise": "DB Incline Curl",
+              "substitutions": [
+                "Inverse DB Zottman Curl"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 90
+              }
+            }
+          ]
+        },
+        {
+          "name": "Rest",
+          "kind": "rest"
+        },
+        {
+          "name": "Full Body #3",
+          "exercises": [
+            {
+              "exercise": "Goblet Squat",
+              "substitutions": [
+                "DB Bulgarian Split Squat",
+                "DB Reverse Lunge"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 120,
+                "max": 180
+              },
+              "technique": "Quad static stretch (30 sec per leg)"
+            },
+            {
+              "exercise": "DB Bench Press",
+              "substitutions": [
+                "Low Incline DB Press"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "8-10",
+              "earlyRPE": "~9",
+              "lastRPE": "10",
+              "rest": {
+                "min": 120,
+                "max": 180
+              }
+            },
+            {
+              "exercise": "DB Lat Pullover",
+              "substitutions": [
+                "Elbows-In 1-Arm DB Row"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 120
+              },
+              "technique": "Long-length partials (on all reps of the last set)"
+            },
+            {
+              "exercise": "Seated DB French Press",
+              "substitutions": [
+                "DB Skull Crusher"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 120
+              },
+              "technique": "Dropset"
+            }
+          ]
+        },
+        {
+          "name": "Full Body #4",
+          "exercises": [
+            {
+              "exercise": "DB RDL",
+              "substitutions": [
+                "Paused DB RDL",
+                "Single-Leg DB Hip Thrust"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~7-8",
+              "lastRPE": "~8-9",
+              "rest": {
+                "min": 120,
+                "max": 180
+              }
+            },
+            {
+              "exercise": "DB Flye",
+              "substitutions": [
+                "Low Incline DB Press"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~8-9",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 120
+              },
+              "technique": "Integrated partials (on all sets)",
+              "notes": "Alternate one full-range rep with one half rep in the stretched position until you hit the target reps."
+            },
+            {
+              "exercise": "Bent-Over Reverse DB Flye",
+              "substitutions": [
+                "Arm-Out Single-Arm DB Row"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 90
+              },
+              "technique": "Myo-reps"
+            },
+            {
+              "exercise": "Inverse DB Zottman Curl",
+              "substitutions": [
+                "DB Incline Curl"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 90
+              }
+            }
+          ]
+        },
+        {
+          "name": "Rest",
+          "kind": "rest"
+        },
+        {
+          "name": "Rest",
+          "kind": "rest"
+        }
+      ]
+    },
+    {
+      "name": "Week {n}",
+      "block": "Block 1: 5-Week Build Phase",
+      "note": "Semi-deload: slightly fewer sets and lower RPE. Avoid failure this week and focus on technique and the mind-muscle connection.",
+      "days": [
+        {
+          "name": "Full Body #1",
+          "exercises": [
+            {
+              "exercise": "DB Bulgarian Split Squat",
+              "substitutions": [
+                "Goblet Squat",
+                "DB Reverse Lunge"
+              ],
+              "warmupSets": "2",
+              "sets": 2,
+              "reps": "8-10",
+              "earlyRPE": "~7",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 120,
+                "max": 180
+              },
+              "notes": "Reps per leg. Lower-body compound with a big recovery cost, so no RPE 10."
+            },
+            {
+              "exercise": "Low Incline DB Press",
+              "substitutions": [
+                "DB Bench Press",
+                "Incline DB Press"
+              ],
+              "warmupSets": "2",
+              "sets": 2,
+              "reps": "8-10",
+              "earlyRPE": "~7",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 120,
+                "max": 180
+              }
+            },
+            {
+              "exercise": "Incline Chest-Supported DB Row",
+              "substitutions": [
+                "Arm-Out Single-Arm DB Row"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~7",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 90,
+                "max": 150
+              }
+            },
+            {
+              "exercise": "DB Lateral Raise",
+              "substitutions": [
+                "Super-ROM DB Lateral Raise"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~7-8",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 60,
+                "max": 90
+              }
+            }
+          ]
+        },
+        {
+          "name": "Full Body #2",
+          "exercises": [
+            {
+              "exercise": "Paused DB RDL",
+              "substitutions": [
+                "DB RDL"
+              ],
+              "warmupSets": "2-3",
+              "sets": 2,
+              "reps": "8",
+              "earlyRPE": "~5-6",
+              "lastRPE": "~6-7",
+              "rest": {
+                "min": 180,
+                "max": 240
+              },
+              "notes": "Fixed rep count: keep the reps at 8 and add weight when you can without breaking form."
+            },
+            {
+              "exercise": "Seated DB Shoulder Press",
+              "substitutions": [
+                "Standing DB Arnold Press"
+              ],
+              "warmupSets": "2",
+              "sets": 2,
+              "reps": "10-12",
+              "earlyRPE": "~7",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 90,
+                "max": 150
+              }
+            },
+            {
+              "exercise": "Elbows-In 1-Arm DB Row",
+              "substitutions": [
+                "DB Lat Pullover"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~7",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 90,
+                "max": 150
+              },
+              "notes": "Reps per arm."
+            },
+            {
+              "exercise": "DB Incline Curl",
+              "substitutions": [
+                "Inverse DB Zottman Curl"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~7-8",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 60,
+                "max": 90
+              }
+            }
+          ]
+        },
+        {
+          "name": "Rest",
+          "kind": "rest"
+        },
+        {
+          "name": "Full Body #3",
+          "exercises": [
+            {
+              "exercise": "Goblet Squat",
+              "substitutions": [
+                "DB Bulgarian Split Squat",
+                "DB Reverse Lunge"
+              ],
+              "warmupSets": "2",
+              "sets": 2,
+              "reps": "10-12",
+              "earlyRPE": "~7",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 120,
+                "max": 180
+              }
+            },
+            {
+              "exercise": "DB Bench Press",
+              "substitutions": [
+                "Low Incline DB Press"
+              ],
+              "warmupSets": "2",
+              "sets": 2,
+              "reps": "8-10",
+              "earlyRPE": "~7",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 120,
+                "max": 180
+              }
+            },
+            {
+              "exercise": "DB Lat Pullover",
+              "substitutions": [
+                "Elbows-In 1-Arm DB Row"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~7-8",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 60,
+                "max": 120
+              }
+            },
+            {
+              "exercise": "Seated DB French Press",
+              "substitutions": [
+                "DB Skull Crusher"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~7-8",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 60,
+                "max": 120
+              }
+            }
+          ]
+        },
+        {
+          "name": "Full Body #4",
+          "exercises": [
+            {
+              "exercise": "DB RDL",
+              "substitutions": [
+                "Paused DB RDL",
+                "Single-Leg DB Hip Thrust"
+              ],
+              "warmupSets": "2",
+              "sets": 2,
+              "reps": "10-12",
+              "earlyRPE": "~6-7",
+              "lastRPE": "~7",
+              "rest": {
+                "min": 120,
+                "max": 180
+              }
+            },
+            {
+              "exercise": "DB Flye",
+              "substitutions": [
+                "Low Incline DB Press"
+              ],
+              "warmupSets": "1",
+              "sets": 2,
+              "reps": "12-15",
+              "earlyRPE": "~7",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 60,
+                "max": 120
+              },
+              "notes": "Alternate one full-range rep with one half rep in the stretched position until you hit the target reps."
+            },
+            {
+              "exercise": "Bent-Over Reverse DB Flye",
+              "substitutions": [
+                "Arm-Out Single-Arm DB Row"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~7-8",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 60,
+                "max": 90
+              }
+            },
+            {
+              "exercise": "Inverse DB Zottman Curl",
+              "substitutions": [
+                "DB Incline Curl"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~7-8",
+              "lastRPE": "~8",
+              "rest": {
+                "min": 60,
+                "max": 90
+              }
+            }
+          ]
+        },
+        {
+          "name": "Rest",
+          "kind": "rest"
+        },
+        {
+          "name": "Rest",
+          "kind": "rest"
+        }
+      ]
+    },
+    {
+      "name": "Week {n}",
+      "block": "Block 2: 5-Week Novelty Phase",
+      "note": "New exercises and rep ranges for a fresh stimulus. Start weights conservatively in week 6 and push hard from there.",
+      "repeat": 5,
+      "days": [
+        {
+          "name": "Full Body #1",
+          "exercises": [
+            {
+              "exercise": "DB Reverse Lunge",
+              "substitutions": [
+                "DB Bulgarian Split Squat",
+                "Goblet Squat"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "8-10",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~8-9",
+              "rest": {
+                "min": 120,
+                "max": 180
+              },
+              "notes": "Reps per leg. Reverse lunges are never taken to failure in this program."
+            },
+            {
+              "exercise": "Incline DB Press",
+              "substitutions": [
+                "Low Incline DB Press"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "8-10",
+              "earlyRPE": "~9",
+              "lastRPE": "10",
+              "rest": {
+                "min": 120,
+                "max": 180
+              },
+              "technique": "Pec static stretch (30 sec hold)"
+            },
+            {
+              "exercise": "Arm-Out Single-Arm DB Row",
+              "substitutions": [
+                "Incline Chest-Supported DB Row"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~9",
+              "lastRPE": "10",
+              "rest": {
+                "min": 90,
+                "max": 150
+              },
+              "technique": "Long-length partials (on all reps of the last set)",
+              "notes": "Reps per arm."
+            },
+            {
+              "exercise": "Super-ROM DB Lateral Raise",
+              "substitutions": [
+                "DB Lateral Raise"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 30,
+                "max": 60
+              },
+              "technique": "Myo-reps"
+            }
+          ]
+        },
+        {
+          "name": "Full Body #2",
+          "exercises": [
+            {
+              "exercise": "DB RDL",
+              "substitutions": [
+                "Paused DB RDL"
+              ],
+              "warmupSets": "2-3",
+              "sets": 3,
+              "reps": "8-10",
+              "earlyRPE": "~7-8",
+              "lastRPE": "~8-9",
+              "rest": {
+                "min": 150,
+                "max": 210
+              }
+            },
+            {
+              "exercise": "Standing DB Arnold Press",
+              "substitutions": [
+                "Seated DB Shoulder Press"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "8-10",
+              "earlyRPE": "~9",
+              "lastRPE": "10",
+              "rest": {
+                "min": 120,
+                "max": 180
+              }
+            },
+            {
+              "exercise": "Incline Chest-Supported DB Row",
+              "substitutions": [
+                "Elbows-In 1-Arm DB Row"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "8-10",
+              "earlyRPE": "~9",
+              "lastRPE": "10",
+              "rest": {
+                "min": 120,
+                "max": 180
+              },
+              "technique": "Long-length partials (on all reps of the last set)"
+            },
+            {
+              "exercise": "DB Incline Curl",
+              "substitutions": [
+                "Inverse DB Zottman Curl"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "8-10",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 90
+              },
+              "technique": "Long-length partials (on all reps of the last set)"
+            }
+          ]
+        },
+        {
+          "name": "Rest",
+          "kind": "rest"
+        },
+        {
+          "name": "Full Body #3",
+          "exercises": [
+            {
+              "exercise": "Pause DB Bulgarian Split Squat",
+              "substitutions": [
+                "DB Bulgarian Split Squat",
+                "Goblet Squat"
+              ],
+              "warmupSets": "2",
+              "sets": 3,
+              "reps": "6-8",
+              "earlyRPE": "~8-9",
+              "lastRPE": "~9",
+              "rest": {
+                "min": 120,
+                "max": 180
+              },
+              "technique": "Quad static stretch (30 sec per leg)",
+              "notes": "Reps per leg."
+            },
+            {
+              "exercise": "DB Bench Press",
+              "substitutions": [
+                "Low Incline DB Press"
+              ],
+              "warmupSets": "2-3",
+              "sets": 3,
+              "reps": "6-8",
+              "earlyRPE": "~9",
+              "lastRPE": "10",
+              "rest": {
+                "min": 150,
+                "max": 210
+              },
+              "notes": "1 second pause on the chest on each rep."
+            },
+            {
+              "exercise": "Bottom-Half DB Lat Pullover",
+              "substitutions": [
+                "DB Lat Pullover"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 120
+              }
+            },
+            {
+              "exercise": "DB Skull Crusher",
+              "substitutions": [
+                "Seated DB French Press"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 120
+              },
+              "technique": "Dropset"
+            }
+          ]
+        },
+        {
+          "name": "Full Body #4",
+          "exercises": [
+            {
+              "exercise": "Single-Leg DB Hip Thrust",
+              "substitutions": [
+                "DB RDL"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~9",
+              "lastRPE": "10",
+              "rest": {
+                "min": 90,
+                "max": 150
+              },
+              "notes": "Reps per leg."
+            },
+            {
+              "exercise": "Flat-To-Incline DB Flye",
+              "substitutions": [
+                "DB Flye"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "10-12",
+              "earlyRPE": "~9",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 120
+              }
+            },
+            {
+              "exercise": "Elbows-In 1-Arm DB Row",
+              "substitutions": [
+                "DB Lat Pullover"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "12-15",
+              "earlyRPE": "~9",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 120
+              },
+              "technique": "Myo-reps",
+              "notes": "Reps per arm."
+            },
+            {
+              "exercise": "Bent-Over Reverse DB Flye",
+              "substitutions": [
+                "Arm-Out Single-Arm DB Row"
+              ],
+              "warmupSets": "1",
+              "sets": 3,
+              "reps": "15-20",
+              "earlyRPE": "~9-10",
+              "lastRPE": "10",
+              "rest": {
+                "min": 60,
+                "max": 90
+              },
+              "technique": "Myo-reps"
+            }
+          ]
+        },
+        {
+          "name": "Rest",
+          "kind": "rest"
+        },
+        {
+          "name": "Rest",
+          "kind": "rest"
+        }
+      ]
+    }
+  ]
+}
